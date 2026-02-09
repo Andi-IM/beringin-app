@@ -1,7 +1,7 @@
-import { AdaptiveScheduler } from "./scheduler.policy";
+import { AdaptiveSchedulerPolicy } from "./scheduler.policy";
 import type { ConceptStatus } from "../entities/concept.entity";
 
-describe("AdaptiveScheduler", () => {
+describe("AdaptiveSchedulerPolicy", () => {
   describe("calculateNextInterval", () => {
     describe("Incorrect Answers", () => {
       it("should reset to minimum interval for incorrect answer", () => {
@@ -12,7 +12,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "high" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(0.007); // MIN_INTERVAL
         expect(result.status).toBe("learning");
@@ -27,7 +27,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "high" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.status).toBe("lapsed");
         expect(result.nextInterval).toBe(0.007);
@@ -41,7 +41,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "low" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.easeFactor).toBe(1.3); // Minimum ease factor
       });
@@ -53,17 +53,17 @@ describe("AdaptiveScheduler", () => {
           result: false,
         };
 
-        const highConfidence = AdaptiveScheduler.calculateNextInterval({
+        const highConfidence = AdaptiveSchedulerPolicy.calculateNextInterval({
           ...baseInput,
           confidence: "high" as const,
         });
 
-        const lowConfidence = AdaptiveScheduler.calculateNextInterval({
+        const lowConfidence = AdaptiveSchedulerPolicy.calculateNextInterval({
           ...baseInput,
           confidence: "low" as const,
         });
 
-        const noConfidence = AdaptiveScheduler.calculateNextInterval({
+        const noConfidence = AdaptiveSchedulerPolicy.calculateNextInterval({
           ...baseInput,
           confidence: "none" as const,
         });
@@ -87,7 +87,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "high" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBeCloseTo(7.8); // 3 * 2.6
         expect(result.easeFactor).toBe(2.6); // 2.5 + 0.1
@@ -102,7 +102,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "high" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(52); // 20 * 2.6
         expect(result.status).toBe("stable");
@@ -116,7 +116,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "high" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(0.0182); // 0.007 * 2.6
         expect(result.status).toBe("reviewing");
@@ -132,7 +132,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "low" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(6); // 5 * 1.2
         expect(result.easeFactor).toBe(2.35); // 2.5 - 0.15
@@ -147,7 +147,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "low" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.easeFactor).toBe(1.3); // Minimum
         expect(result.status).toBe("fragile");
@@ -161,7 +161,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "low" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(36); // 30 * 1.2
         expect(result.status).toBe("fragile"); // Still fragile due to low confidence
@@ -177,7 +177,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "none" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(5); // 10 * 0.5
         expect(result.easeFactor).toBe(2.3); // 2.5 - 0.2
@@ -192,7 +192,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "none" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.easeFactor).toBe(1.3); // Minimum
       });
@@ -205,7 +205,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "none" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(0.005); // 0.01 * 0.5
         expect(result.status).toBe("fragile");
@@ -221,7 +221,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "high" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.easeFactor).toBe(3.6); // No upper limit specified
         expect(result.nextInterval).toBe(36); // 10 * 3.6
@@ -235,7 +235,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "high" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBe(0); // 0 * anything = 0
         expect(result.status).toBe("reviewing");
@@ -249,7 +249,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "low" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
 
         expect(result.nextInterval).toBeGreaterThan(0);
         expect(result.easeFactor).toBeGreaterThan(0);
@@ -262,7 +262,7 @@ describe("AdaptiveScheduler", () => {
         };
 
         for (let i = 0; i < 5; i++) {
-          const result = AdaptiveScheduler.calculateNextInterval({
+          const result = AdaptiveSchedulerPolicy.calculateNextInterval({
             previousInterval: state.previousInterval,
             easeFactor: state.easeFactor,
             result: true,
@@ -286,7 +286,7 @@ describe("AdaptiveScheduler", () => {
         };
 
         for (let i = 0; i < 3; i++) {
-          const result = AdaptiveScheduler.calculateNextInterval({
+          const result = AdaptiveSchedulerPolicy.calculateNextInterval({
             previousInterval: state.previousInterval,
             easeFactor: state.easeFactor,
             result: false,
@@ -311,7 +311,7 @@ describe("AdaptiveScheduler", () => {
         let easeFactor = 2.5;
 
         // First correct high confidence
-        let result = AdaptiveScheduler.calculateNextInterval({
+        let result = AdaptiveSchedulerPolicy.calculateNextInterval({
           previousInterval: interval,
           easeFactor,
           result: true,
@@ -321,7 +321,7 @@ describe("AdaptiveScheduler", () => {
 
         // Continue until stable
         interval = 15;
-        result = AdaptiveScheduler.calculateNextInterval({
+        result = AdaptiveSchedulerPolicy.calculateNextInterval({
           previousInterval: interval,
           easeFactor,
           result: true,
@@ -338,7 +338,7 @@ describe("AdaptiveScheduler", () => {
           confidence: "low" as const,
         };
 
-        const result = AdaptiveScheduler.calculateNextInterval(input);
+        const result = AdaptiveSchedulerPolicy.calculateNextInterval(input);
         expect(result.status).toBe("fragile");
       });
     });

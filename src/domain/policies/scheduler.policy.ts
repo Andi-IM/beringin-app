@@ -21,7 +21,7 @@ const MIN_INTERVAL = 0.007; // ~10 minutes
 const GRADUATING_INTERVAL = 1.0; // 1 day
 const STABLE_THRESHOLD = 21; // days
 
-export class AdaptiveScheduler {
+export class AdaptiveSchedulerPolicy {
   static calculateNextInterval(input: SchedulerInput): SchedulerOutput {
     const { previousInterval, easeFactor, result, confidence } = input;
 

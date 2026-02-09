@@ -2,7 +2,7 @@
 // Processes user answer and updates schedule
 // WAJIB: All business logic here, not in UI
 
-import { AdaptiveScheduler } from "@/domain/policies/scheduler.policy";
+import { AdaptiveSchedulerPolicy } from "@/domain/policies/scheduler.policy";
 import type { ProgressRepository } from "@/infrastructure/repositories/progress.repository";
 import type {
   UserProgress,
@@ -50,7 +50,7 @@ export async function submitAnswer(
   }
 
   // Calculate next interval using Scheduler policy
-  const schedulerOutput = AdaptiveScheduler.calculateNextInterval({
+  const schedulerOutput = AdaptiveSchedulerPolicy.calculateNextInterval({
     previousInterval: progress.lastInterval,
     easeFactor: progress.easeFactor,
     result: isCorrect,
