@@ -1,0 +1,114 @@
+{
+  "role_context": {
+    "client_role": "Learner who wants to objectively measure real learning",
+    "developer_role": "Application developer building a learning measurement system"
+  },
+  "definition_of_learning": {
+    "core_definition": "Learning is the ability to retrieve, explain, and apply knowledge without external aids after time has passed.",
+    "not_considered_learning": [
+      "Finishing reading a book",
+      "Feeling familiar with material",
+      "Recognizing answers after seeing them"
+    ]
+  },
+  "primary_goals": [
+    "Measure active recall instead of recognition",
+    "Measure retention over time",
+    "Identify weak, fragile, and stable knowledge areas",
+    "Provide explicit learning status per concept"
+  ],
+  "learning_indicators": {
+    "active_recall": {
+      "description": "User must answer questions without seeing material or solutions first",
+      "required_output": [
+        "answer_correctness",
+        "confidence_level (confident | unsure)",
+        "error_reason_if_wrong"
+      ]
+    },
+    "explanation_ability": {
+      "description": "User can explain concepts using their own words",
+      "success_criteria": [
+        "No direct copying from source",
+        "Can answer 'why' and 'what if' questions"
+      ]
+    },
+    "retention_over_time": {
+      "description": "Ability to answer the same or equivalent questions after delays",
+      "time_intervals": ["+1 day", "+3-4 days", "+7-10 days", "+30 days"]
+    }
+  },
+  "required_system_features": {
+    "question_first_flow": {
+      "rule": "Questions must be shown before explanations or answers",
+      "prohibited": [
+        "Showing answers immediately",
+        "Allowing passive review only"
+      ]
+    },
+    "spaced_repetition": {
+      "adaptive_intervals": true,
+      "interval_adjustment_rules": {
+        "correct_and_confident": "increase_interval",
+        "correct_but_unsure": "maintain_or_slightly_reduce_interval",
+        "wrong": "shorten_interval"
+      }
+    },
+    "concept_mapping": {
+      "requirement": "Each question must map to one or more concepts",
+      "purpose": "Track weaknesses per concept instead of global scores"
+    }
+  },
+  "metrics_expected_by_client": {
+    "retention_score": "Performance consistency across time",
+    "recall_confidence_ratio": "Confident vs unsure answers",
+    "time_to_retrieve": "Average response time per concept",
+    "error_recurrence_rate": "Frequency of repeated mistakes",
+    "concept_learning_status": [
+      "not_learned",
+      "fragile",
+      "stable"
+    ]
+  },
+  "learning_status_rules": {
+    "stable": {
+      "criteria": [
+        "Correct answers across multiple intervals",
+        "Low response time",
+        "High confidence",
+        "No recurring errors"
+      ]
+    },
+    "fragile": {
+      "criteria": [
+        "Inconsistent correctness",
+        "High uncertainty",
+        "Errors reappear after delay"
+      ]
+    },
+    "not_learned": {
+      "criteria": [
+        "Frequent incorrect answers",
+        "Cannot explain reasoning",
+        "Fails early recall attempts"
+      ]
+    }
+  },
+  "ideal_user_flow": [
+    "Select book / topic / concept",
+    "Answer questions without material access",
+    "Mark confidence level",
+    "Review explanation after submission",
+    "System schedules future recall",
+    "Dashboard updates learning status"
+  ],
+  "non_goals": [
+    "Aesthetic-first UI",
+    "Gamification without learning signal",
+    "Passive content consumption tools"
+  ],
+  "definition_of_project_success": {
+    "success_statement": "Dashboard predictions about learning stability accurately match real performance on new or delayed questions.",
+    "failure_indicator": "User feels confident but fails retrieval after time passes"
+  }
+}
