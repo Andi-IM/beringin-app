@@ -27,9 +27,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # TODO: Enable lint after migrating to ESLint v9 config format
-      # - name: Run linter
-      #   run: npm run lint
+      - name: Run linter
+        run: npm run lint
 
       - name: Run type check
         run: npx tsc --noEmit
