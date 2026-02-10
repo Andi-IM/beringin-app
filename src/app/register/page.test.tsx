@@ -92,4 +92,25 @@ describe('RegisterPage', () => {
       await screen.findByText('Email already registered'),
     ).toBeInTheDocument()
   })
+
+  it('shows unexpected error message on registration API crash', async () => {
+    ;(AuthApi.signUp as jest.Mock).mockRejectedValueOnce(new Error('API crash'))
+    render(<RegisterPage />)
+
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'existing@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password', { selector: 'input' }), {
+      target: { value: 'password123' },
+    })
+    fireEvent.change(screen.getByLabelText('Konfirmasi Password'), {
+      target: { value: 'password123' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Daftar' }))
+
+    expect(
+      await screen.findByText('Terjadi kesalahan yang tidak terduga'),
+    ).toBeInTheDocument()
+  })
 })

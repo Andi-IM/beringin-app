@@ -73,4 +73,22 @@ describe('LoginPage', () => {
 
     expect(await screen.findByText('Invalid credentials')).toBeInTheDocument()
   })
+
+  it('shows unexpected error message on API crash', async () => {
+    ;(AuthApi.signIn as jest.Mock).mockRejectedValueOnce(new Error('API crash'))
+    render(<LoginPage />)
+
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'user@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+
+    expect(
+      await screen.findByText('An unexpected error occurred'),
+    ).toBeInTheDocument()
+  })
 })
