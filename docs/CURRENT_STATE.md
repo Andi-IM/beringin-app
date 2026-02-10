@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-10
+> **Last Updated**: 2026-02-10T10:31+07:00
 
 ## 🎯 Status Overview
 
@@ -9,7 +9,7 @@
 | --------------- | ------------- | ---------------------- |
 | **Development** | ✅ Active     | MVP Phase              |
 | **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 146/146 passing (100%) |
+| **Tests**       | ✅ Passing    | 171/171 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions         |
 
@@ -31,6 +31,9 @@
 ✅ Use Case pattern untuk business logic
 ✅ Registry pattern untuk Dependency Injection
 ✅ ESLint rules untuk enforce architecture
+✅ GitHub CLI knowledge base (.agent/rules/github-cli.md)
+✅ EdgeOne CLI knowledge base (.agent/rules/edgeone-cli.md)
+✅ EdgeOne KV repository adapters (src/infrastructure/kv/)
 ```
 
 ### ⚠️ In Progress / Known Issues
@@ -75,7 +78,20 @@ Lines      : 92.34%
 
 ## 📝 Recent Changes
 
-### 2026-02-10
+### 2026-02-10 (Sesi #4)
+
+- ✅ Created `edgeone.json` with KV namespace binding (ns-LDVwXjJrAM0H)
+- ✅ Implemented KV repository adapters: concept, question, progress
+- ✅ Created `EdgeOneKV` type interface for testability
+- ✅ Added 25 new unit tests for KV adapters (171/171 total)
+
+### 2026-02-10 (Sesi #3)
+
+- ✅ Revised Sprint 1.1 persistence strategy: localStorage + Supabase → EdgeOne KV
+  - Scoring: EdgeOne KV 78% vs Supabase 77% vs localStorage 55%
+  - Alasan: native EdgeOne deployment, multi-device support, persona Reza butuh cross-device
+
+### 2026-02-10 (Sesi #2)
 
 - ✅ Refactored UI to use `Registry` for Dependency Injection
 - ✅ Decoupled `app` layer from `infrastructure` layer

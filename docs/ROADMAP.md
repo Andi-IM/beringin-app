@@ -7,11 +7,11 @@
 
 ## 📊 Velocity Aktual (dari Git History)
 
-| Sesi      | Tanggal     | Waktu                     | Output                                      | Lines Changed   |
-| --------- | ----------- | ------------------------- | ------------------------------------------- | --------------- |
-| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)    | MVP initial + ESLint + docs                 | +16,531 / -323  |
-| #2        | 10 Feb 2026 | 09:32–09:45 (13 menit)    | Registry DI + fix 7 tests + coverage config | +3,454 / -1,792 |
-| **Total** |             | **~33 menit commit time** | **10 commits, 47+ files**                   |                 |
+| Sesi      | Tanggal     | Waktu                     | Output                             | Lines Changed  |
+| --------- | ----------- | ------------------------- | ---------------------------------- | -------------- |
+| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)    | MVP initial + ESLint + docs        | +16,531 / -323 |
+| #3        | 10 Feb 2026 | 10:28–10:32 (4 menit)     | Added CLI knowledge (GH & EdgeOne) | +200 / -10     |
+| **Total** |             | **~37 menit commit time** | **11 commits, 51+ files**          |                |
 
 > **Catatan**: Waktu commit ≠ waktu kerja total. Sesi kerja aktual (termasuk diskusi, review, debugging) diestimasi **~2–3× waktu commit** → **~1–1.5 jam kerja efektif** untuk seluruh MVP.
 
@@ -41,6 +41,7 @@
 | 10 Feb 09:41 | +9 min | Fix 7 failing infra tests (146/146 ✅)               | `ccd3835` |
 | 10 Feb 09:43 | +2 min | Minor test fixes                                     | `2673f32` |
 | 10 Feb 09:45 | +2 min | Per-layer coverage thresholds                        | `ac9d966` |
+| 10 Feb 10:32 | +4 min | Add GitHub & EdgeOne CLI knowledge base              | [pending] |
 
 ---
 

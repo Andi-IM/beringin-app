@@ -1,0 +1,13 @@
+{
+    "name": "beringin-app",
+    "framework": "nextjs",
+    "buildCommand": "npm run build",
+    "outDir": ".next",
+    "devCommand": "npm run dev",
+    "kv": [
+        {
+            "variable": "KV",
+            "namespaceId": "ns-LDVwXjJrAM0H"
+        }
+    ]
+}
