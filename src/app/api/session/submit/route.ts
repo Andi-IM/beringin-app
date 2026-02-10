@@ -46,7 +46,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json(result)
   } catch (error) {
-    console.error('Submit Answer API Error:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Submit Answer API Error:', error)
+    }
     return NextResponse.json(
       { error: 'Failed to submit answer' },
       { status: 500 },

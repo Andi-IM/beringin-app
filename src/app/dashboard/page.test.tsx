@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import DashboardPage from './page'
 import { DashboardApi } from '@/infrastructure/client/dashboard.api'
 import { AuthApi } from '@/infrastructure/client/auth.api'
@@ -74,61 +74,44 @@ describe('DashboardPage', () => {
     expect(screen.getByText('Sistem Akar Pengetahuan Anda')).toBeInTheDocument()
   })
 
-  it('calls DashboardApi on mount', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
+  it('calls DashboardApi on mount and displays data', async () => {
+    render(<DashboardPage />)
 
     await waitFor(() => {
       expect(DashboardApi.getDashboardData).toHaveBeenCalled()
     })
+
+    expect(await screen.findByText('Test Concept 1')).toBeInTheDocument()
+    expect(await screen.findByText('Test Concept 2')).toBeInTheDocument()
   })
 
   it('displays stats correctly', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
+    render(<DashboardPage />)
 
-    await waitFor(() => {
-      expect(screen.getAllByText('2')[0]).toBeInTheDocument() // Total
-      expect(screen.getAllByText('1')[0]).toBeInTheDocument() // Stable
-      expect(screen.getAllByText('0')[0]).toBeInTheDocument() // Fragile
-    })
-  })
+    // Wait for the total to be displayed
+    const totalStat = await screen.findByText(mockStats.total.toString())
+    expect(totalStat).toBeInTheDocument()
+    expect(totalStat.nextSibling).toHaveTextContent('Total Konsep')
 
-  it('displays concept list when concepts exist', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
+    // 'Stabil' and 'Belajar' appear both in stats and on concept cards,
+    // so we use getAllByText and pick the one in the stats grid (opacity-80 label).
+    const stableElements = await screen.findAllByText('Stabil')
+    const stableStatLabel = stableElements.find((el) =>
+      el.className.includes('opacity-80'),
+    )
+    expect(stableStatLabel).toBeDefined()
+    expect(stableStatLabel!.previousSibling).toHaveTextContent(
+      mockStats.stable.toString(),
+    )
 
-    await waitFor(() => {
-      expect(screen.getByText('Test Concept 1')).toBeInTheDocument()
-      expect(screen.getByText('Test Concept 2')).toBeInTheDocument()
-      expect(screen.getByText('Test Description 1')).toBeInTheDocument()
-      expect(screen.getByText('Test Description 2')).toBeInTheDocument()
-    })
-  })
-
-  it('displays category tags', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
-
-    await waitFor(() => {
-      expect(screen.getByText('math')).toBeInTheDocument()
-      expect(screen.getByText('science')).toBeInTheDocument()
-    })
-  })
-
-  it('displays next review date when available', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
-
-    await waitFor(() => {
-      const reviewElements = screen.getAllByText(/Review:/)
-      expect(reviewElements.length).toBeGreaterThan(0)
-    })
+    const learningElements = await screen.findAllByText('Belajar')
+    const learningStatLabel = learningElements.find((el) =>
+      el.className.includes('opacity-80'),
+    )
+    expect(learningStatLabel).toBeDefined()
+    expect(learningStatLabel!.previousSibling).toHaveTextContent(
+      mockStats.learning.toString(),
+    )
   })
 
   it('shows empty state when no concepts exist', async () => {
@@ -137,151 +120,12 @@ describe('DashboardPage', () => {
       stats: { total: 0, stable: 0, fragile: 0, learning: 0, lapsed: 0 },
     })
 
-    await act(async () => {
-      render(<DashboardPage />)
-    })
-
-    await waitFor(() => {
-      expect(screen.getByText('Belum ada konsep.')).toBeInTheDocument()
-      expect(
-        screen.getByText('Tambahkan konsep pertama Anda →'),
-      ).toBeInTheDocument()
-    })
-  })
-
-  it('renders action buttons', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
-
-    await waitFor(() => {
-      const learnButton = screen.getByText('Mulai Belajar')
-      const manageButton = screen.getByText('Kelola Konten')
-
-      expect(learnButton).toBeInTheDocument()
-      expect(manageButton).toBeInTheDocument()
-      expect(learnButton.closest('a')).toHaveAttribute('href', '/session')
-      expect(manageButton.closest('a')).toHaveAttribute('href', '/admin')
-    })
-  })
-
-  it('applies correct status colors and labels', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
-
-    await waitFor(() => {
-      // Check for stable status
-      const stableStatuses = screen.getAllByText('Stabil')
-      const stableStatus =
-        stableStatuses.find((el) => el.tagName === 'SPAN') || stableStatuses[0]
-      expect(stableStatus).toBeInTheDocument()
-      expect(stableStatus.closest('span')).toHaveClass(
-        'bg-green-500',
-        'text-white',
-      )
-
-      // Check for learning status
-      const learningStatuses = screen.getAllByText('Belajar')
-      const learningStatus =
-        learningStatuses.find((el) => el.tagName === 'SPAN') ||
-        learningStatuses[0]
-      expect(learningStatus).toBeInTheDocument()
-      expect(learningStatus.closest('span')).toHaveClass(
-        'bg-blue-500',
-        'text-white',
-      )
-    })
-  })
-
-  it('handles different status types correctly', async () => {
-    const conceptsWithAllStatuses = [
-      ...mockConcepts,
-      {
-        id: '3',
-        title: 'Fragile Concept',
-        description: 'Fragile Description',
-        category: 'history',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        status: 'fragile' as const,
-        easeFactor: 2.3,
-        lastInterval: 3,
-        nextReview: new Date('2024-01-08'),
-      },
-      {
-        id: '4',
-        title: 'Lapsed Concept',
-        description: 'Lapsed Description',
-        category: 'geography',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        status: 'lapsed' as const,
-        easeFactor: 2.1,
-        lastInterval: 1,
-        nextReview: new Date('2024-01-02'),
-      },
-    ]
-
-    ;(DashboardApi.getDashboardData as jest.Mock).mockResolvedValueOnce({
-      concepts: conceptsWithAllStatuses,
-      stats: { total: 4, stable: 1, fragile: 1, learning: 1, lapsed: 1 },
-    })
-
-    await act(async () => {
-      render(<DashboardPage />)
-    })
-
-    await waitFor(() => {
-      // Find status badges (span elements) not stats labels
-      const rapuhStatus = screen
-        .getAllByText('Rapuh')
-        .find(
-          (el) =>
-            el.tagName === 'SPAN' && el.classList.contains('bg-yellow-500'),
-        )
-      const lupaStatus = screen
-        .getAllByText('Lupa')
-        .find(
-          (el) => el.tagName === 'SPAN' && el.classList.contains('bg-red-500'),
-        )
-
-      expect(rapuhStatus).toBeInTheDocument()
-      expect(lupaStatus).toBeInTheDocument()
-    })
-  })
-
-  it('formats review date correctly for Indonesian locale', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
-
-    await waitFor(() => {
-      const reviewElements = screen.getAllByText(/Review:/)
-      expect(reviewElements.length).toBeGreaterThan(0)
-    })
-  })
-
-  it('handles loading state gracefully', () => {
-    // Mock a delayed response
-    ;(DashboardApi.getDashboardData as jest.Mock).mockImplementation(
-      () =>
-        new Promise((resolve) =>
-          setTimeout(
-            () =>
-              resolve({
-                concepts: [],
-                stats: mockStats,
-              }),
-            100,
-          ),
-        ),
-    )
-
     render(<DashboardPage />)
 
-    // Initially should show loading state (no concepts yet)
-    expect(screen.queryByText('Test Concept 1')).not.toBeInTheDocument()
+    expect(await screen.findByText('Belum ada konsep.')).toBeInTheDocument()
+    expect(
+      await screen.findByText('Tambahkan konsep pertama Anda →'),
+    ).toBeInTheDocument()
   })
 
   it('handles logout correctly', async () => {

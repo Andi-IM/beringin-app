@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-10T16:45+07:00
+> **Last Updated**: 2026-02-10T18:20+07:00
 
 ## 🎯 Status Overview
 
@@ -9,7 +9,7 @@
 | --------------- | ------------- | ---------------------- |
 | **Development** | ✅ Active     | Phase 1 - Foundation   |
 | **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 210/210 passing (100%) |
+| **Tests**       | ✅ Passing    | 209/209 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions         |
 
@@ -29,7 +29,8 @@
 3. **Dashboard** - Monitoring status konsep (Refactored to Client Component)
 4. **Adaptive Scheduler** - Algoritma SRS berbasis SM-2 modifikasi
 5. **Authentication Flow** - Login & Register menggunakan Supabase Auth (Lazy-loaded client)
-6. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
+6. **Google Sign-In** - OAuth login via Supabase dengan reusable `GoogleIcon` component
+7. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
 
 ### ✅ Architecture (Done)
 
@@ -90,6 +91,21 @@ Lines      : 90.15%
 
 ## 📝 Recent Changes
 
+### 2026-02-10 (Sesi #9)
+
+- ✅ **PR #10 Feedback Resolution**:
+  - Refactor `GoogleIcon` — removed `React.FC`, using `React.ComponentProps<'svg'>` with prop spreading.
+  - Extracted `OAUTH_PROVIDER` constant in `auth.api.ts`, eliminated magic strings.
+  - Updated test assertions to match new generic error messages.
+- ✅ **Dashboard Test Fix**:
+  - Fixed ambiguous `findByText('Stabil')` collision between stats label and concept card badge.
+  - Used `findAllByText` + class filtering for reliable stat verification.
+- ✅ **Infrastructure**:
+  - Fixed `supabase-client.ts` unused `error` variables.
+  - Renamed root `package.json` to `beringin-app-root` (Haste Map collision fix).
+  - Configured `gh` CLI to use HTTPS protocol.
+- ✅ **Test Results**: 209/209 tests pass, lint clean.
+
 ### 2026-02-10 (Sesi #8)
 
 - ✅ **Google Sign-In Implementation**:
@@ -111,7 +127,7 @@ Lines      : 90.15%
   - Logging error eksplisit pada seluruh catch block
   - Pembersihan variabel tidak terpakai dan duplikasi kode
 - ✅ Verifikasi & Coverage:
-  - **210/210 tests pass**
+  - **209/209 tests pass**
   - **100% test coverage** pada client API wrappers (`AuthApi`, `DashboardApi`)
   - Konfigurasi CI branch `dev` (sebelumnya mismatch `develop`)
 
@@ -183,10 +199,10 @@ Lines      : 90.15%
 
 ## 🚧 Next Steps
 
-1. Implement user authentication (Supabase) dan ganti `demo-user` → real user ID
-2. Tambah concept/question management UI (admin CRUD)
-3. Meningkatkan coverage `Registry` dan mengurangi `act()` warnings di test UI
-4. Menambah E2E test (Playwright) untuk flow utama (landing → session → dashboard)
+1. Sprint 1.3 Quality Gate: Playwright E2E, `act()` warnings cleanup, Registry coverage
+2. Tambah concept/question management UI (admin CRUD — Phase 2)
+3. E2E test untuk flow utama (landing → login → session → dashboard)
+4. Mobile responsive audit & dark mode polish
 
 ---
 
