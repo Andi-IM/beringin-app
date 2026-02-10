@@ -28,20 +28,21 @@
 
 ## ✅ Phase 0: MVP — DONE
 
-| Tanggal      | Waktu  | Deliverable                                          | Commit    |
-| ------------ | ------ | ---------------------------------------------------- | --------- |
-| 9 Feb 23:36  | —      | Initial commit: seluruh MVP (47 files, 15,886 lines) | `c82ba1e` |
-| 9 Feb 23:39  | +3 min | ESLint config + fix TypeScript errors                | `bcaeee0` |
-| 9 Feb 23:42  | +3 min | Migrate ke ESLint flat config                        | `53b7085` |
-| 9 Feb 23:46  | +4 min | Clean Architecture ESLint rules                      | `4832851` |
-| 9 Feb 23:51  | +5 min | Resolve lint errors                                  | `f50818b` |
-| 9 Feb 23:55  | +4 min | Docs (README, ARCHITECTURE, CURRENT_STATE, ROADMAP)  | `59b6b7a` |
-| 9 Feb 23:56  | +1 min | Contributing guidelines                              | `5f90427` |
-| 10 Feb 09:32 | —      | Registry DI + refactor semua layer                   | `46018e3` |
-| 10 Feb 09:41 | +9 min | Fix 7 failing infra tests (146/146 ✅)               | `ccd3835` |
-| 10 Feb 09:43 | +2 min | Minor test fixes                                     | `2673f32` |
-| 10 Feb 09:45 | +2 min | Per-layer coverage thresholds                        | `ac9d966` |
-| 10 Feb 10:32 | +4 min | Add GitHub & EdgeOne CLI knowledge base              | [pending] |
+| Tanggal      | Waktu   | Deliverable                                          | Commit    |
+| ------------ | ------- | ---------------------------------------------------- | --------- |
+| 9 Feb 23:36  | —       | Initial commit: seluruh MVP (47 files, 15,886 lines) | `c82ba1e` |
+| 9 Feb 23:39  | +3 min  | ESLint config + fix TypeScript errors                | `bcaeee0` |
+| 9 Feb 23:42  | +3 min  | Migrate ke ESLint flat config                        | `53b7085` |
+| 9 Feb 23:46  | +4 min  | Clean Architecture ESLint rules                      | `4832851` |
+| 9 Feb 23:51  | +5 min  | Resolve lint errors                                  | `f50818b` |
+| 9 Feb 23:55  | +4 min  | Docs (README, ARCHITECTURE, CURRENT_STATE, ROADMAP)  | `59b6b7a` |
+| 9 Feb 23:56  | +1 min  | Contributing guidelines                              | `5f90427` |
+| 10 Feb 09:32 | —       | Registry DI + refactor semua layer                   | `46018e3` |
+| 10 Feb 09:41 | +9 min  | Fix 7 failing infra tests (146/146 ✅)               | `ccd3835` |
+| 10 Feb 09:43 | +2 min  | Minor test fixes                                     | `2673f32` |
+| 10 Feb 09:45 | +2 min  | Per-layer coverage thresholds                        | `ac9d966` |
+| 10 Feb 10:32 | +4 min  | Add GitHub & EdgeOne CLI knowledge base              | `1596ba0` |
+| 10 Feb 10:45 | +13 min | EdgeOne KV Repository Adapters (PR #1)               | `1596ba0` |
 
 ---
 
@@ -50,15 +51,15 @@
 > **Estimasi berdasarkan velocity**: MVP (Phase 0) selesai dalam ~2 sesi kerja.  
 > Phase 1 memiliki kompleksitas _serupa_ dengan MVP → estimasi **2–4 sesi kerja**.
 
-### Sprint 1.1: Persistence Layer
+### Sprint 1.1: Persistence Layer (EdgeOne KV)
 
-| #     | Task                                            | Kompleksitas                  | Status |
-| ----- | ----------------------------------------------- | ----------------------------- | ------ |
-| 1.1.1 | Abstract repos → localStorage adapters          | 🟢 Rendah (pattern sudah ada) | ☐      |
-| 1.1.2 | Supabase client + env config                    | 🟢 Rendah                     | ☐      |
-| 1.1.3 | Supabase schema (concepts, questions, progress) | 🟡 Sedang                     | ☐      |
-| 1.1.4 | Supabase repository adapters (swap in-memory)   | 🟡 Sedang (3 adapters)        | ☐      |
-| 1.1.5 | Offline fallback + sync                         | 🟠 Tinggi                     | ☐      |
+| #     | Task                                           | Kompleksitas           | Status |
+| ----- | ---------------------------------------------- | ---------------------- | ------ |
+| 1.1.1 | EdgeOne KV Adapters (Concept, Question, Progr) | 🟢 Rendah (Clean Arch) | ✅     |
+| 1.1.2 | KV Type Definitions & Mocking (Testability)    | 🟢 Rendah              | ✅     |
+| 1.1.3 | Edge Function API Routes (Edge Runtime)        | 🟡 Sedang              | ☐      |
+| 1.1.4 | Registry Integration (Swap In-Memory → KV)     | � Rendah               | ☐      |
+| 1.1.5 | Data Seeding to EdgeOne KV                     | � Sedang               | ☐      |
 
 ### Sprint 1.2: Authentication
 

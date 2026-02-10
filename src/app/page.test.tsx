@@ -2,23 +2,26 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import HomePage from './page'
 
-// Mock the seedData function
-jest.mock('@/infrastructure/repositories/seed', () => ({
-  seedData: jest.fn(),
-}))
-
 // Mock localStorage
 const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
 }
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 })
 
+// Mock fetch
+const mockFetch = jest.fn()
+global.fetch = mockFetch
+
 describe('HomePage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    mockFetch.mockResolvedValue({ ok: true })
+    localStorageMock.getItem.mockReturnValue(null)
   })
 
   it('renders the main title and tagline', () => {
@@ -42,24 +45,25 @@ describe('HomePage', () => {
     expect(dashboardButton.closest('a')).toHaveAttribute('href', '/dashboard')
   })
 
-  it('seeds data on first load when not previously seeded', () => {
-    const { seedData } = require('@/infrastructure/repositories/seed')
+  it('seeds data on first load when not previously seeded', async () => {
     localStorageMock.getItem.mockReturnValue(null)
+    mockFetch.mockResolvedValue({ ok: true })
 
     render(<HomePage />)
 
     expect(localStorageMock.getItem).toHaveBeenCalledWith('beringin-seeded')
-    expect(seedData).toHaveBeenCalled()
+    expect(mockFetch).toHaveBeenCalledWith('/api/debug/seed', {
+      method: 'POST',
+    })
   })
 
   it('does not seed data when already seeded', () => {
-    const { seedData } = require('@/infrastructure/repositories/seed')
     localStorageMock.getItem.mockReturnValue('true')
 
     render(<HomePage />)
 
     expect(localStorageMock.getItem).toHaveBeenCalledWith('beringin-seeded')
-    expect(seedData).not.toHaveBeenCalled()
+    expect(mockFetch).not.toHaveBeenCalled()
   })
 
   it('handles localStorage gracefully when not available', () => {
@@ -73,20 +77,18 @@ describe('HomePage', () => {
     global.window = originalWindow
   })
 
-  it('sets seeded flag after seeding data', () => {
-    const { seedData } = require('@/infrastructure/repositories/seed')
-    seedData.mockResolvedValue(undefined)
+  it('sets seeded flag after seeding data', async () => {
+    mockFetch.mockResolvedValue({ ok: true })
     localStorageMock.getItem.mockReturnValue(null)
 
     render(<HomePage />)
 
     // Wait for the async operation
-    setTimeout(() => {
-      expect(localStorageMock.setItem).toHaveBeenCalledWith(
-        'beringin-seeded',
-        'true',
-      )
-    }, 0)
+    await new Promise((resolve) => setTimeout(resolve, 10))
+    expect(localStorageMock.setItem).toHaveBeenCalledWith(
+      'beringin-seeded',
+      'true',
+    )
   })
 
   it('has correct styling classes', () => {

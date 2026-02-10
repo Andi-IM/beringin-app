@@ -1,49 +1,53 @@
 // Seed data for MVP testing
-// Run this to populate in-memory database with sample content
+// Run this to populate database with sample content
 
-import {
-  conceptRepository,
-  questionRepository,
-  progressRepository,
-} from './in-memory.repository'
+import type { ConceptRepository } from './concept.repository'
+import type { QuestionRepository } from './question.repository'
+import type { ProgressRepository } from './progress.repository'
 
-export async function seedData() {
+export async function seedData(repos: {
+  conceptRepo: ConceptRepository
+  questionRepo: QuestionRepository
+  progressRepo: ProgressRepository
+}) {
+  const { conceptRepo, questionRepo, progressRepo } = repos
+
   // Create concepts
-  const concept1 = await conceptRepository.create({
+  const concept1 = await conceptRepo.create({
     title: 'TCP Handshake',
     description: 'Proses koneksi tiga langkah dalam protokol TCP',
     category: 'Networking',
   })
 
-  const concept2 = await conceptRepository.create({
+  const concept2 = await conceptRepo.create({
     title: 'Pancasila Sila 4',
     description:
       'Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan',
     category: 'Wawasan Kebangsaan',
   })
 
-  const concept3 = await conceptRepository.create({
+  const concept3 = await conceptRepo.create({
     title: 'DDoS Attack',
     description: 'Distributed Denial of Service - serangan dari banyak sumber',
     category: 'Security',
   })
 
   // Create questions
-  await questionRepository.create({
+  await questionRepo.create({
     conceptId: concept1.id,
     prompt: 'Jelaskan 3 langkah dalam TCP handshake',
     answerCriteria: 'SYN, SYN-ACK, ACK',
     type: 'text',
   })
 
-  await questionRepository.create({
+  await questionRepo.create({
     conceptId: concept2.id,
     prompt: 'Apa inti dari penerapan Sila ke-4 dalam pengambilan keputusan?',
     answerCriteria: 'Musyawarah, Mufakat, Perwakilan, Kebijaksanaan',
     type: 'text',
   })
 
-  await questionRepository.create({
+  await questionRepo.create({
     conceptId: concept3.id,
     prompt: 'Apa perbedaan utama antara DoS dan DDoS?',
     answerCriteria: 'DoS satu sumber, DDoS banyak sumber (distributed)',
@@ -54,7 +58,7 @@ export async function seedData() {
   const userId = 'demo-user'
   const now = new Date()
 
-  await progressRepository.create({
+  await progressRepo.create({
     userId,
     conceptId: concept1.id,
     status: 'new',
@@ -64,7 +68,7 @@ export async function seedData() {
     history: [],
   })
 
-  await progressRepository.create({
+  await progressRepo.create({
     userId,
     conceptId: concept2.id,
     status: 'new',
@@ -74,7 +78,7 @@ export async function seedData() {
     history: [],
   })
 
-  await progressRepository.create({
+  await progressRepo.create({
     userId,
     conceptId: concept3.id,
     status: 'new',
