@@ -6,7 +6,7 @@
 
 ### Aturan Utama
 
-> **WAJIB**: Setiap fitur baru HARUS dikembangkan di branch terpisah (`feature/*`), dimasukkan ke branch `dev` terlebih dahulu untuk integrasi, dan akhirnya di-merge ke `main` untuk release/deploy.
+> **WAJIB**: Setiap fitur baru HARUS dikembangkan di branch terpisah (`feature/*`) dan diintegrasikan ke branch `dev` melalui Pull Request. Branch `main` akan diperbarui dari `dev` secara berkala untuk proses release/deploy.
 > **Deployment**: Workflow deployment ke EdgeOne secara otomatis aktif hanya di branch `main`.
 
 ### Branch Types
