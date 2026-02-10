@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act } from '@testing-library/react'
+import { render, screen, waitFor, act, fireEvent } from '@testing-library/react'
 import DashboardPage from './page'
 import { DashboardApi } from '@/infrastructure/client/dashboard.api'
 import { AuthApi } from '@/infrastructure/client/auth.api'
@@ -275,5 +275,18 @@ describe('DashboardPage', () => {
 
     // Initially should show loading state (no concepts yet)
     expect(screen.queryByText('Test Concept 1')).not.toBeInTheDocument()
+  })
+
+  it('handles logout correctly', async () => {
+    ;(AuthApi.signOut as jest.Mock).mockResolvedValueOnce(undefined)
+
+    render(<DashboardPage />)
+
+    const logoutButton = screen.getByText('Keluar')
+    fireEvent.click(logoutButton)
+
+    await waitFor(() => {
+      expect(AuthApi.signOut).toHaveBeenCalled()
+    })
   })
 })
