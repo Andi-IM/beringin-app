@@ -6,13 +6,16 @@
 
 ### Aturan Utama
 
-> **WAJIB**: Setiap fitur baru HARUS dikembangkan di branch terpisah, BUKAN langsung di `main`.
+> **WAJIB**: Setiap fitur baru HARUS dikembangkan di branch terpisah (`feature/*`) dan diintegrasikan ke branch `dev` melalui Pull Request. Branch `main` akan diperbarui dari `dev` secara berkala untuk proses release/deploy.
+> **Deployment**: Workflow deployment ke EdgeOne secara otomatis aktif hanya di branch `main`.
 
 ### Branch Types
 
 | Prefix      | Penggunaan  | Contoh                        |
 | ----------- | ----------- | ----------------------------- |
 | `feature/`  | Fitur baru  | `feature/user-authentication` |
+| `dev`       | Integrasi   | `dev`                         |
+| `main`      | Production  | `main`                        |
 | `fix/`      | Bug fix     | `fix/scheduler-calculation`   |
 | `docs/`     | Dokumentasi | `docs/api-reference`          |
 | `refactor/` | Refactoring | `refactor/repository-pattern` |
@@ -37,9 +40,9 @@
 ### Workflow
 
 ```bash
-# 1. Pastikan main up-to-date
-git checkout main
-git pull origin main
+# 1. Pastikan dev up-to-date
+git checkout dev
+git pull origin dev
 
 # 2. Buat branch baru untuk fitur
 git checkout -b feature/nama-fitur
@@ -48,11 +51,12 @@ git checkout -b feature/nama-fitur
 git add .
 git commit -m "feat: deskripsi singkat"
 
-# 4. Push ke remote
+# 4. Push & Buat Pull Request ke dev
 git push origin feature/nama-fitur
+# (via GitHub UI: target branch 'dev')
 
-# 5. Buat Pull Request ke main
-# (via GitHub UI)
+# 5. Proses Rilis (Deployment)
+# Setelah beberapa fitur terintegrasi di 'dev', maintainer akan menggabungkannya ke 'main' untuk memicu deployment otomatis.
 ```
 
 ### Commit Message Format
