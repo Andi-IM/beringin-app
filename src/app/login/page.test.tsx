@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import LoginPage from './page'
 import { useRouter } from 'next/navigation'
 import { Registry } from '@/registry'
@@ -31,5 +31,46 @@ describe('LoginPage', () => {
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Masuk' })).toBeInTheDocument()
+  })
+
+  it('navigates to dashboard on successful login', async () => {
+    ;(Registry.signIn as jest.Mock).mockResolvedValueOnce({ success: true })
+    render(<LoginPage />)
+
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'user@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+
+    await waitFor(() => {
+      expect(Registry.signIn).toHaveBeenCalledWith({
+        email: 'user@example.com',
+        password: 'password123',
+      })
+      expect(mockPush).toHaveBeenCalledWith('/dashboard')
+    })
+  })
+
+  it('shows error message on failed login', async () => {
+    ;(Registry.signIn as jest.Mock).mockResolvedValueOnce({
+      success: false,
+      error: 'Invalid credentials',
+    })
+    render(<LoginPage />)
+
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'user@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'wrong-password' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+
+    expect(await screen.findByText('Invalid credentials')).toBeInTheDocument()
   })
 })
