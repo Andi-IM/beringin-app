@@ -16,16 +16,14 @@ function createMockKV(): EdgeOneKV & { store: Map<string, string> } {
       store.delete(key)
       return Promise.resolve()
     }),
-    list: jest.fn(
-      (options?: { prefix?: string; limit?: number }) => {
-        const allKeys = Array.from(store.keys())
-        const filteredKeys = options?.prefix
-          ? allKeys.filter((key) => key.startsWith(options.prefix as string))
-          : allKeys
-        const keys = filteredKeys.map((name) => ({ name }))
-        return Promise.resolve({ keys })
-      },
-    ),
+    list: jest.fn((options?: { prefix?: string; limit?: number }) => {
+      const allKeys = Array.from(store.keys())
+      const filteredKeys = options?.prefix
+        ? allKeys.filter((key) => key.startsWith(options.prefix as string))
+        : allKeys
+      const keys = filteredKeys.map((name) => ({ name }))
+      return Promise.resolve({ keys })
+    }),
   }
 }
 
