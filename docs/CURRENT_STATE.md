@@ -1,17 +1,24 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-10T10:31+07:00
+> **Last Updated**: 2026-02-10T12:09+07:00
 
 ## 🎯 Status Overview
 
 | Aspek           | Status        | Catatan                |
 | --------------- | ------------- | ---------------------- |
-| **Development** | ✅ Active     | MVP Phase              |
+| **Development** | ✅ Active     | Phase 1 - Foundation   |
 | **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 171/171 passing (100%) |
+| **Tests**       | ✅ Passing    | 179/179 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions         |
+
+## 🧭 Sprint Status
+
+- Phase 0: MVP — ✅ DONE
+- Phase 1 / Sprint 1.1: Persistence Layer (EdgeOne KV) — ✅ DONE
+- Phase 1 / Sprint 1.2: Authentication — 🔜 NEXT (fokus berikutnya)
+- Phase 1 / Sprint 1.3: Quality Gate — 🔜 NEXT
 
 ## 🏗️ Implemented Features
 
@@ -38,10 +45,11 @@
 
 ### ⚠️ In Progress / Known Issues
 
-| Issue                  | Severity | Status       |
-| ---------------------- | -------- | ------------ |
-| In-memory storage only | Low      | Expected MVP |
-| Hardcoded user ID      | Low      | MVP limit    |
+| Issue                               | Severity | Status                  |
+| ----------------------------------- | -------- | ----------------------- |
+| Hardcoded user ID (`demo-user`)     | Low      | MVP limit, pending auth |
+| `act()` warnings di test Dashboard  | Low      | Tests pass, perlu cleanup |
+| `Registry` belum punya unit tests   | Low      | Akan dicakup di Phase 1 |
 
 ## 📦 Dependencies
 
@@ -58,10 +66,10 @@
 ## 📈 Test Coverage
 
 ```
-Statements : 91.32%
-Branches   : 76.4%
-Functions  : 89.55%
-Lines      : 92.34%
+Statements : 86.80%
+Branches   : 81.02%
+Functions  : 85.93%
+Lines      : 89.94%
 ```
 
 ## 🔧 Available Scripts
@@ -77,6 +85,27 @@ Lines      : 92.34%
 | `npm run test:ci`      | CI mode with coverage    |
 
 ## 📝 Recent Changes
+
+### 2026-02-10 (Sesi #5)
+
+- ✅ Menambahkan Edge Runtime API routes:
+  - `GET /api/dashboard`
+  - `POST /api/debug/seed`
+  - `GET /api/session/next`
+  - `POST /api/session/submit`
+- ✅ Menambahkan unit test untuk seluruh API route di atas
+- ✅ Menambahkan polyfill `Request` dan `Response` untuk environment Jest
+- ✅ Mengkonfigurasi Husky:
+  - `pre-commit`: `npm run lint`, `npm run check-format`, `npx tsc --noEmit`
+  - `pre-push`: `npm run test:ci`
+- ✅ Menyesuaikan CI agar lulus dengan coverage UI layer `src/app/*` ≥ 70%
+
+### 2026-02-10 (Sesi #5)
+
+- ✅ Refined AI rules into dedicated TRAE rule files (architecture, quality, deployment, workflow)
+- ✅ Updated `AGENTS.md` and `CONTRIBUTING.md` with Sprint/Task-aligned branching, commit, and PR rules
+- ✅ Updated `.agent/workflows/start-task.md` to enforce Sprint-first workflow for all new tasks
+- ✅ Synced `docs/ROADMAP.md` Phase 0 timeline and Sprint 1.1 status with actual git history
 
 ### 2026-02-10 (Sesi #4)
 
@@ -116,10 +145,10 @@ Lines      : 92.34%
 
 ## 🚧 Next Steps
 
-1. Fix remaining 15 test failures (React cleanup issues)
-2. Add persistent storage (localStorage → Supabase)
-3. Implement user authentication
-4. Add concept/question management UI
+1. Implement user authentication (Supabase) dan ganti `demo-user` → real user ID
+2. Tambah concept/question management UI (admin CRUD)
+3. Meningkatkan coverage `Registry` dan mengurangi `act()` warnings di test UI
+4. Menambah E2E test (Playwright) untuk flow utama (landing → session → dashboard)
 
 ---
 
