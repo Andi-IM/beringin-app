@@ -4,11 +4,13 @@
 // WAJIB: Hanya render, logic di use case
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import type { ConceptWithStatus } from '@/domain/entities/concept.entity'
 import { DashboardApi } from '@/infrastructure/client/dashboard.api'
 import { AuthApi } from '@/infrastructure/client/auth.api'
 
 export default function DashboardPage() {
+  const router = useRouter()
   const [concepts, setConcepts] = useState<ConceptWithStatus[]>([])
   const [stats, setStats] = useState({
     total: 0,
@@ -21,7 +23,7 @@ export default function DashboardPage() {
   async function handleLogout() {
     try {
       await AuthApi.signOut()
-      window.location.href = '/'
+      router.push('/')
     } catch (error) {
       console.error('Logout error:', error)
     }

@@ -16,6 +16,13 @@ jest.mock('@/infrastructure/client/auth.api', () => ({
   },
 }))
 
+const mockPush = jest.fn()
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: mockPush,
+  }),
+}))
+
 describe('DashboardPage', () => {
   const mockConcepts = [
     {
@@ -287,6 +294,7 @@ describe('DashboardPage', () => {
 
     await waitFor(() => {
       expect(AuthApi.signOut).toHaveBeenCalled()
+      expect(mockPush).toHaveBeenCalledWith('/')
     })
   })
 })

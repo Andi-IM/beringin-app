@@ -25,7 +25,8 @@ export default function LoginPage() {
       } else {
         setError(result.error || 'Login failed')
       }
-    } catch {
+    } catch (err) {
+      console.error('Login error:', err)
       setError('An unexpected error occurred')
     } finally {
       setLoading(false)

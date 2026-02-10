@@ -31,7 +31,8 @@ export default function RegisterPage() {
       } else {
         setError(result.error || 'Pendaftaran gagal')
       }
-    } catch {
+    } catch (err) {
+      console.error('Registration error:', err)
       setError('Terjadi kesalahan yang tidak terduga')
     } finally {
       setLoading(false)
