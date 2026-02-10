@@ -86,6 +86,15 @@ Lines      : 89.94%
 
 ## 📝 Recent Changes
 
+### 2026-02-10 (Sesi #6)
+
+- ✅ Merged PR #1 ke `main`
+- ✅ Refactor KV implementation:
+  - Parallel fetching (`Promise.all`) untuk menghilangkan N+1 query
+  - Restrukturisasi key `question:${conceptId}:${id}` untuk atomisitas (hapus manual index)
+  - Perbaikan dokumentasi EdgeOne CLI (`edgeone pages link`)
+- ✅ Verifikasi 179/179 tests pass di branch `main`
+
 ### 2026-02-10 (Sesi #5)
 
 - ✅ Menambahkan Edge Runtime API routes:

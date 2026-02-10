@@ -7,12 +7,13 @@
 
 ## 📊 Velocity Aktual (dari Git History)
 
-| Sesi      | Tanggal     | Waktu                   | Output                          | Lines Changed (perkiraan) |
-| --------- | ----------- | ----------------------- | ------------------------------- | ------------------------- |
-| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)  | MVP initial + ESLint + docs     | ~4,000–4,500              |
-| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)  | Registry DI + tests + coverage  | ~1,500–2,000              |
-| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit) | EdgeOne KV + API routes + Husky | ~1,000–1,500              |
-| **Total** |             | **±1 jam commit time**  | **19 commits, 78 files**        | **~6,900 lines touched**  |
+| Sesi      | Tanggal     | Waktu                    | Output                          | Lines Changed (perkiraan) |
+| --------- | ----------- | ------------------------ | ------------------------------- | ------------------------- |
+| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)   | MVP initial + ESLint + docs     | ~4,000–4,500              |
+| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)   | Registry DI + tests + coverage  | ~1,500–2,000              |
+| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky | ~1,000–1,500              |
+| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor | ~500–800                  |
+| **Total** |             | **±1.5 jam commit time** | **25 commits, 80 files**        | **~8,000 lines touched**  |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -33,21 +34,22 @@
 
 ## ✅ Phase 0: MVP — DONE
 
-| Tanggal      | Waktu   | Deliverable                                          | Sprint/Task | Commit    |
-| ------------ | ------- | ---------------------------------------------------- | ----------- | --------- |
-| 9 Feb 23:36  | —       | Initial commit: seluruh MVP (47 files, 15,886 lines) | Phase 0     | `c82ba1e` |
-| 9 Feb 23:39  | +3 min  | ESLint config + fix TypeScript errors                | Phase 0     | `bcaeee0` |
-| 9 Feb 23:42  | +3 min  | Migrate ke ESLint flat config                        | Phase 0     | `53b7085` |
-| 9 Feb 23:46  | +4 min  | Clean Architecture ESLint rules                      | Phase 0     | `4832851` |
-| 9 Feb 23:51  | +5 min  | Resolve lint errors                                  | Phase 0     | `f50818b` |
-| 9 Feb 23:55  | +4 min  | Docs (README, ARCHITECTURE, CURRENT_STATE, ROADMAP)  | Phase 0     | `59b6b7a` |
-| 9 Feb 23:56  | +1 min  | Contributing guidelines                              | Phase 0     | `5f90427` |
-| 10 Feb 09:32 | —       | Registry DI + refactor semua layer                   | Phase 0     | `46018e3` |
-| 10 Feb 09:41 | +9 min  | Fix 7 failing infra tests (146/146 ✅)               | Phase 0     | `ccd3835` |
-| 10 Feb 09:43 | +2 min  | Minor test fixes                                     | Phase 0     | `2673f32` |
-| 10 Feb 09:45 | +2 min  | Per-layer coverage thresholds                        | Phase 0     | `ac9d966` |
-| 10 Feb 10:32 | +4 min  | Add GitHub & EdgeOne CLI knowledge base              | Sprint 1.1  | `51cbcea` |
-| 10 Feb 10:45 | +13 min | EdgeOne KV Repository Adapters (PR #1)               | Sprint 1.1  | `1596ba0` |
+| Tanggal      | Waktu    | Deliverable                                          | Sprint/Task | Commit    |
+| ------------ | -------- | ---------------------------------------------------- | ----------- | --------- |
+| 9 Feb 23:36  | —        | Initial commit: seluruh MVP (47 files, 15,886 lines) | Phase 0     | `c82ba1e` |
+| 9 Feb 23:39  | +3 min   | ESLint config + fix TypeScript errors                | Phase 0     | `bcaeee0` |
+| 9 Feb 23:42  | +3 min   | Migrate ke ESLint flat config                        | Phase 0     | `53b7085` |
+| 9 Feb 23:46  | +4 min   | Clean Architecture ESLint rules                      | Phase 0     | `4832851` |
+| 9 Feb 23:51  | +5 min   | Resolve lint errors                                  | Phase 0     | `f50818b` |
+| 9 Feb 23:55  | +4 min   | Docs (README, ARCHITECTURE, CURRENT_STATE, ROADMAP)  | Phase 0     | `59b6b7a` |
+| 9 Feb 23:56  | +1 min   | Contributing guidelines                              | Phase 0     | `5f90427` |
+| 10 Feb 09:32 | —        | Registry DI + refactor semua layer                   | Phase 0     | `46018e3` |
+| 10 Feb 09:41 | +9 min   | Fix 7 failing infra tests (146/146 ✅)               | Phase 0     | `ccd3835` |
+| 10 Feb 09:43 | +2 min   | Minor test fixes                                     | Phase 0     | `2673f32` |
+| 10 Feb 09:45 | +2 min   | Per-layer coverage thresholds                        | Phase 0     | `ac9d966` |
+| 10 Feb 10:32 | +4 min   | Add GitHub & EdgeOne CLI knowledge base              | Sprint 1.1  | `51cbcea` |
+| 10 Feb 10:45 | +13 min  | EdgeOne KV Repository Adapters (PR #1)               | Sprint 1.1  | `1596ba0` |
+| 10 Feb 14:05 | +140 min | Merge PR #1 & Parallel KV Refactor                   | Sprint 1.1  | `d3488e7` |
 
 ---
 
@@ -95,7 +97,7 @@
 | 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ☐      |
 | 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ☐      |
 | 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ☐      |
-| 1.3.4 | Error boundary component       | � Rendah     | ☐      |
+| 1.3.4 | Error boundary component       | 🟢 Rendah     | ☐      |
 
 ---
 
