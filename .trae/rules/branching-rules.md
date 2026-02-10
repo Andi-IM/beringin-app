@@ -1,6 +1,6 @@
 Aturan Branch untuk AI di proyek Beringin:
 
-- Workflow: `feature/*` -> Pull Request ke `dev` -> Merge ke `main` (Auto-deploy).
+- Workflow: `feature/*` -> Pull Request ke `dev`. Secara periodik, `dev` akan di-merge ke `main` untuk auto-deploy.
 - Branch `dev` adalah tempat integrasi utama untuk semua fitur baru.
 - Branch `main` hanya di-merge dari `dev` untuk memicu deployment ke EdgeOne.
 - Buat branch baru untuk Sprint/Task berbeda di `docs/ROADMAP.md` atau perubahan yang tidak lanjutan.
