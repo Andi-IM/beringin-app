@@ -20,6 +20,8 @@ describe('LoginPage', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+    ;(AuthApi.signIn as jest.Mock).mockReset()
+    ;(AuthApi.signInWithGoogle as jest.Mock).mockReset()
     ;(useRouter as jest.Mock).mockReturnValue({
       push: mockPush,
       refresh: mockRefresh,
@@ -75,11 +77,13 @@ describe('LoginPage', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
 
-    expect(await screen.findByText('Invalid credentials')).toBeInTheDocument()
+    expect(await screen.findByText(/invalid credentials/i)).toBeInTheDocument()
   })
 
-  it('shows unexpected error message on API crash', async () => {
-    ;(AuthApi.signIn as jest.Mock).mockRejectedValueOnce(new Error('API crash'))
+  it('shows default error message on failed login without error message', async () => {
+    ;(AuthApi.signIn as jest.Mock).mockResolvedValueOnce({
+      success: false,
+    })
     render(<LoginPage />)
 
     fireEvent.change(screen.getByLabelText('Email'), {
@@ -91,9 +95,27 @@ describe('LoginPage', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
 
-    expect(
-      await screen.findByText('An unexpected error occurred'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText(/gagal masuk/i)).toBeInTheDocument()
+  })
+
+  it('shows unexpected error message on API crash', async () => {
+    ;(AuthApi.signIn as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(new Error('API crash')),
+    )
+    render(<LoginPage />)
+
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'user@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password'), {
+      target: { value: 'password123' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+
+    await waitFor(() => {
+      expect(screen.getByText(/terjadi kesalahan login/i)).toBeInTheDocument()
+    })
   })
 
   it('calls signInWithGoogle on button click', async () => {
@@ -118,19 +140,34 @@ describe('LoginPage', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Masuk dengan Google' }))
 
-    expect(await screen.findByText('Google login failed')).toBeInTheDocument()
+    expect(await screen.findByText(/google login failed/i)).toBeInTheDocument()
   })
 
-  it('shows unexpected error message on google login API crash', async () => {
-    ;(AuthApi.signInWithGoogle as jest.Mock).mockRejectedValueOnce(
-      new Error('API crash'),
-    )
+  it('shows default error message on failed google login without error message', async () => {
+    ;(AuthApi.signInWithGoogle as jest.Mock).mockResolvedValueOnce({
+      success: false,
+    })
     render(<LoginPage />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Masuk dengan Google' }))
 
     expect(
-      await screen.findByText('An unexpected error occurred'),
+      await screen.findByText(/gagal masuk dengan google/i),
     ).toBeInTheDocument()
+  })
+
+  it('shows unexpected error message on google login API crash', async () => {
+    ;(AuthApi.signInWithGoogle as jest.Mock).mockImplementationOnce(() =>
+      Promise.reject(new Error('API crash')),
+    )
+    render(<LoginPage />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk dengan Google' }))
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/terjadi kesalahan tak terduga/i),
+      ).toBeInTheDocument()
+    })
   })
 })

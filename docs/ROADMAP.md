@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history  
-> **Last Updated**: 2026-02-10T16:30+07:00
+> **Last Updated**: 2026-02-10T18:20+07:00
 
 ---
 
@@ -91,6 +91,8 @@
 | 1.2.3 | Client API Wrapper (`AuthApi`)     | 🟢 Rendah           | ✅     |
 | 1.2.4 | Auth middleware + protected routes | 🟡 Sedang           | ✅     |
 | 1.2.5 | Replace `demo-user` → real user ID | 🟢 Rendah           | ✅     |
+| 1.2.6 | Google Sign-In (OAuth)             | 🟢 Rendah           | ✅     |
+| 1.2.7 | GoogleIcon component extraction    | 🟢 Rendah           | ✅     |
 
 #### Sprint 1.2 Timeline (berdasarkan git history)
 
@@ -101,6 +103,8 @@
 | 10 Feb 15:45 | +10 min | refactor auth api to be lazy and fix dashboard tests | 1.2.3, 1.2.5            | `af250e1` |
 | 10 Feb 16:20 | +35 min | Merge PR #4: Final adjustments & branching policy    | Sprint 1.2 (final)      | `e2ec2da` |
 | 10 Feb 16:25 | +5 min  | docs: sync current state after Sprint 1.2 merge (#6) | Sprint 1.2 (sync)       | `2865684` |
+| 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
+| 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
 
 ### Sprint 1.3: Quality Gate
 

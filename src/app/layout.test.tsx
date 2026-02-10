@@ -10,6 +10,12 @@ jest.mock('next/font/google', () => ({
 
 describe('RootLayout', () => {
   it('renders with correct HTML structure', () => {
+    // Suppress console.error for this test because we expect a warning about
+    // nesting <html> inside a <div>, which is an artifact of testing
+    // a root layout with react-testing-library.
+    const consoleErrorSpy = jest.spyOn(console, 'error')
+    consoleErrorSpy.mockImplementation(() => {})
+
     const { container } = render(
       <RootLayout>
         <div>Test Children</div>
@@ -17,6 +23,8 @@ describe('RootLayout', () => {
     )
 
     expect(container).toBeInTheDocument()
+
+    consoleErrorSpy.mockRestore()
   })
 
   it('applies correct font variable class', () => {
