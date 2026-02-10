@@ -21,7 +21,6 @@ export default function LoginPage() {
       const result = await AuthApi.signIn({ email, password })
       if (result.success) {
         router.push('/dashboard')
-        router.refresh()
       } else {
         setError(result.error || 'Login failed')
       }
