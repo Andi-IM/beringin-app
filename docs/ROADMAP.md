@@ -7,14 +7,15 @@
 
 ## 📊 Velocity Aktual (dari Git History)
 
-| Sesi      | Tanggal     | Waktu                     | Output                             | Lines Changed (perkiraan) |
-| --------- | ----------- | ------------------------- | ---------------------------------- | ------------------------- |
-| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)    | MVP initial + ESLint + docs        | ~4,000–4,500              |
-| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)    | Registry DI + tests + coverage     | ~1,500–2,000              |
-| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)   | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
-| **Total** |             | **±1 jam commit time**    | **19 commits, 78 files**           | **~6,900 lines touched**  |
+| Sesi      | Tanggal     | Waktu                   | Output                          | Lines Changed (perkiraan) |
+| --------- | ----------- | ----------------------- | ------------------------------- | ------------------------- |
+| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)  | MVP initial + ESLint + docs     | ~4,000–4,500              |
+| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)  | Registry DI + tests + coverage  | ~1,500–2,000              |
+| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit) | EdgeOne KV + API routes + Husky | ~1,000–1,500              |
+| **Total** |             | **±1 jam commit time**  | **19 commits, 78 files**        | **~6,900 lines touched**  |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
+>
 > - `git rev-list --count HEAD` → 19 commits
 > - `git diff --stat <root> HEAD` → 78 files changed, 5,278 insertions(+), 1,642 deletions(-)
 > - Lines touched ≈ insertions + deletions
@@ -67,15 +68,15 @@
 
 #### Sprint 1.1 Timeline (berdasarkan git history)
 
-| Tanggal      | Waktu   | Deliverable                                                | Terkait Task Sprint 1.1 | Commit    |
-| ------------ | ------- | ---------------------------------------------------------- | ----------------------- | --------- |
+| Tanggal      | Waktu   | Deliverable                                               | Terkait Task Sprint 1.1 | Commit    |
+| ------------ | ------- | --------------------------------------------------------- | ----------------------- | --------- |
 | 10 Feb 10:32 | —       | Add GitHub & EdgeOne CLI knowledge base                   | 1.1.2, 1.1.5 (support)  | `51cbcea` |
-| 10 Feb 10:44 | +12 min | Implement EdgeOne KV repository adapters & infrastructure | 1.1.1, 1.1.4           | `1596ba0` |
-| 10 Feb 10:46 | +2 min  | Fix code formatting dan enforce LF line endings           | 1.1.x (stabilization)  | `89d4950` |
-| 10 Feb 11:17 | +31 min | Resolve test issues dan lint violations setelah KV        | 1.1.1, 1.1.3, 1.1.4    | `4491900` |
-| 10 Feb 11:30 | +13 min | Format code dan update AI guidelines (EdgeOne/KV docs)    | 1.1.1–1.1.5 (docs)     | `d239ae7` |
-| 10 Feb 12:05 | +35 min | Tambah Edge API route tests dan Husky hooks               | 1.1.3, 1.1.5           | `6949e10` |
-| 10 Feb 12:09 | +4 min  | Refine pre-commit hook (lint, format, tsc)                | 1.1.3, 1.1.5 (quality) | `c8c16a0` |
+| 10 Feb 10:44 | +12 min | Implement EdgeOne KV repository adapters & infrastructure | 1.1.1, 1.1.4            | `1596ba0` |
+| 10 Feb 10:46 | +2 min  | Fix code formatting dan enforce LF line endings           | 1.1.x (stabilization)   | `89d4950` |
+| 10 Feb 11:17 | +31 min | Resolve test issues dan lint violations setelah KV        | 1.1.1, 1.1.3, 1.1.4     | `4491900` |
+| 10 Feb 11:30 | +13 min | Format code dan update AI guidelines (EdgeOne/KV docs)    | 1.1.1–1.1.5 (docs)      | `d239ae7` |
+| 10 Feb 12:05 | +35 min | Tambah Edge API route tests dan Husky hooks               | 1.1.3, 1.1.5            | `6949e10` |
+| 10 Feb 12:09 | +4 min  | Refine pre-commit hook (lint, format, tsc)                | 1.1.3, 1.1.5 (quality)  | `c8c16a0` |
 
 ### Sprint 1.2: Authentication
 

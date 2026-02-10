@@ -45,11 +45,11 @@
 
 ### ⚠️ In Progress / Known Issues
 
-| Issue                               | Severity | Status                  |
-| ----------------------------------- | -------- | ----------------------- |
-| Hardcoded user ID (`demo-user`)     | Low      | MVP limit, pending auth |
-| `act()` warnings di test Dashboard  | Low      | Tests pass, perlu cleanup |
-| `Registry` belum punya unit tests   | Low      | Akan dicakup di Phase 1 |
+| Issue                              | Severity | Status                    |
+| ---------------------------------- | -------- | ------------------------- |
+| Hardcoded user ID (`demo-user`)    | Low      | MVP limit, pending auth   |
+| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup |
+| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1   |
 
 ## 📦 Dependencies
 
