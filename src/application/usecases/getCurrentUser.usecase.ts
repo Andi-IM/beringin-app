@@ -15,7 +15,7 @@ export async function getCurrentUser(): Promise<GetCurrentUserOutput> {
     } = await supabase.auth.getUser()
 
     return { userId: user?.id ?? null }
-  } catch (error) {
+  } catch {
     return { userId: null }
   }
 }

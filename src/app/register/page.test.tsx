@@ -1,14 +1,9 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import RegisterPage from './page'
-import { useRouter } from 'next/navigation'
-import { Registry } from '@/registry'
+import { AuthApi } from '@/infrastructure/client/auth.api'
 
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
-}))
-
-jest.mock('@/registry', () => ({
-  Registry: {
+jest.mock('@/infrastructure/client/auth.api', () => ({
+  AuthApi: {
     signUp: jest.fn(),
   },
 }))
@@ -16,9 +11,6 @@ jest.mock('@/registry', () => ({
 describe('RegisterPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    ;(useRouter as jest.Mock).mockReturnValue({
-      push: jest.fn(),
-    })
   })
 
   it('renders register form correctly', () => {
@@ -48,11 +40,11 @@ describe('RegisterPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Daftar' }))
 
     expect(await screen.findByText('Password tidak cocok')).toBeInTheDocument()
-    expect(Registry.signUp).not.toHaveBeenCalled()
+    expect(AuthApi.signUp).not.toHaveBeenCalled()
   })
 
   it('shows success message after successful registration', async () => {
-    ;(Registry.signUp as jest.Mock).mockResolvedValueOnce({ success: true })
+    ;(AuthApi.signUp as jest.Mock).mockResolvedValueOnce({ success: true })
     render(<RegisterPage />)
 
     fireEvent.change(screen.getByLabelText('Email'), {
@@ -68,12 +60,36 @@ describe('RegisterPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Daftar' }))
 
     await waitFor(() => {
-      expect(Registry.signUp).toHaveBeenCalledWith({
+      expect(AuthApi.signUp).toHaveBeenCalledWith({
         email: 'newuser@example.com',
         password: 'password123',
       })
     })
 
     expect(await screen.findByText('Pendaftaran Berhasil!')).toBeInTheDocument()
+  })
+
+  it('shows error message on registration API failure', async () => {
+    ;(AuthApi.signUp as jest.Mock).mockResolvedValueOnce({
+      success: false,
+      error: 'Email already registered',
+    })
+    render(<RegisterPage />)
+
+    fireEvent.change(screen.getByLabelText('Email'), {
+      target: { value: 'existing@example.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Password', { selector: 'input' }), {
+      target: { value: 'password123' },
+    })
+    fireEvent.change(screen.getByLabelText('Konfirmasi Password'), {
+      target: { value: 'password123' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Daftar' }))
+
+    expect(
+      await screen.findByText('Email already registered'),
+    ).toBeInTheDocument()
   })
 })

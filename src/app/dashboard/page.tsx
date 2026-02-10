@@ -5,6 +5,8 @@
 
 import { useState, useEffect } from 'react'
 import type { ConceptWithStatus } from '@/domain/entities/concept.entity'
+import { DashboardApi } from '@/infrastructure/client/dashboard.api'
+import { AuthApi } from '@/infrastructure/client/auth.api'
 
 export default function DashboardPage() {
   const [concepts, setConcepts] = useState<ConceptWithStatus[]>([])
@@ -18,7 +20,7 @@ export default function DashboardPage() {
 
   async function handleLogout() {
     try {
-      await Registry.signOut()
+      await AuthApi.signOut()
       window.location.href = '/'
     } catch (error) {
       console.error('Logout error:', error)
@@ -31,9 +33,7 @@ export default function DashboardPage() {
 
   async function loadDashboard() {
     try {
-      const response = await fetch(`/api/dashboard`)
-      if (!response.ok) throw new Error('Failed to fetch dashboard data')
-      const result = await response.json()
+      const result = await DashboardApi.getDashboardData()
       setConcepts(result.concepts)
       setStats(result.stats)
     } catch (error) {

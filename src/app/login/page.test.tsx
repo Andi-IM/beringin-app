@@ -1,14 +1,14 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import LoginPage from './page'
 import { useRouter } from 'next/navigation'
-import { Registry } from '@/registry'
+import { AuthApi } from '@/infrastructure/client/auth.api'
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }))
 
-jest.mock('@/registry', () => ({
-  Registry: {
+jest.mock('@/infrastructure/client/auth.api', () => ({
+  AuthApi: {
     signIn: jest.fn(),
   },
 }))
@@ -34,7 +34,7 @@ describe('LoginPage', () => {
   })
 
   it('navigates to dashboard on successful login', async () => {
-    ;(Registry.signIn as jest.Mock).mockResolvedValueOnce({ success: true })
+    ;(AuthApi.signIn as jest.Mock).mockResolvedValueOnce({ success: true })
     render(<LoginPage />)
 
     fireEvent.change(screen.getByLabelText('Email'), {
@@ -47,7 +47,7 @@ describe('LoginPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
 
     await waitFor(() => {
-      expect(Registry.signIn).toHaveBeenCalledWith({
+      expect(AuthApi.signIn).toHaveBeenCalledWith({
         email: 'user@example.com',
         password: 'password123',
       })
@@ -56,7 +56,7 @@ describe('LoginPage', () => {
   })
 
   it('shows error message on failed login', async () => {
-    ;(Registry.signIn as jest.Mock).mockResolvedValueOnce({
+    ;(AuthApi.signIn as jest.Mock).mockResolvedValueOnce({
       success: false,
       error: 'Invalid credentials',
     })

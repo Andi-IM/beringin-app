@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Registry } from '@/registry'
+import { AuthApi } from '@/infrastructure/client/auth.api'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('')
@@ -12,7 +11,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  const router = useRouter()
+  // const router = useRouter() // Unused
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,13 +25,13 @@ export default function RegisterPage() {
     }
 
     try {
-      const result = await Registry.signUp({ email, password })
+      const result = await AuthApi.signUp({ email, password })
       if (result.success) {
         setSuccess(true)
       } else {
         setError(result.error || 'Pendaftaran gagal')
       }
-    } catch (err) {
+    } catch {
       setError('Terjadi kesalahan yang tidak terduga')
     } finally {
       setLoading(false)

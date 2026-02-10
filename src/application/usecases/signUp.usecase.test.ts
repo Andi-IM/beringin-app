@@ -47,4 +47,26 @@ describe('signUp Use Case', () => {
 
     expect(result).toEqual({ success: false, error: 'User already exists' })
   })
+
+  it('should use NEXT_PUBLIC_SITE_URL when provided', async () => {
+    const originalEnv = process.env.NEXT_PUBLIC_SITE_URL
+    process.env.NEXT_PUBLIC_SITE_URL = 'https://beringin.app'
+
+    mockSignUp.mockResolvedValue({ data: { user: { id: '123' } }, error: null })
+
+    await signUp({
+      email: 'test@example.com',
+      password: 'password123',
+    })
+
+    expect(mockSignUp).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: {
+          emailRedirectTo: 'https://beringin.app/auth/callback',
+        },
+      }),
+    )
+
+    process.env.NEXT_PUBLIC_SITE_URL = originalEnv
+  })
 })
