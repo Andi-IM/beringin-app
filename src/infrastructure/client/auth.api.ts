@@ -1,6 +1,7 @@
 import { createClient } from '@/infrastructure/auth/supabase-browser'
 
 const AUTH_CALLBACK_PATH = '/auth/callback'
+const OAUTH_PROVIDER = { GOOGLE: 'google' as const }
 
 const getSupabase = () => createClient()
 
@@ -34,7 +35,7 @@ export const AuthApi = {
   async signInWithGoogle() {
     const supabase = getSupabase()
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      provider: OAUTH_PROVIDER.GOOGLE,
       options: {
         redirectTo: `${window.location.origin}${AUTH_CALLBACK_PATH}`,
       },

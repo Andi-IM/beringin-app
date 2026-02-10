@@ -165,7 +165,9 @@ describe('LoginPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Masuk dengan Google' }))
 
     await waitFor(() => {
-      expect(screen.getByText(/terjadi kesalahan google/i)).toBeInTheDocument()
+      expect(
+        screen.getByText(/terjadi kesalahan tak terduga/i),
+      ).toBeInTheDocument()
     })
   })
 })
