@@ -177,6 +177,25 @@ npm run lint && npm test && npm run build
 - [ ] No `console.log` statements in production code
 - [ ] Proper error handling implemented
 
+### Sprint-Driven Code Generation (for AI Agents)
+
+When generating or modifying code, always anchor changes to the **current Sprint task**:
+
+- Every change must be traceable to a specific item in `docs/ROADMAP.md` (e.g. `Sprint 1.1 / Task 1.1.3`).
+- Prefer implementing **only** what is necessary for the active Sprint task; avoid jumping ahead to future Sprints.
+- When adding files or functions, name and structure them so the mapping to the Sprint task is obvious (e.g. commit/PR message, test names).
+- When in doubt, update the Sprint status table first, then implement code that satisfies that row.
+
+### Commit & PR Naming (for AI Agents)
+
+- Use Conventional Commits for all commits and PR titles:
+  - Allowed types: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`.
+  - PR title format: `<type>: <short description> (Sprint X.Y / Task X.Y.Z)`.
+- Always mention the related Sprint/Task in the commit body or PR description, for example:
+  - `feat: implement EdgeOne KV persistence (Sprint 1.1 / Task 1.1.1)`
+  - `fix: handle session API errors (Sprint 1.1 / Task 1.1.3)`
+- Do not mix work from multiple Sprints in a single branch; if you need to start a different Sprint/Task, create a new branch from `main` and use a branch name that reflects that Sprint/Task.
+
 ### File Organization
 
 ```

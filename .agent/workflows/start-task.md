@@ -24,12 +24,13 @@ description: Langkah wajib sebelum mengerjakan task apapun di proyek Beringin
 3. Baca `docs/ROADMAP.md` untuk memahami konteks task yang akan dikerjakan
 
 4. Setelah memahami semua aturan, baru mulai merencanakan dan mengerjakan task dengan workflow yang benar:
-   - Buat branch baru dari `main` (JANGAN langsung di `main`)
+   - Pilih Sprint/Task yang akan dikerjakan dari `docs/ROADMAP.md`
+   - Buat branch baru dari `main` (JANGAN langsung di `main`), dengan nama yang merefleksikan Sprint/Task, misalnya: `feature/sprint-1-1-edgeone-kv`
    - Develop sesuai aturan arsitektur
    - Tulis test untuk setiap kode baru
    - Jalankan `npm run lint`, `npm test`, `npm run build` sebelum commit
-   - Commit dengan format Conventional Commits
-   - Push dan buat Pull Request
+   - Commit dengan format Conventional Commits, sertakan referensi Sprint/Task di deskripsi (misal: `feat: add KV seeding (Sprint 1.1 / Task 1.1.5)`)
+   - Push dan buat Pull Request dengan judul `<type>: <short description> (Sprint X.Y / Task X.Y.Z)`
 
 5. **Setelah fitur selesai**, WAJIB update dokumentasi sebelum commit terakhir:
    - Update `docs/CURRENT_STATE.md` — catat perubahan yang dilakukan, status terbaru, dan known issues baru (jika ada)
