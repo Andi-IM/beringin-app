@@ -121,7 +121,6 @@ describe('InMemoryQuestionRepository', () => {
       })
 
       // Create progress entries in the repository
-      const { resetProgress } = await import('./in-memory.repository')
       const { InMemoryProgressRepository } =
         await import('./in-memory.repository')
       const progressRepo = new InMemoryProgressRepository()

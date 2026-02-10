@@ -186,8 +186,6 @@ describe('SessionPage', () => {
     const mockSecondQuestion = {
       ...mockQuestion,
       id: 'q2',
-      ...mockQuestion,
-      id: 'q2',
       prompt: 'What is 3+3?',
     }
 
