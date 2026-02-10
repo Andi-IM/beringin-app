@@ -102,11 +102,11 @@ describe('InMemoryQuestionRepository', () => {
     })
 
     it('should return questions that are due for review', async () => {
-      const now = new Date('2024-01-05')
       const pastDate = new Date('2024-01-03')
       const futureDate = new Date('2024-01-10')
 
       // Create test questions
+      jest.useRealTimers()
       await repository.create({
         conceptId: 'concept-due',
         prompt: 'Due Question',
@@ -120,39 +120,41 @@ describe('InMemoryQuestionRepository', () => {
         type: 'voice',
       })
 
-      // Mock progress for user
-      const mockProgress = [
-        {
-          userId: 'user-1',
-          conceptId: 'concept-due',
-          nextReview: pastDate,
-        },
-        {
-          userId: 'user-1',
-          conceptId: 'concept-future',
-          nextReview: futureDate,
-        },
-      ]
+      // Create progress entries in the repository
+      const { resetProgress } = await import('./in-memory.repository')
+      const { InMemoryProgressRepository } =
+        await import('./in-memory.repository')
+      const progressRepo = new InMemoryProgressRepository()
 
-      const originalProgress = (global as any).progress || []
-      ;(global as any).progress = mockProgress
+      await progressRepo.create({
+        userId: 'user-1',
+        conceptId: 'concept-due',
+        status: 'learning',
+        nextReview: pastDate,
+        lastInterval: 1,
+        easeFactor: 2.5,
+        history: [],
+      })
+      await progressRepo.create({
+        userId: 'user-1',
+        conceptId: 'concept-future',
+        status: 'learning',
+        nextReview: futureDate,
+        lastInterval: 1,
+        easeFactor: 2.5,
+        history: [],
+      })
 
-      try {
-        // Mock current time
-        const originalDate = global.Date
-        const mockDate = jest.fn(() => now) as any
-        mockDate.now = jest.fn(() => now.getTime())
-        global.Date = mockDate
+      // Set current time to Jan 5, between past and future dates
+      jest.useFakeTimers()
+      jest.setSystemTime(new Date('2024-01-05'))
 
-        const result = await repository.findDueQuestions('user-1')
+      const result = await repository.findDueQuestions('user-1')
 
-        expect(result).toHaveLength(1)
-        expect(result[0].conceptId).toBe('concept-due')
+      expect(result).toHaveLength(1)
+      expect(result[0].conceptId).toBe('concept-due')
 
-        global.Date = originalDate
-      } finally {
-        ;(global as any).progress = originalProgress
-      }
+      jest.useRealTimers()
     })
 
     it('should return empty array for user with no progress', async () => {
@@ -178,6 +180,7 @@ describe('InMemoryQuestionRepository', () => {
 
   describe('create', () => {
     it('should create question with generated id and timestamps', async () => {
+      jest.useRealTimers()
       const data = {
         conceptId: 'concept-1',
         prompt: 'New Question',
@@ -234,6 +237,7 @@ describe('InMemoryQuestionRepository', () => {
     })
 
     it('should update question and set new updatedAt timestamp', async () => {
+      jest.useRealTimers()
       const question = await repository.create({
         conceptId: 'concept-1',
         prompt: 'Original Question',
@@ -242,7 +246,7 @@ describe('InMemoryQuestionRepository', () => {
       })
 
       const originalUpdatedAt = question.updatedAt
-      await new Promise((resolve) => setTimeout(resolve, 10)) // Small delay
+      await new Promise((resolve) => setTimeout(resolve, 15)) // Delay to ensure different timestamps
 
       const updateData = {
         prompt: 'Updated Question',

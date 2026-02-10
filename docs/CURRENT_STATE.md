@@ -5,13 +5,13 @@
 
 ## 🎯 Status Overview
 
-| Aspek           | Status        | Catatan               |
-| --------------- | ------------- | --------------------- |
-| **Development** | ✅ Active     | MVP Phase             |
-| **Build**       | ✅ Passing    | `npm run build` OK    |
-| **Tests**       | ⚠️ Partial    | 139/146 passing (95%) |
-| **Lint**        | ✅ Passing    | 0 errors, 0 warnings  |
-| **CI/CD**       | ✅ Configured | GitHub Actions        |
+| Aspek           | Status        | Catatan                |
+| --------------- | ------------- | ---------------------- |
+| **Development** | ✅ Active     | MVP Phase              |
+| **Build**       | ✅ Passing    | `npm run build` OK     |
+| **Tests**       | ✅ Passing    | 146/146 passing (100%) |
+| **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
+| **CI/CD**       | ✅ Configured | GitHub Actions         |
 
 ## 🏗️ Implemented Features
 
@@ -35,11 +35,10 @@
 
 ### ⚠️ In Progress / Known Issues
 
-| Issue                  | Severity | Status                    |
-| ---------------------- | -------- | ------------------------- |
-| 7 test failures        | Low      | Infrastructure/Date mocks |
-| In-memory storage only | Low      | Expected for MVP          |
-| Hardcoded user ID      | Low      | MVP limitation            |
+| Issue                  | Severity | Status       |
+| ---------------------- | -------- | ------------ |
+| In-memory storage only | Low      | Expected MVP |
+| Hardcoded user ID      | Low      | MVP limit    |
 
 ## 📦 Dependencies
 
@@ -81,8 +80,8 @@ Lines      : 92.34%
 - ✅ Refactored UI to use `Registry` for Dependency Injection
 - ✅ Decoupled `app` layer from `infrastructure` layer
 - ✅ Fixed `SessionPage`, `DashboardPage`, `Layout` tests
+- ✅ Fixed infrastructure tests (Date mocking, undefined variables)
 - ✅ Added Prettier and format check to CI pipeline
-- ✅ Cleaned up ESLint warnings
 
 ### 2026-02-09
 

@@ -197,16 +197,19 @@ describe('seedData', () => {
     const firstQuestions = await questionRepository.findAll()
     const firstProgress = await progressRepository.findByUserId('demo-user')
 
-    // Seed data second time
+    expect(firstConcepts).toHaveLength(3)
+    expect(firstQuestions).toHaveLength(3)
+    expect(firstProgress).toHaveLength(3)
+
+    // Seed data second time — should add 3 more of each
     await seedData()
     const secondConcepts = await conceptRepository.findAll()
     const secondQuestions = await questionRepository.findAll()
     const secondProgress = await progressRepository.findByUserId('demo-user')
 
-    // Should have double the data (since we're using in-memory store)
-    expect(secondConcepts).toHaveLength(firstConcepts.length * 2)
-    expect(secondQuestions).toHaveLength(firstQuestions.length * 2)
-    expect(secondProgress).toHaveLength(firstProgress.length * 2)
+    expect(secondConcepts).toHaveLength(6)
+    expect(secondQuestions).toHaveLength(6)
+    expect(secondProgress).toHaveLength(6)
   })
 
   it('should maintain referential integrity between concepts and questions', async () => {

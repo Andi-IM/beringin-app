@@ -27,7 +27,7 @@ describe('InMemoryProgressRepository', () => {
     })
 
     it('should return progress when found', async () => {
-      await repository.create({
+      const createdProgress = await repository.create({
         userId: 'user-1',
         conceptId: 'concept-1',
         status: 'learning',
@@ -41,7 +41,7 @@ describe('InMemoryProgressRepository', () => {
         'user-1',
         'concept-1',
       )
-      expect(result).toEqual(progress)
+      expect(result).toEqual(createdProgress)
     })
 
     it('should return null when user does not match', async () => {
@@ -188,7 +188,7 @@ describe('InMemoryProgressRepository', () => {
     })
 
     it('should update progress and set new updatedAt timestamp', async () => {
-      await repository.create({
+      const createdProgress = await repository.create({
         userId: 'user-1',
         conceptId: 'concept-1',
         status: 'learning',
@@ -198,7 +198,7 @@ describe('InMemoryProgressRepository', () => {
         history: [],
       })
 
-      const originalUpdatedAt = progress.updatedAt
+      const originalUpdatedAt = createdProgress.updatedAt
       await new Promise((resolve) => setTimeout(resolve, 10)) // Small delay
 
       const updateData = {
@@ -210,14 +210,14 @@ describe('InMemoryProgressRepository', () => {
 
       const result = await repository.update('user-1', 'concept-1', updateData)
 
-      expect(result.userId).toBe(progress.userId)
-      expect(result.conceptId).toBe(progress.conceptId)
+      expect(result.userId).toBe(createdProgress.userId)
+      expect(result.conceptId).toBe(createdProgress.conceptId)
       expect(result.status).toBe(updateData.status)
       expect(result.nextReview).toEqual(updateData.nextReview)
       expect(result.lastInterval).toBe(updateData.lastInterval)
       expect(result.easeFactor).toBe(updateData.easeFactor)
-      expect(result.history).toEqual(progress.history) // unchanged
-      expect(result.createdAt).toEqual(progress.createdAt) // unchanged
+      expect(result.history).toEqual(createdProgress.history) // unchanged
+      expect(result.createdAt).toEqual(createdProgress.createdAt) // unchanged
       expect(result.updatedAt).not.toEqual(originalUpdatedAt)
       expect(result.updatedAt).toBeInstanceOf(Date)
     })
@@ -358,7 +358,10 @@ describe('InMemoryProgressRepository', () => {
         'user-1',
         'concept-2',
       )
-      expect(unchangedProgress).toEqual(concept2Progress)
+      expect(unchangedProgress?.status).toBe('stable')
+      expect(unchangedProgress?.nextReview).toEqual(new Date('2024-01-15'))
+      expect(unchangedProgress?.lastInterval).toBe(21)
+      expect(unchangedProgress?.easeFactor).toBe(2.8)
 
       // Check that concept 1 progress is updated
       const updatedProgress = await repository.findByUserAndConcept(
