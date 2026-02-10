@@ -9,7 +9,15 @@ export const runtime = 'edge'
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const userId = searchParams.get('userId') || 'demo-user'
+    const { userId: sessionUserId } = await Registry.getCurrentUser()
+    const userId = sessionUserId || searchParams.get('userId')
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'User ID is required' },
+        { status: 400 },
+      )
+    }
 
     const data = await Registry.getDashboardData(userId)
     return NextResponse.json(data)

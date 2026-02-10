@@ -103,4 +103,29 @@ export const Registry = {
     const { progressRepo } = await this.getRepositories()
     return submitAnswer(data, progressRepo)
   },
+
+  // --- Authentication Methods ---
+
+  async getCurrentUser() {
+    const { getCurrentUser } =
+      await import('@/application/usecases/getCurrentUser.usecase')
+    return getCurrentUser()
+  },
+
+  async signIn(data: { email: string; password: string }) {
+    const { signIn } = await import('@/application/usecases/signIn.usecase')
+    return signIn(data)
+  },
+
+  async signUp(data: { email: string; password: string }) {
+    const { signUp } = await import('@/application/usecases/signUp.usecase')
+    return signUp(data)
+  },
+
+  async signOut() {
+    const { createClient } =
+      await import('@/infrastructure/auth/supabase-client')
+    const supabase = await createClient()
+    return supabase.auth.signOut()
+  },
 }

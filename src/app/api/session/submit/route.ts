@@ -11,8 +11,9 @@ export async function POST(request: Request) {
     const body = await request.json()
 
     // Validation
+    const { userId: sessionUserId } = await Registry.getCurrentUser()
     const {
-      userId,
+      userId: bodyUserId,
       conceptId,
       questionId,
       userAnswer,
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
       confidence,
       responseTime,
     } = body
+    const userId = sessionUserId || bodyUserId
     if (
       !userId ||
       !conceptId ||

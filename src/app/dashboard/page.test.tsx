@@ -67,7 +67,7 @@ describe('DashboardPage', () => {
     })
 
     await waitFor(() => {
-      expect(mockFetch).toHaveBeenCalledWith('/api/dashboard?userId=demo-user')
+      expect(mockFetch).toHaveBeenCalledWith('/api/dashboard')
     })
   })
 
