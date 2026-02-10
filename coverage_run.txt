@@ -1,0 +1,200 @@
+﻿node.exe : PASS src/domain/entities/question.entity.test.ts
+At line:1 char:1
++ & "C:\nvm4w\nodejs/node.exe" "C:\nvm4w\nodejs/node_modules/npm/bin/np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PASS src/domain....entity.test.ts:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+PASS src/application/usecases/getConceptStatus.usecase.test.ts
+PASS src/application/usecases/getNextQuestion.usecase.test.ts
+PASS src/domain/policies/scheduler.policy.test.ts
+PASS src/app/layout.test.tsx
+  ΓùÅ Console
+
+    console.error
+      In HTML, <html> cannot be a child of <div>.
+      This will cause a hydration error.
+
+    [0m [90m 11 |[39m describe([32m'RootLayout'[39m[33m,[39m () [33m=>[39m {
+     [90m 12 |[39m   it([32m'renders with correct HTML structure'[39m[33m,[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 13 |[39m     [36mconst[39m { container } [33m=[39m render(
+     [90m    |[39m                                 [31m[1m^[22m[39m
+     [90m 14 |[39m       [33m<[39m[33mRootLayout[39m[33m>[39m
+     [90m 15 |[39m         [33m<[39m[33mdiv[39m[33m>[39m[33mTest[39m 
+[33mChildren[39m[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+     [90m 16 |[39m       [33m<[39m[33m/[39m[33mRootLayout[39m[33m>[39m[33m,[39m[0m
+
+      at validateDOMNesting (node_modules/react-dom/cjs/react-dom-client.development.js:2598:19)
+      at resolveSingletonInstance (node_modules/react-dom/cjs/react-dom-client.development.js:22598:9)
+      at completeWork (node_modules/react-dom/cjs/react-dom-client.development.js:12525:29)
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom-client.development.js:17777:19)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom-client.development.js:17658:11)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom-client.development.js:17469:41)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom-client.development.js:17450:11)
+      at performWorkOnRoot (node_modules/react-dom/cjs/react-dom-client.development.js:16504:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-dom/cjs/react-dom-client.development.js:18957:7)
+      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
+      at process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
+      at node_modules/@testing-library/react/dist/act-compat.js:46:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
+      at Object.<anonymous> (src/app/layout.test.tsx:13:33)
+
+PASS src/domain/entities/user-progress.entity.test.ts
+PASS src/infrastructure/repositories/in-memory.repository.test.ts
+PASS src/infrastructure/repositories/in-memory-question.repository.test.ts
+PASS src/infrastructure/repositories/seed.test.ts
+PASS src/domain/entities/concept.entity.test.ts
+PASS src/infrastructure/repositories/in-memory-progress.repository.test.ts
+PASS src/application/usecases/submitAnswer.usecase.test.ts
+PASS src/app/page.test.tsx
+PASS src/app/dashboard/page.test.tsx
+  ΓùÅ Console
+
+    console.error
+      An update to DashboardPage inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at 
+https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 26 |[39m   [36masync[39m [36mfunction[39m loadDashboard() {
+     [90m 27 |[39m     [36mconst[39m result [33m=[39m [36mawait[39m [33mRegistry[39m[33m.[39mgetDashboardData(userId)
+    [31m[1m>[22m[39m[90m 28 |[39m     setConcepts(result[33m.[39mconcepts)
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 29 |[39m     setStats(result[33m.[39mstats)
+     [90m 30 |[39m   }
+     [90m 31 |[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setConcepts (src/app/dashboard/page.tsx:28:5)
+
+    console.error
+      An update to DashboardPage inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at 
+https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 27 |[39m     [36mconst[39m result [33m=[39m [36mawait[39m [33mRegistry[39m[33m.[39mgetDashboardData(userId)
+     [90m 28 |[39m     setConcepts(result[33m.[39mconcepts)
+    [31m[1m>[22m[39m[90m 29 |[39m     setStats(result[33m.[39mstats)
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 30 |[39m   }
+     [90m 31 |[39m
+     [90m 32 |[39m   [36mfunction[39m getStatusColor(status[33m:[39m string) {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setStats (src/app/dashboard/page.tsx:29:5)
+
+    console.error
+      An update to DashboardPage inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at 
+https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 26 |[39m   [36masync[39m [36mfunction[39m loadDashboard() {
+     [90m 27 |[39m     [36mconst[39m result [33m=[39m [36mawait[39m [33mRegistry[39m[33m.[39mgetDashboardData(userId)
+    [31m[1m>[22m[39m[90m 28 |[39m     setConcepts(result[33m.[39mconcepts)
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 29 |[39m     setStats(result[33m.[39mstats)
+     [90m 30 |[39m   }
+     [90m 31 |[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setConcepts (src/app/dashboard/page.tsx:28:5)
+
+    console.error
+      An update to DashboardPage inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at 
+https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 27 |[39m     [36mconst[39m result [33m=[39m [36mawait[39m [33mRegistry[39m[33m.[39mgetDashboardData(userId)
+     [90m 28 |[39m     setConcepts(result[33m.[39mconcepts)
+    [31m[1m>[22m[39m[90m 29 |[39m     setStats(result[33m.[39mstats)
+     [90m    |[39m     [31m[1m^[22m[39m
+     [90m 30 |[39m   }
+     [90m 31 |[39m
+     [90m 32 |[39m   [36mfunction[39m getStatusColor(status[33m:[39m string) {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setStats (src/app/dashboard/page.tsx:29:5)
+
+PASS src/app/session/page.test.tsx (5.89 s)
+---------------------------------|---------|----------|---------|---------|-------------------
+File                             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------------------------|---------|----------|---------|---------|-------------------
+All files                        |   88.01 |    80.89 |   84.81 |   89.67 |                   
+ src                             |   35.29 |      100 |    12.5 |   41.66 |                   
+  registry.ts                    |   35.29 |      100 |    12.5 |   41.66 | 13-44             
+ src/app                         |     100 |       75 |     100 |     100 |                   
+  layout.tsx                     |     100 |      100 |     100 |     100 |                   
+  page.tsx                       |     100 |       75 |     100 |     100 | 5                 
+ src/app/dashboard               |      72 |    46.15 |     100 |      72 |                   
+  page.tsx                       |      72 |    46.15 |     100 |      72 | 37,41-43,52,56-60 
+ src/app/session                 |   97.05 |    95.45 |     100 |     100 |                   
+  page.tsx                       |   97.05 |    95.45 |     100 |     100 | 39                
+ src/application/usecases        |     100 |      100 |     100 |     100 |                   
+  getConceptStatus.usecase.ts    |     100 |      100 |     100 |     100 |                   
+  getNextQuestion.usecase.ts     |     100 |      100 |     100 |     100 |                   
+  submitAnswer.usecase.ts        |     100 |      100 |     100 |     100 |                   
+ src/domain/policies             |     100 |      100 |     100 |     100 |                   
+  scheduler.policy.ts            |     100 |      100 |     100 |     100 |                   
+ src/infrastructure/repositories |   90.65 |    76.47 |   88.37 |   90.58 |                   
+  in-memory.repository.ts        |   89.24 |    76.47 |   88.09 |   88.73 | 68-89             
+  seed.ts                        |     100 |      100 |     100 |     100 |                   
+---------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 15 passed, 15 total
+Tests:       146 passed, 146 total
+Snapshots:   0 total
+Time:        9.811 s
+Ran all test suites.

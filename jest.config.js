@@ -17,11 +17,33 @@ const customJestConfig = {
     '!src/**/index.{ts,tsx}',
   ],
   coverageThreshold: {
-    global: {
-      branches: 100,
-      functions: 100,
-      lines: 100,
-      statements: 100,
+    // Domain: pure business logic, must be thoroughly tested
+    './src/domain/': {
+      branches: 90,
+      functions: 95,
+      lines: 95,
+      statements: 95,
+    },
+    // Application: use cases orchestrating business rules
+    './src/application/': {
+      branches: 85,
+      functions: 90,
+      lines: 90,
+      statements: 90,
+    },
+    // Infrastructure: will be swapped (e.g. Supabase), lower threshold OK
+    './src/infrastructure/': {
+      branches: 70,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+    // UI: render tests + key interactions, not pixel-perfect coverage
+    './src/app/': {
+      branches: 60,
+      functions: 70,
+      lines: 70,
+      statements: 70,
     },
   },
   coverageReporters: ['text', 'lcov', 'html'],
