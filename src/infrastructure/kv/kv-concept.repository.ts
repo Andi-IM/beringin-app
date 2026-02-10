@@ -13,7 +13,6 @@ import type { ProgressRepository } from '../repositories/progress.repository'
 import type { EdgeOneKV } from './edgeone-kv.types'
 
 const CONCEPT_PREFIX = 'concept:'
-const CONCEPT_INDEX_KEY = 'concepts_index'
 
 function serializeConcept(concept: Concept): string {
   return JSON.stringify({
@@ -42,15 +41,15 @@ export class KVConceptRepository implements ConceptRepository {
   }
 
   async findAll(): Promise<Concept[]> {
-    const indexData = await this.kv.get(CONCEPT_INDEX_KEY)
-    if (!indexData) return []
-
-    const ids = JSON.parse(indexData) as string[]
     const concepts: Concept[] = []
 
-    for (const id of ids) {
-      const concept = await this.findById(id)
-      if (concept) concepts.push(concept)
+    const { keys } = await this.kv.list({ prefix: CONCEPT_PREFIX })
+
+    for (const { name } of keys) {
+      const data = await this.kv.get(name)
+      if (data) {
+        concepts.push(deserializeConcept(data))
+      }
     }
 
     return concepts
@@ -76,12 +75,6 @@ export class KVConceptRepository implements ConceptRepository {
       serializeConcept(concept),
     )
 
-    // Update index
-    const indexData = await this.kv.get(CONCEPT_INDEX_KEY)
-    const ids: string[] = indexData ? (JSON.parse(indexData) as string[]) : []
-    ids.push(concept.id)
-    await this.kv.put(CONCEPT_INDEX_KEY, JSON.stringify(ids))
-
     return concept
   }
 
@@ -101,13 +94,6 @@ export class KVConceptRepository implements ConceptRepository {
 
   async delete(id: string): Promise<void> {
     await this.kv.delete(`${CONCEPT_PREFIX}${id}`)
-
-    // Update index
-    const indexData = await this.kv.get(CONCEPT_INDEX_KEY)
-    if (indexData) {
-      const ids = (JSON.parse(indexData) as string[]).filter((i) => i !== id)
-      await this.kv.put(CONCEPT_INDEX_KEY, JSON.stringify(ids))
-    }
   }
 }
 

@@ -7,8 +7,11 @@ import type { ProgressRepository } from '../repositories/progress.repository'
 import type { EdgeOneKV } from './edgeone-kv.types'
 
 const QUESTION_PREFIX = 'question:'
-const QUESTION_INDEX_KEY = 'questions_index'
 const CONCEPT_QUESTIONS_PREFIX = 'concept_questions:'
+
+function conceptQuestionKey(conceptId: string, questionId: string): string {
+  return `${CONCEPT_QUESTIONS_PREFIX}${conceptId}:${questionId}`
+}
 
 function serializeQuestion(question: Question): string {
   return JSON.stringify({
@@ -40,32 +43,34 @@ export class KVQuestionRepository implements QuestionRepository {
   }
 
   async findAll(): Promise<Question[]> {
-    const indexData = await this.kv.get(QUESTION_INDEX_KEY)
-    if (!indexData) return []
-
-    const ids = JSON.parse(indexData) as string[]
     const questions: Question[] = []
 
-    for (const id of ids) {
-      const question = await this.findById(id)
-      if (question) questions.push(question)
+    const { keys } = await this.kv.list({ prefix: QUESTION_PREFIX })
+
+    for (const { name } of keys) {
+      const data = await this.kv.get(name)
+      if (data) {
+        questions.push(deserializeQuestion(data))
+      }
     }
 
     return questions
   }
 
   async findByConceptId(conceptId: string): Promise<Question[]> {
-    const indexData = await this.kv.get(
-      `${CONCEPT_QUESTIONS_PREFIX}${conceptId}`,
-    )
-    if (!indexData) return []
-
-    const ids = JSON.parse(indexData) as string[]
     const questions: Question[] = []
 
-    for (const id of ids) {
-      const question = await this.findById(id)
-      if (question) questions.push(question)
+    const { keys } = await this.kv.list({
+      prefix: `${CONCEPT_QUESTIONS_PREFIX}${conceptId}:`,
+    })
+
+    for (const { name } of keys) {
+      const parts = name.split(':')
+      const questionId = parts[parts.length - 1]
+      const question = await this.findById(questionId)
+      if (question) {
+        questions.push(question)
+      }
     }
 
     return questions
@@ -102,24 +107,7 @@ export class KVQuestionRepository implements QuestionRepository {
       serializeQuestion(question),
     )
 
-    // Update global index
-    const indexData = await this.kv.get(QUESTION_INDEX_KEY)
-    const ids: string[] = indexData ? (JSON.parse(indexData) as string[]) : []
-    ids.push(question.id)
-    await this.kv.put(QUESTION_INDEX_KEY, JSON.stringify(ids))
-
-    // Update concept-specific index
-    const conceptIndexData = await this.kv.get(
-      `${CONCEPT_QUESTIONS_PREFIX}${question.conceptId}`,
-    )
-    const conceptIds: string[] = conceptIndexData
-      ? (JSON.parse(conceptIndexData) as string[])
-      : []
-    conceptIds.push(question.id)
-    await this.kv.put(
-      `${CONCEPT_QUESTIONS_PREFIX}${question.conceptId}`,
-      JSON.stringify(conceptIds),
-    )
+    await this.kv.put(conceptQuestionKey(question.conceptId, question.id), '1')
 
     return question
   }
@@ -142,27 +130,8 @@ export class KVQuestionRepository implements QuestionRepository {
     const existing = await this.findById(id)
     await this.kv.delete(`${QUESTION_PREFIX}${id}`)
 
-    // Update global index
-    const indexData = await this.kv.get(QUESTION_INDEX_KEY)
-    if (indexData) {
-      const ids = (JSON.parse(indexData) as string[]).filter((i) => i !== id)
-      await this.kv.put(QUESTION_INDEX_KEY, JSON.stringify(ids))
-    }
-
-    // Update concept-specific index
     if (existing) {
-      const conceptIndexData = await this.kv.get(
-        `${CONCEPT_QUESTIONS_PREFIX}${existing.conceptId}`,
-      )
-      if (conceptIndexData) {
-        const conceptIds = (JSON.parse(conceptIndexData) as string[]).filter(
-          (i) => i !== id,
-        )
-        await this.kv.put(
-          `${CONCEPT_QUESTIONS_PREFIX}${existing.conceptId}`,
-          JSON.stringify(conceptIds),
-        )
-      }
+      await this.kv.delete(conceptQuestionKey(existing.conceptId, id))
     }
   }
 }

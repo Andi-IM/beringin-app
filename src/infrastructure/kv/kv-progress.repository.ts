@@ -6,7 +6,6 @@ import type { ProgressRepository } from '../repositories/progress.repository'
 import type { EdgeOneKV } from './edgeone-kv.types'
 
 const PROGRESS_PREFIX = 'progress:'
-const USER_PROGRESS_INDEX_PREFIX = 'user_progress:'
 
 function serializeProgress(progress: UserProgress): string {
   return JSON.stringify({
@@ -56,17 +55,17 @@ export class KVProgressRepository implements ProgressRepository {
   }
 
   async findByUserId(userId: string): Promise<UserProgress[]> {
-    const indexData = await this.kv.get(
-      `${USER_PROGRESS_INDEX_PREFIX}${userId}`,
-    )
-    if (!indexData) return []
-
-    const conceptIds = JSON.parse(indexData) as string[]
     const results: UserProgress[] = []
 
-    for (const conceptId of conceptIds) {
-      const progress = await this.findByUserAndConcept(userId, conceptId)
-      if (progress) results.push(progress)
+    const { keys } = await this.kv.list({
+      prefix: `${PROGRESS_PREFIX}${userId}:`,
+    })
+
+    for (const { name } of keys) {
+      const data = await this.kv.get(name)
+      if (data) {
+        results.push(deserializeProgress(data))
+      }
     }
 
     return results
@@ -85,21 +84,6 @@ export class KVProgressRepository implements ProgressRepository {
       progressKey(data.userId, data.conceptId),
       serializeProgress(userProgress),
     )
-
-    // Update user-specific index
-    const indexData = await this.kv.get(
-      `${USER_PROGRESS_INDEX_PREFIX}${data.userId}`,
-    )
-    const conceptIds: string[] = indexData
-      ? (JSON.parse(indexData) as string[])
-      : []
-    if (!conceptIds.includes(data.conceptId)) {
-      conceptIds.push(data.conceptId)
-      await this.kv.put(
-        `${USER_PROGRESS_INDEX_PREFIX}${data.userId}`,
-        JSON.stringify(conceptIds),
-      )
-    }
 
     return userProgress
   }
@@ -127,19 +111,5 @@ export class KVProgressRepository implements ProgressRepository {
 
   async delete(userId: string, conceptId: string): Promise<void> {
     await this.kv.delete(progressKey(userId, conceptId))
-
-    // Update user-specific index
-    const indexData = await this.kv.get(
-      `${USER_PROGRESS_INDEX_PREFIX}${userId}`,
-    )
-    if (indexData) {
-      const conceptIds = (JSON.parse(indexData) as string[]).filter(
-        (id) => id !== conceptId,
-      )
-      await this.kv.put(
-        `${USER_PROGRESS_INDEX_PREFIX}${userId}`,
-        JSON.stringify(conceptIds),
-      )
-    }
   }
 }
