@@ -12,7 +12,9 @@ export async function POST() {
     await Registry.seedInitialData()
     return NextResponse.json({ message: 'Seed data created successfully' })
   } catch (error) {
-    console.error('Seed API Error:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Seed API Error:', error)
+    }
     return NextResponse.json({ error: 'Failed to seed data' }, { status: 500 })
   }
 }

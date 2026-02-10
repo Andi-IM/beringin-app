@@ -22,7 +22,9 @@ export async function GET(request: Request) {
     const data = await Registry.getDashboardData(userId)
     return NextResponse.json(data)
   } catch (error) {
-    console.error('Dashboard API Error:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Dashboard API Error:', error)
+    }
     return NextResponse.json(
       { error: 'Failed to fetch dashboard data' },
       { status: 500 },

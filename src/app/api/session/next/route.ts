@@ -22,7 +22,9 @@ export async function GET(request: Request) {
     const question = await Registry.getNextQuestion(userId)
     return NextResponse.json(question)
   } catch (error) {
-    console.error('Next Question API Error:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Next Question API Error:', error)
+    }
     return NextResponse.json(
       { error: 'Failed to fetch next question' },
       { status: 500 },
