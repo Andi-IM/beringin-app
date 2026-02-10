@@ -55,8 +55,8 @@ git commit -m "feat: deskripsi singkat"
 git push origin feature/nama-fitur
 # (via GitHub UI: target branch 'dev')
 
-# 5. Merge dev ke main (Deployment)
-# Setelah PR di-merge ke dev, dev di-merge ke main untuk trigger deployment.
+# 5. Proses Rilis (Deployment)
+# Setelah beberapa fitur terintegrasi di 'dev', maintainer akan menggabungkannya ke 'main' untuk memicu deployment otomatis.
 ```
 
 ### Commit Message Format
