@@ -1,5 +1,7 @@
 import { createClient } from '@/infrastructure/auth/supabase-browser'
 
+const AUTH_CALLBACK_PATH = '/auth/callback'
+
 const getSupabase = () => createClient()
 
 export const AuthApi = {
@@ -16,7 +18,7 @@ export const AuthApi = {
       email: data.email,
       password: data.password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${window.location.origin}${AUTH_CALLBACK_PATH}`,
       },
     })
     if (error) return { success: false, error: error.message }
@@ -34,7 +36,7 @@ export const AuthApi = {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}${AUTH_CALLBACK_PATH}`,
       },
     })
     if (error) return { success: false, error: error.message }
