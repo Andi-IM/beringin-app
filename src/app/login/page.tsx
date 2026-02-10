@@ -34,6 +34,7 @@ export default function LoginPage() {
   }
 
   const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async () => {
     setLoading(true)
     setError(null)
     try {
@@ -41,10 +42,9 @@ export default function LoginPage() {
       if (!result.success) {
         setError(result.error || 'Gagal masuk dengan Google')
       }
-      // Redirect happens automatically via Supabase
     } catch (err) {
       console.error('Google login error:', err)
-      setError('Terjadi kesalahan google yang tidak terduga')
+      setError('Terjadi kesalahan tak terduga')
     } finally {
       setLoading(false)
     }
