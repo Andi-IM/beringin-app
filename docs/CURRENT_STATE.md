@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-09
+> **Last Updated**: 2026-02-10
 
 ## 🎯 Status Overview
 
@@ -9,8 +9,8 @@
 | --------------- | ------------- | --------------------- |
 | **Development** | ✅ Active     | MVP Phase             |
 | **Build**       | ✅ Passing    | `npm run build` OK    |
-| **Tests**       | ⚠️ Partial    | 131/146 passing (90%) |
-| **Lint**        | ✅ Passing    | 0 errors, 18 warnings |
+| **Tests**       | ⚠️ Partial    | 139/146 passing (95%) |
+| **Lint**        | ✅ Passing    | 0 errors, 0 warnings  |
 | **CI/CD**       | ✅ Configured | GitHub Actions        |
 
 ## 🏗️ Implemented Features
@@ -29,16 +29,17 @@
 ✅ Domain layer bebas framework
 ✅ Repository pattern untuk data access
 ✅ Use Case pattern untuk business logic
+✅ Registry pattern untuk Dependency Injection
 ✅ ESLint rules untuk enforce architecture
 ```
 
 ### ⚠️ In Progress / Known Issues
 
-| Issue                  | Severity | Status                     |
-| ---------------------- | -------- | -------------------------- |
-| 15 test failures       | Medium   | React async/cleanup issues |
-| In-memory storage only | Low      | Expected for MVP           |
-| Hardcoded user ID      | Low      | MVP limitation             |
+| Issue                  | Severity | Status                    |
+| ---------------------- | -------- | ------------------------- |
+| 7 test failures        | Low      | Infrastructure/Date mocks |
+| In-memory storage only | Low      | Expected for MVP          |
+| Hardcoded user ID      | Low      | MVP limitation            |
 
 ## 📦 Dependencies
 
@@ -63,15 +64,25 @@ Lines      : 92.34%
 
 ## 🔧 Available Scripts
 
-| Command           | Description              |
-| ----------------- | ------------------------ |
-| `npm run dev`     | Start development server |
-| `npm run build`   | Production build         |
-| `npm run lint`    | Run ESLint               |
-| `npm test`        | Run Jest tests           |
-| `npm run test:ci` | CI mode with coverage    |
+| Command                | Description              |
+| ---------------------- | ------------------------ |
+| `npm run dev`          | Start development server |
+| `npm run build`        | Production build         |
+| `npm run lint`         | Run ESLint               |
+| `npm run format`       | Format code (Prettier)   |
+| `npm run check-format` | Check code format        |
+| `npm test`             | Run Jest tests           |
+| `npm run test:ci`      | CI mode with coverage    |
 
 ## 📝 Recent Changes
+
+### 2026-02-10
+
+- ✅ Refactored UI to use `Registry` for Dependency Injection
+- ✅ Decoupled `app` layer from `infrastructure` layer
+- ✅ Fixed `SessionPage`, `DashboardPage`, `Layout` tests
+- ✅ Added Prettier and format check to CI pipeline
+- ✅ Cleaned up ESLint warnings
 
 ### 2026-02-09
 

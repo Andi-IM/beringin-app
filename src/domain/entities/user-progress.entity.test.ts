@@ -128,9 +128,16 @@ describe('UserProgress Entity', () => {
 
   describe('Status Integration', () => {
     it('should work with all concept statuses', () => {
-      const statuses: ConceptStatus[] = ['new', 'learning', 'reviewing', 'stable', 'fragile', 'lapsed']
+      const statuses: ConceptStatus[] = [
+        'new',
+        'learning',
+        'reviewing',
+        'stable',
+        'fragile',
+        'lapsed',
+      ]
 
-      statuses.forEach(status => {
+      statuses.forEach((status) => {
         const userProgress: UserProgress = {
           userId: 'user-test',
           conceptId: 'concept-test',

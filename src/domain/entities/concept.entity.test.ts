@@ -99,7 +99,7 @@ describe('Concept Entity', () => {
         'lapsed',
       ]
 
-      validStatuses.forEach(status => {
+      validStatuses.forEach((status) => {
         const concept: ConceptWithStatus = {
           id: `concept-${status}`,
           title: `Concept ${status}`,

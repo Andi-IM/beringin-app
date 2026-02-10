@@ -114,7 +114,7 @@ describe('Question Entity', () => {
     it('should accept all valid question types', () => {
       const validTypes: QuestionType[] = ['text', 'voice', 'cloze']
 
-      validTypes.forEach(type => {
+      validTypes.forEach((type) => {
         const question: Question = {
           id: `q-${type}`,
           conceptId: 'concept-test',

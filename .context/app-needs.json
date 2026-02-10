@@ -64,11 +64,7 @@
     "recall_confidence_ratio": "Confident vs unsure answers",
     "time_to_retrieve": "Average response time per concept",
     "error_recurrence_rate": "Frequency of repeated mistakes",
-    "concept_learning_status": [
-      "not_learned",
-      "fragile",
-      "stable"
-    ]
+    "concept_learning_status": ["not_learned", "fragile", "stable"]
   },
   "learning_status_rules": {
     "stable": {

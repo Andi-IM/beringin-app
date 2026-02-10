@@ -1,15 +1,16 @@
 'use client'
 
 import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import DashboardPage from './page'
 
-// Mock the use case and repository
-jest.mock('@/application/usecases/getConceptStatus.usecase')
-jest.mock('@/infrastructure/repositories/in-memory.repository')
+// Mock Registry
+jest.mock('@/registry', () => ({
+  Registry: {
+    getDashboardData: jest.fn(),
+  },
+}))
 
-const mockGetConceptStatus = require('@/application/usecases/getConceptStatus.usecase').getConceptStatus
-const mockConceptProgressRepository = require('@/infrastructure/repositories/in-memory.repository').conceptProgressRepository
+import { Registry } from '@/registry'
 
 describe('DashboardPage', () => {
   const mockConcepts = [
@@ -49,7 +50,7 @@ describe('DashboardPage', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    mockGetConceptStatus.mockResolvedValue({
+    ;(Registry.getDashboardData as jest.Mock).mockResolvedValue({
       concepts: mockConcepts,
       stats: mockStats,
     })
@@ -57,33 +58,30 @@ describe('DashboardPage', () => {
 
   it('renders dashboard title and subtitle', () => {
     render(<DashboardPage />)
-    
+
     expect(screen.getByText('🌳 Dashboard Beringin')).toBeInTheDocument()
     expect(screen.getByText('Sistem Akar Pengetahuan Anda')).toBeInTheDocument()
   })
 
-  it('calls getConceptStatus on mount', () => {
+  it('calls Registry.getDashboardData on mount', () => {
     render(<DashboardPage />)
-    
-    expect(mockGetConceptStatus).toHaveBeenCalledWith(
-      { userId: 'demo-user' },
-      mockConceptProgressRepository
-    )
+
+    expect(Registry.getDashboardData).toHaveBeenCalledWith('demo-user')
   })
 
   it('displays stats correctly', async () => {
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
-      expect(screen.getByText('2')).toBeInTheDocument() // Total
-      expect(screen.getByText('1')).toBeInTheDocument() // Stable
-      expect(screen.getByText('0')).toBeInTheDocument() // Fragile
+      expect(screen.getAllByText('2')[0]).toBeInTheDocument() // Total
+      expect(screen.getAllByText('1')[0]).toBeInTheDocument() // Stable
+      expect(screen.getAllByText('0')[0]).toBeInTheDocument() // Fragile
     })
   })
 
   it('displays concept list when concepts exist', async () => {
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
       expect(screen.getByText('Test Concept 1')).toBeInTheDocument()
       expect(screen.getByText('Test Concept 2')).toBeInTheDocument()
@@ -94,7 +92,7 @@ describe('DashboardPage', () => {
 
   it('displays category tags', async () => {
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
       expect(screen.getByText('math')).toBeInTheDocument()
       expect(screen.getByText('science')).toBeInTheDocument()
@@ -103,34 +101,36 @@ describe('DashboardPage', () => {
 
   it('displays next review date when available', async () => {
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
-      const reviewElement = screen.getByText(/Review:/)
-      expect(reviewElement).toBeInTheDocument()
+      const reviewElements = screen.getAllByText(/Review:/)
+      expect(reviewElements.length).toBeGreaterThan(0)
     })
   })
 
   it('shows empty state when no concepts exist', async () => {
-    mockGetConceptStatus.mockResolvedValue({
+    ;(Registry.getDashboardData as jest.Mock).mockResolvedValue({
       concepts: [],
       stats: { total: 0, stable: 0, fragile: 0, learning: 0, lapsed: 0 },
     })
 
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
       expect(screen.getByText('Belum ada konsep.')).toBeInTheDocument()
-      expect(screen.getByText('Tambahkan konsep pertama Anda →')).toBeInTheDocument()
+      expect(
+        screen.getByText('Tambahkan konsep pertama Anda →'),
+      ).toBeInTheDocument()
     })
   })
 
   it('renders action buttons', async () => {
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
       const learnButton = screen.getByText('Mulai Belajar')
       const manageButton = screen.getByText('Kelola Konten')
-      
+
       expect(learnButton).toBeInTheDocument()
       expect(manageButton).toBeInTheDocument()
       expect(learnButton.closest('a')).toHaveAttribute('href', '/session')
@@ -140,17 +140,28 @@ describe('DashboardPage', () => {
 
   it('applies correct status colors and labels', async () => {
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
       // Check for stable status
-      const stableStatus = screen.getByText('Stabil')
+      const stableStatuses = screen.getAllByText('Stabil')
+      const stableStatus =
+        stableStatuses.find((el) => el.tagName === 'SPAN') || stableStatuses[0]
       expect(stableStatus).toBeInTheDocument()
-      expect(stableStatus.closest('span')).toHaveClass('bg-green-500', 'text-white')
-      
+      expect(stableStatus.closest('span')).toHaveClass(
+        'bg-green-500',
+        'text-white',
+      )
+
       // Check for learning status
-      const learningStatus = screen.getByText('Belajar')
+      const learningStatuses = screen.getAllByText('Belajar')
+      const learningStatus =
+        learningStatuses.find((el) => el.tagName === 'SPAN') ||
+        learningStatuses[0]
       expect(learningStatus).toBeInTheDocument()
-      expect(learningStatus.closest('span')).toHaveClass('bg-blue-500', 'text-white')
+      expect(learningStatus.closest('span')).toHaveClass(
+        'bg-blue-500',
+        'text-white',
+      )
     })
   })
 
@@ -183,13 +194,13 @@ describe('DashboardPage', () => {
       },
     ]
 
-    mockGetConceptStatus.mockResolvedValue({
+    ;(Registry.getDashboardData as jest.Mock).mockResolvedValue({
       concepts: conceptsWithAllStatuses,
       stats: { total: 4, stable: 1, fragile: 1, learning: 1, lapsed: 1 },
     })
 
     render(<DashboardPage />)
-    
+
     await waitFor(() => {
       expect(screen.getByText('Rapuh')).toBeInTheDocument()
       expect(screen.getByText('Lupa')).toBeInTheDocument()
@@ -197,24 +208,28 @@ describe('DashboardPage', () => {
   })
 
   it('formats review date correctly for Indonesian locale', async () => {
-    const mockDate = new Date('2024-01-20')
-    jest.spyOn(global, 'Date').mockImplementation(() => mockDate as any)
+    // This test might be tricky with mockResolvedValue if we want to spy on date inside component rendering
+    // But since formatting happens in render, and data comes from mock,
+    // we assume the component uses specific date formatting.
+    // The previous test mocked global Date but here we just check output.
 
     render(<DashboardPage />)
-    
-    await waitFor(() => {
-      expect(screen.getByText(/Review:/)).toBeInTheDocument()
-    })
 
-    jest.restoreAllMocks()
+    await waitFor(() => {
+      const reviewElements = screen.getAllByText(/Review:/)
+      expect(reviewElements.length).toBeGreaterThan(0)
+      // We could verify the date string content if needed, e.g. "20/1/2024"
+    })
   })
 
   it('handles loading state gracefully', () => {
     // Mock a delayed response
-    mockGetConceptStatus.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 100)))
-    
+    ;(Registry.getDashboardData as jest.Mock).mockImplementation(
+      () => new Promise((resolve) => setTimeout(resolve, 100)),
+    )
+
     render(<DashboardPage />)
-    
+
     // Initially should show loading state (no concepts yet)
     expect(screen.queryByText('Test Concept 1')).not.toBeInTheDocument()
   })

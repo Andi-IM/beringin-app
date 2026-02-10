@@ -1,6 +1,9 @@
 import type { ConceptWithStatus } from '@/domain/entities/concept.entity'
 import type { ConceptProgressRepository } from '@/infrastructure/repositories/concept.repository'
-import { getConceptStatus, type GetConceptStatusInput, type GetConceptStatusOutput } from './getConceptStatus.usecase'
+import {
+  getConceptStatus,
+  type GetConceptStatusInput,
+} from './getConceptStatus.usecase'
 
 describe('getConceptStatus Use Case', () => {
   const mockConceptProgressRepo: jest.Mocked<ConceptProgressRepository> = {
@@ -56,11 +59,15 @@ describe('getConceptStatus Use Case', () => {
       },
     ]
 
-    mockConceptProgressRepo.findConceptsWithStatus.mockResolvedValue(mockConcepts)
+    mockConceptProgressRepo.findConceptsWithStatus.mockResolvedValue(
+      mockConcepts,
+    )
 
     const result = await getConceptStatus(input, mockConceptProgressRepo)
 
-    expect(mockConceptProgressRepo.findConceptsWithStatus).toHaveBeenCalledWith('user-1')
+    expect(mockConceptProgressRepo.findConceptsWithStatus).toHaveBeenCalledWith(
+      'user-1',
+    )
     expect(result).toEqual({
       concepts: mockConcepts,
       stats: {
@@ -124,7 +131,9 @@ describe('getConceptStatus Use Case', () => {
       },
     ]
 
-    mockConceptProgressRepo.findConceptsWithStatus.mockResolvedValue(mockConcepts)
+    mockConceptProgressRepo.findConceptsWithStatus.mockResolvedValue(
+      mockConcepts,
+    )
 
     const result = await getConceptStatus(input, mockConceptProgressRepo)
 
@@ -138,14 +147,66 @@ describe('getConceptStatus Use Case', () => {
     }
 
     const mockConcepts: ConceptWithStatus[] = [
-      { id: 'c1', title: 'C1', description: 'D1', category: 'cat1', createdAt: new Date(), updatedAt: new Date(), status: 'stable', easeFactor: 2.8, lastInterval: 21 },
-      { id: 'c2', title: 'C2', description: 'D2', category: 'cat2', createdAt: new Date(), updatedAt: new Date(), status: 'fragile', easeFactor: 2.3, lastInterval: 7 },
-      { id: 'c3', title: 'C3', description: 'D3', category: 'cat3', createdAt: new Date(), updatedAt: new Date(), status: 'learning', easeFactor: 2.5, lastInterval: 1 },
-      { id: 'c4', title: 'C4', description: 'D4', category: 'cat4', createdAt: new Date(), updatedAt: new Date(), status: 'lapsed', easeFactor: 2.1, lastInterval: 3 },
-      { id: 'c5', title: 'C5', description: 'D5', category: 'cat5', createdAt: new Date(), updatedAt: new Date(), status: 'reviewing', easeFactor: 2.6, lastInterval: 14 },
+      {
+        id: 'c1',
+        title: 'C1',
+        description: 'D1',
+        category: 'cat1',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: 'stable',
+        easeFactor: 2.8,
+        lastInterval: 21,
+      },
+      {
+        id: 'c2',
+        title: 'C2',
+        description: 'D2',
+        category: 'cat2',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: 'fragile',
+        easeFactor: 2.3,
+        lastInterval: 7,
+      },
+      {
+        id: 'c3',
+        title: 'C3',
+        description: 'D3',
+        category: 'cat3',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: 'learning',
+        easeFactor: 2.5,
+        lastInterval: 1,
+      },
+      {
+        id: 'c4',
+        title: 'C4',
+        description: 'D4',
+        category: 'cat4',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: 'lapsed',
+        easeFactor: 2.1,
+        lastInterval: 3,
+      },
+      {
+        id: 'c5',
+        title: 'C5',
+        description: 'D5',
+        category: 'cat5',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: 'reviewing',
+        easeFactor: 2.6,
+        lastInterval: 14,
+      },
     ]
 
-    mockConceptProgressRepo.findConceptsWithStatus.mockResolvedValue(mockConcepts)
+    mockConceptProgressRepo.findConceptsWithStatus.mockResolvedValue(
+      mockConcepts,
+    )
 
     const result = await getConceptStatus(input, mockConceptProgressRepo)
 
@@ -167,7 +228,11 @@ describe('getConceptStatus Use Case', () => {
 
     await getConceptStatus(input, mockConceptProgressRepo)
 
-    expect(mockConceptProgressRepo.findConceptsWithStatus).toHaveBeenCalledTimes(1)
-    expect(mockConceptProgressRepo.findConceptsWithStatus).toHaveBeenCalledWith('specific-user-id')
+    expect(
+      mockConceptProgressRepo.findConceptsWithStatus,
+    ).toHaveBeenCalledTimes(1)
+    expect(mockConceptProgressRepo.findConceptsWithStatus).toHaveBeenCalledWith(
+      'specific-user-id',
+    )
   })
 })

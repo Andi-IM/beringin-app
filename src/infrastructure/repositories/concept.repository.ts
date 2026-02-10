@@ -4,20 +4,20 @@
 import type {
   Concept,
   ConceptWithStatus,
-} from "@/domain/entities/concept.entity";
+} from '@/domain/entities/concept.entity'
 
 export interface ConceptRepository {
-  findById(id: string): Promise<Concept | null>;
-  findAll(): Promise<Concept[]>;
-  findByCategory(category: string): Promise<Concept[]>;
+  findById(id: string): Promise<Concept | null>
+  findAll(): Promise<Concept[]>
+  findByCategory(category: string): Promise<Concept[]>
   create(
-    concept: Omit<Concept, "id" | "createdAt" | "updatedAt">,
-  ): Promise<Concept>;
-  update(id: string, data: Partial<Concept>): Promise<Concept>;
-  delete(id: string): Promise<void>;
+    concept: Omit<Concept, 'id' | 'createdAt' | 'updatedAt'>,
+  ): Promise<Concept>
+  update(id: string, data: Partial<Concept>): Promise<Concept>
+  delete(id: string): Promise<void>
 }
 
 export interface ConceptProgressRepository {
-  findConceptsWithStatus(userId: string): Promise<ConceptWithStatus[]>;
-  findDueConcepts(userId: string): Promise<ConceptWithStatus[]>;
+  findConceptsWithStatus(userId: string): Promise<ConceptWithStatus[]>
+  findDueConcepts(userId: string): Promise<ConceptWithStatus[]>
 }

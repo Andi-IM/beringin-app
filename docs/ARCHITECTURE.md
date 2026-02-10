@@ -129,6 +129,30 @@ export async function submitAnswer(
 
 ---
 
+### 5. Dependency Injection (`src/registry.ts`)
+
+**Aturan:**
+
+- ✅ **Composition Root**: Satu-satunya tempat di mana implementasi konkret (Infrastructure) dihubungkan ke abstraksi (Domain/Use Cases).
+- ✅ **Lazy Loading**: Import dependency hanya saat dibutuhkan untuk menghindari circular dependencies.
+- ✅ **UI Interface**: Menyediakan fungsi statis yang aman untuk dipanggil oleh UI components.
+
+```typescript
+// src/registry.ts
+export const Registry = {
+  async getNextQuestion(userId: string) {
+    // Lazy load use case & repo
+    const { getNextQuestion } = await import('@/application/usecases/...')
+    const { repo } = await import('@/infrastructure/...')
+
+    // Inject dependency
+    return getNextQuestion({ userId }, repo)
+  },
+}
+```
+
+---
+
 ## Key Design Decisions
 
 ### 1. Self-Grading System
@@ -173,6 +197,7 @@ Kenapa pakai ESLint untuk enforce architecture?
 | Policies     | `*.policy.ts`     | `scheduler.policy.ts`      |
 | Use Cases    | `*.usecase.ts`    | `submitAnswer.usecase.ts`  |
 | Repositories | `*.repository.ts` | `progress.repository.ts`   |
+| Registry     | `registry.ts`     | `registry.ts`              |
 | Tests        | `*.test.ts`       | `scheduler.policy.test.ts` |
 
 ---
@@ -180,13 +205,18 @@ Kenapa pakai ESLint untuk enforce architecture?
 ## Dependency Flow
 
 ```
-UI → Application → Domain ← Infrastructure
-         ↓            ↑
-         └────────────┘
-              (via interfaces)
+UI → Registry → Application → Domain ← Infrastructure
+        │           │            ↑
+        └───────────┼────────────┘
+                    ↓
+              (abstractions)
 ```
 
-**Key Principle**: Dependencies point inward. Domain doesn't know about outer layers.
+**Key Principle**:
+
+1. UI components NEVER import from `infrastructure` or `application/usecases` directly.
+2. UI components ONLY import from `registry`.
+3. `registry` composes the application by injecting Infrastructure implementations into Use Cases.
 
 ---
 
