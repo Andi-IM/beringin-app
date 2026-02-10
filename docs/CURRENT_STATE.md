@@ -46,6 +46,7 @@
 ✅ EdgeOne KV repository adapters (src/infrastructure/kv/)
 ✅ Strict Branching Policy (Force feature branches, forbid direct push dev/main)
 ✅ Robust Error Handling (Full catch block logging in UI & Use Cases)
+✅ Codecov integration with layered patch coverage thresholds
 ```
 
 ### ⚠️ In Progress / Known Issues
@@ -100,11 +101,13 @@ Lines      : 90.15%
 - ✅ **Dashboard Test Fix**:
   - Fixed ambiguous `findByText('Stabil')` collision between stats label and concept card badge.
   - Used `findAllByText` + class filtering for reliable stat verification.
-- ✅ **Infrastructure**:
+- ✅ **Infrastructure & CI**:
+  - Added `.codecov.yml` with layered coverage thresholds (50% patch target).
+  - Configured ignore rules for hard-to-test infra boundaries (middleware, Supabase clients).
   - Fixed `supabase-client.ts` unused `error` variables.
   - Renamed root `package.json` to `beringin-app-root` (Haste Map collision fix).
   - Configured `gh` CLI to use HTTPS protocol.
-- ✅ **Test Results**: 209/209 tests pass, lint clean.
+- ✅ **CI Status**: 7/7 checks pass (build, test, CodeQL, GitGuardian, Codecov). 209/209 tests.
 
 ### 2026-02-10 (Sesi #8)
 
