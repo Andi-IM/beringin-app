@@ -171,13 +171,19 @@ Tiga level confidence (high/low/none):
 - Lebih nuanced daripada binary benar/salah
 - Mengidentifikasi "lucky guesses"
 
-### 3. In-Memory Repository (MVP)
+### 3. In-Memory Repository (MVP) + EdgeOne KV
 
 Kenapa in-memory untuk MVP?
 
 - Cepat untuk prototyping
 - Tidak perlu setup database
 - Mudah di-swap dengan real database nanti
+
+Kenapa sekarang ada EdgeOne KV?
+
+- Mendukung persistence di lingkungan EdgeOne tanpa mengubah domain/use case
+- Menggunakan repository khusus (`KVConceptRepository`, `KVQuestionRepository`, `KVProgressRepository`)
+- Dipilih otomatis oleh `Registry` ketika `globalThis.KV` tersedia
 
 ### 4. ESLint Architecture Enforcement
 

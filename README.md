@@ -71,7 +71,7 @@ npm run test:watch    # Watch mode
 npm run test:coverage # With coverage report
 ```
 
-Coverage saat ini: **~91% statements, ~76% branches**
+Coverage saat ini: **~87% statements, ~81% branches**
 
 ## 🛠️ Tech Stack
 

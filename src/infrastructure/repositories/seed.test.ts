@@ -26,7 +26,11 @@ describe('seedData', () => {
   })
 
   it('should create concepts successfully', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const allConcepts = await conceptRepository.findAll()
     expect(allConcepts).toHaveLength(3)
@@ -51,7 +55,11 @@ describe('seedData', () => {
   })
 
   it('should create questions for each concept', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const allQuestions = await questionRepository.findAll()
     expect(allQuestions).toHaveLength(3)
@@ -90,7 +98,11 @@ describe('seedData', () => {
   })
 
   it('should create initial progress for demo-user', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const userProgress = await progressRepository.findByUserId('demo-user')
     expect(userProgress).toHaveLength(3)
@@ -115,7 +127,11 @@ describe('seedData', () => {
 
   it('should create progress with nextReview set to current time', async () => {
     const beforeSeed = new Date()
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
     const afterSeed = new Date()
 
     const userProgress = await progressRepository.findByUserId('demo-user')
@@ -131,7 +147,11 @@ describe('seedData', () => {
   })
 
   it('should log success message', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     expect(mockConsoleLog).toHaveBeenCalledWith(
       '✅ Seed data created successfully!',
@@ -139,7 +159,11 @@ describe('seedData', () => {
   })
 
   it('should create concepts with proper structure', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const concepts = await conceptRepository.findAll()
 
@@ -155,7 +179,11 @@ describe('seedData', () => {
   })
 
   it('should create questions with proper structure', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const questions = await questionRepository.findAll()
 
@@ -172,7 +200,11 @@ describe('seedData', () => {
   })
 
   it('should create progress with proper structure', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const userProgress = await progressRepository.findByUserId('demo-user')
 
@@ -192,7 +224,11 @@ describe('seedData', () => {
 
   it('should handle seeding data multiple times', async () => {
     // Seed data first time
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
     const firstConcepts = await conceptRepository.findAll()
     const firstQuestions = await questionRepository.findAll()
     const firstProgress = await progressRepository.findByUserId('demo-user')
@@ -202,7 +238,11 @@ describe('seedData', () => {
     expect(firstProgress).toHaveLength(3)
 
     // Seed data second time — should add 3 more of each
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
     const secondConcepts = await conceptRepository.findAll()
     const secondQuestions = await questionRepository.findAll()
     const secondProgress = await progressRepository.findByUserId('demo-user')
@@ -213,7 +253,11 @@ describe('seedData', () => {
   })
 
   it('should maintain referential integrity between concepts and questions', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const concepts = await conceptRepository.findAll()
     const questions = await questionRepository.findAll()
@@ -227,7 +271,11 @@ describe('seedData', () => {
   })
 
   it('should maintain referential integrity between concepts and progress', async () => {
-    await seedData()
+    await seedData({
+      conceptRepo: conceptRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    })
 
     const concepts = await conceptRepository.findAll()
     const userProgress = await progressRepository.findByUserId('demo-user')

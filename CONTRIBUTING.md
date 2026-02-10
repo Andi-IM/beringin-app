@@ -18,6 +18,22 @@
 | `refactor/` | Refactoring | `refactor/repository-pattern` |
 | `test/`     | Testing     | `test/e2e-session-flow`       |
 
+> Rekomendasi: Untuk kerja berbasis roadmap, sertakan informasi Sprint/Task di nama branch, misalnya:
+> `feature/sprint-1-1-edgeone-kv` atau `feature/sprint-1-2-auth-login-ui`.
+
+### Kapan Harus Buat Branch Baru?
+
+- Buat **branch baru** ketika:
+  - Memulai Sprint baru (mis. pindah dari Sprint 1.1 → Sprint 1.2).
+  - Memulai Task baru yang tidak strictly lanjutan dari pekerjaan di branch saat ini.
+  - Perubahan yang akan dibuat bersifat besar atau berisiko (refactor besar, perubahan arsitektur).
+- Tetap di **branch yang sama** ketika:
+  - Hanya melakukan follow-up kecil untuk Sprint/Task yang sama (perbaikan bug yang baru ditemukan, tambahan test, penyempurnaan kecil UI).
+  - Hanya mengupdate dokumentasi yang masih dalam ruang lingkup Sprint/Task yang sama.
+- Hindari:
+  - Menggabungkan pekerjaan dari beberapa Sprint berbeda dalam satu branch.
+  - Menahan satu branch terlalu lama dengan scope yang terus melebar; lebih baik pecah menjadi beberapa branch yang fokus.
+
 ### Workflow
 
 ```bash
@@ -68,6 +84,14 @@ feat: add user authentication with Supabase
 - Create protected route middleware
 ```
 
+### Roadmap Alignment (Sprint/Task)
+
+- Setiap branch dan PR sebaiknya jelas terkait dengan **Sprint/Task** di `docs/ROADMAP.md`.
+- Sertakan referensi Sprint/Task di deskripsi commit atau PR, misalnya:
+  - `feat: implement EdgeOne KV persistence (Sprint 1.1 / Task 1.1.1)`
+  - `fix: handle submit errors in session API (Sprint 1.1 / Task 1.1.3)`
+- Hindari mengerjakan beberapa Sprint sekaligus di satu branch; fokus pada satu Sprint atau satu cluster task yang berdekatan.
+
 ---
 
 ## 🔀 Pull Request Guidelines
@@ -75,13 +99,19 @@ feat: add user authentication with Supabase
 ### Sebelum Membuat PR
 
 ```bash
-# Pastikan tidak ada lint error
+# Pastikan tidak ada lint error (juga dijalankan otomatis via Husky pre-commit)
 npm run lint
 
-# Pastikan semua test pass
-npm test
+# Pastikan format kode sudah sesuai (Husky juga menjalankan check-format)
+npm run check-format
 
-# Pastikan build sukses
+# Pastikan type-check lulus (juga dijalankan otomatis via Husky pre-commit)
+npx tsc --noEmit
+
+# Pastikan semua test pass (Husky pre-push menjalankan `npm run test:ci`)
+npm run test:ci
+
+# Pastikan build sukses (dijalankan di CI, tapi sebaiknya dicek lokal)
 npm run build
 ```
 
@@ -91,9 +121,20 @@ npm run build
 - [ ] Nama branch sesuai konvensi
 - [ ] Commit messages mengikuti format
 - [ ] Lint: 0 errors
-- [ ] Tests: pass
+- [ ] Format: OK (Prettier)
+- [ ] Type-check: OK (tsc --noEmit)
+- [ ] Tests: pass (npm run test:ci)
 - [ ] Build: sukses
 - [ ] Dokumentasi diupdate (jika perlu)
+
+### Git Hooks (Husky)
+
+Repo ini sudah dikonfigurasi dengan Husky:
+
+- `pre-commit`: menjalankan `npm run lint`, `npm run check-format`, `npx tsc --noEmit`
+- `pre-push`: menjalankan `npm run test:ci`
+
+Saat menjalankan `git commit` / `git push`, hook ini akan otomatis berjalan dan memblokir jika ada error. Jika hook terasa lambat, jalankan perintah yang sama secara manual sebelum commit/push untuk mempercepat feedback loop.
 
 ### PR Title Format
 

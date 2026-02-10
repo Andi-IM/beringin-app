@@ -1,16 +1,11 @@
 'use client'
 
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, act } from '@testing-library/react'
 import DashboardPage from './page'
 
-// Mock Registry
-jest.mock('@/registry', () => ({
-  Registry: {
-    getDashboardData: jest.fn(),
-  },
-}))
-
-import { Registry } from '@/registry'
+// Mock fetch
+const mockFetch = jest.fn()
+global.fetch = mockFetch
 
 describe('DashboardPage', () => {
   const mockConcepts = [
@@ -50,9 +45,12 @@ describe('DashboardPage', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    ;(Registry.getDashboardData as jest.Mock).mockResolvedValue({
-      concepts: mockConcepts,
-      stats: mockStats,
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        concepts: mockConcepts,
+        stats: mockStats,
+      }),
     })
   })
 
@@ -63,14 +61,20 @@ describe('DashboardPage', () => {
     expect(screen.getByText('Sistem Akar Pengetahuan Anda')).toBeInTheDocument()
   })
 
-  it('calls Registry.getDashboardData on mount', () => {
-    render(<DashboardPage />)
+  it('calls fetch on mount', async () => {
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
-    expect(Registry.getDashboardData).toHaveBeenCalledWith('demo-user')
+    await waitFor(() => {
+      expect(mockFetch).toHaveBeenCalledWith('/api/dashboard?userId=demo-user')
+    })
   })
 
   it('displays stats correctly', async () => {
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       expect(screen.getAllByText('2')[0]).toBeInTheDocument() // Total
@@ -80,7 +84,9 @@ describe('DashboardPage', () => {
   })
 
   it('displays concept list when concepts exist', async () => {
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       expect(screen.getByText('Test Concept 1')).toBeInTheDocument()
@@ -91,7 +97,9 @@ describe('DashboardPage', () => {
   })
 
   it('displays category tags', async () => {
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       expect(screen.getByText('math')).toBeInTheDocument()
@@ -100,7 +108,9 @@ describe('DashboardPage', () => {
   })
 
   it('displays next review date when available', async () => {
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       const reviewElements = screen.getAllByText(/Review:/)
@@ -109,12 +119,17 @@ describe('DashboardPage', () => {
   })
 
   it('shows empty state when no concepts exist', async () => {
-    ;(Registry.getDashboardData as jest.Mock).mockResolvedValue({
-      concepts: [],
-      stats: { total: 0, stable: 0, fragile: 0, learning: 0, lapsed: 0 },
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        concepts: [],
+        stats: { total: 0, stable: 0, fragile: 0, learning: 0, lapsed: 0 },
+      }),
     })
 
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       expect(screen.getByText('Belum ada konsep.')).toBeInTheDocument()
@@ -125,7 +140,9 @@ describe('DashboardPage', () => {
   })
 
   it('renders action buttons', async () => {
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       const learnButton = screen.getByText('Mulai Belajar')
@@ -139,7 +156,9 @@ describe('DashboardPage', () => {
   })
 
   it('applies correct status colors and labels', async () => {
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       // Check for stable status
@@ -194,38 +213,62 @@ describe('DashboardPage', () => {
       },
     ]
 
-    ;(Registry.getDashboardData as jest.Mock).mockResolvedValue({
-      concepts: conceptsWithAllStatuses,
-      stats: { total: 4, stable: 1, fragile: 1, learning: 1, lapsed: 1 },
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        concepts: conceptsWithAllStatuses,
+        stats: { total: 4, stable: 1, fragile: 1, learning: 1, lapsed: 1 },
+      }),
     })
 
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
-      expect(screen.getByText('Rapuh')).toBeInTheDocument()
-      expect(screen.getByText('Lupa')).toBeInTheDocument()
+      // Find status badges (span elements) not stats labels
+      const rapuhStatus = screen
+        .getAllByText('Rapuh')
+        .find(
+          (el) =>
+            el.tagName === 'SPAN' && el.classList.contains('bg-yellow-500'),
+        )
+      const lupaStatus = screen
+        .getAllByText('Lupa')
+        .find(
+          (el) => el.tagName === 'SPAN' && el.classList.contains('bg-red-500'),
+        )
+
+      expect(rapuhStatus).toBeInTheDocument()
+      expect(lupaStatus).toBeInTheDocument()
     })
   })
 
   it('formats review date correctly for Indonesian locale', async () => {
-    // This test might be tricky with mockResolvedValue if we want to spy on date inside component rendering
-    // But since formatting happens in render, and data comes from mock,
-    // we assume the component uses specific date formatting.
-    // The previous test mocked global Date but here we just check output.
-
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       const reviewElements = screen.getAllByText(/Review:/)
       expect(reviewElements.length).toBeGreaterThan(0)
-      // We could verify the date string content if needed, e.g. "20/1/2024"
     })
   })
 
   it('handles loading state gracefully', () => {
     // Mock a delayed response
-    ;(Registry.getDashboardData as jest.Mock).mockImplementation(
-      () => new Promise((resolve) => setTimeout(resolve, 100)),
+    mockFetch.mockImplementation(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(
+            () =>
+              resolve({
+                ok: true,
+                json: async () => ({ concepts: [], stats: mockStats }),
+              }),
+            100,
+          ),
+        ),
     )
 
     render(<DashboardPage />)

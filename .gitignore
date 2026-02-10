@@ -38,5 +38,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 .cache/
+.swc
 
 .edgeone/

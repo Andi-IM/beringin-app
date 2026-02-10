@@ -1,31 +1,92 @@
 // DI Registry (Composition Root)
 // Connects Infrastructure to Application/Domain
-import { seedData } from '@/infrastructure/repositories/seed'
-import { conceptProgressRepository } from '@/infrastructure/repositories/in-memory.repository'
-import { getConceptStatus } from '@/application/usecases/getConceptStatus.usecase'
 
+import type { EdgeOneKV } from '@/infrastructure/kv/edgeone-kv.types'
+
+/**
+ * Registry handles dependency injection and service discovery.
+ * It detects the environment and provides the appropriate repository implementations.
+ */
 export const Registry = {
+  /**
+   * Internal helper to determine which repositories to use.
+   * In EdgeOne runtime, it uses KV repositories.
+   * Otherwise, it defaults to in-memory repositories.
+   */
+  async getRepositories() {
+    // Detect if we are in an environment with EdgeOne KV support
+    // Global 'KV' is injected by EdgeOne runtime
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const isEdgeOne = typeof (globalThis as any).KV !== 'undefined'
+
+    if (isEdgeOne) {
+      const { KVConceptRepository, KVConceptProgressRepository } =
+        await import('@/infrastructure/kv/kv-concept.repository')
+      const { KVQuestionRepository } =
+        await import('@/infrastructure/kv/kv-question.repository')
+      const { KVProgressRepository } =
+        await import('@/infrastructure/kv/kv-progress.repository')
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const kv = (globalThis as any).KV as EdgeOneKV
+
+      const progressRepo = new KVProgressRepository(kv)
+      const conceptRepo = new KVConceptRepository(kv)
+      const questionRepo = new KVQuestionRepository(kv, progressRepo)
+      const conceptProgressRepo = new KVConceptProgressRepository(
+        conceptRepo,
+        progressRepo,
+      )
+
+      return {
+        conceptRepo,
+        conceptProgressRepo,
+        questionRepo,
+        progressRepo,
+      }
+    }
+
+    // Default to in-memory repositories
+    const {
+      conceptRepository,
+      conceptProgressRepository,
+      questionRepository,
+      progressRepository,
+    } = await import('@/infrastructure/repositories/in-memory.repository')
+
+    return {
+      conceptRepo: conceptRepository,
+      conceptProgressRepo: conceptProgressRepository,
+      questionRepo: questionRepository,
+      progressRepo: progressRepository,
+    }
+  },
+
   async seedInitialData() {
-    return seedData()
+    const { seedData } = await import('@/infrastructure/repositories/seed')
+    const repos = await this.getRepositories()
+
+    // The existing seedData assumes global exported repos, we need to adapt it
+    // or provide repos as arguments. For now, let's keep it simple and
+    // let seedData handle the injection if we refactor it, or just use it as is if it's fine.
+    // Actually, seedData currently imports from in-memory directly.
+    // I should refactor seedData to accept repos.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return seedData(repos as any)
   },
 
   async getDashboardData(userId: string) {
-    return getConceptStatus({ userId }, conceptProgressRepository)
+    const { getConceptStatus } =
+      await import('@/application/usecases/getConceptStatus.usecase')
+    const { conceptProgressRepo } = await this.getRepositories()
+    return getConceptStatus({ userId }, conceptProgressRepo)
   },
 
   async getNextQuestion(userId: string) {
-    // Lazy load use cases/repos to avoid circular deps if needed, strict check imports
     const { getNextQuestion } =
       await import('@/application/usecases/getNextQuestion.usecase')
-
-    // Note: The previous code imported `questionRepository` from 'in-memory.repository' which might be `multichoice` or `simple`.
-    // Let's check `src/infrastructure/repositories/in-memory.repository.ts` to see what `questionRepository` exports.
-    // For now I will assume the imports from the original file:
-    // import { questionRepository, progressRepository } from '@/infrastructure/repositories/in-memory.repository'
-    const { questionRepository } =
-      await import('@/infrastructure/repositories/in-memory.repository')
-
-    return getNextQuestion({ userId }, questionRepository)
+    const { questionRepo } = await this.getRepositories()
+    return getNextQuestion({ userId }, questionRepo)
   },
 
   async submitAnswer(data: {
@@ -39,8 +100,7 @@ export const Registry = {
   }) {
     const { submitAnswer } =
       await import('@/application/usecases/submitAnswer.usecase')
-    const { progressRepository } =
-      await import('@/infrastructure/repositories/in-memory.repository')
-    return submitAnswer(data, progressRepository)
+    const { progressRepo } = await this.getRepositories()
+    return submitAnswer(data, progressRepo)
   },
 }
