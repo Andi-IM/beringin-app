@@ -17,7 +17,6 @@ ignore:
   - 'src/middleware.ts'
   - 'src/infrastructure/auth/**'
 
-
 comment:
   layout: 'reach,diff,flags,files'
   behavior: default
