@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-10T16:26+07:00
+> **Last Updated**: 2026-02-10T16:45+07:00
 
 ## 🎯 Status Overview
 
@@ -90,9 +90,18 @@ Lines      : 90.15%
 
 ## 📝 Recent Changes
 
+### 2026-02-10 (Sesi #8)
+
+- ✅ **Google Sign-In Implementation**:
+  - Implementasi fungsi `signInWithGoogle` di `AuthApi` client wrapper.
+  - Penambahan tombol Google Sign-In premium dengan Google branding pada halaman Login.
+  - Penambahan unit tests untuk OAuth flow dengan **100% statement coverage** pada area terdampak.
+- ✅ **Infrastructure & Quality**:
+  - Sinkronisasi roadmap aktual dan velocity data.
+  - Pembersihan feature branches pasca merge Sprint 1.2.
+
 ### 2026-02-10 (Sesi #7)
 
-- ✅ **Merged PR #4 ke `dev`**: Authentication & Quality Gate
 - ✅ Implementasi Supabase Auth:
   - `signIn`, `signUp`, `getCurrentUser` use cases
   - Middleware perlindungan rute

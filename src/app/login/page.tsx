@@ -41,6 +41,7 @@ export default function LoginPage() {
       if (!result.success) {
         setError(result.error || 'Google login failed')
       }
+      // Redirect happens automatically via Supabase
     } catch (err) {
       console.error('Google login error:', err)
       setError('An unexpected error occurred')

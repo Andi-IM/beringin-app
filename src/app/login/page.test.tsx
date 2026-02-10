@@ -32,6 +32,9 @@ describe('LoginPage', () => {
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Masuk' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: 'Masuk dengan Google' }),
+    ).toBeInTheDocument()
   })
 
   it('navigates to dashboard on successful login', async () => {
