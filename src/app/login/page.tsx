@@ -23,11 +23,11 @@ export default function LoginPage() {
       if (result.success) {
         router.push('/dashboard')
       } else {
-        setError(result.error || 'Login failed')
+        setError(result.error || 'Gagal masuk, silakan coba lagi')
       }
     } catch (err) {
       console.error('Login error:', err)
-      setError('An unexpected error occurred')
+      setError('Terjadi kesalahan login yang tidak terduga')
     } finally {
       setLoading(false)
     }
@@ -39,12 +39,12 @@ export default function LoginPage() {
     try {
       const result = await AuthApi.signInWithGoogle()
       if (!result.success) {
-        setError(result.error || 'Google login failed')
+        setError(result.error || 'Gagal masuk dengan Google')
       }
       // Redirect happens automatically via Supabase
     } catch (err) {
       console.error('Google login error:', err)
-      setError('An unexpected error occurred')
+      setError('Terjadi kesalahan google yang tidak terduga')
     } finally {
       setLoading(false)
     }
