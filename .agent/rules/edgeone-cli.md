@@ -58,8 +58,8 @@ const val = await context.KV.get('key')
 
 ## 5. Sinkronisasi Environment
 
-- Gunakan `edgeone pages link` untuk mengasosiasikan folder lokal dengan project di console.
-- Mengambil env var remote untuk local dev: Otomatis tersinkron setelah `link`.
+- **Link Project**: `edgeone pages link` to associate local folder with console project.
+- **Global Deployment**: `edgeone pages deploy ./out`
 
 ---
 

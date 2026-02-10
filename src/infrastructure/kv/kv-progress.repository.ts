@@ -55,20 +55,18 @@ export class KVProgressRepository implements ProgressRepository {
   }
 
   async findByUserId(userId: string): Promise<UserProgress[]> {
-    const results: UserProgress[] = []
-
     const { keys } = await this.kv.list({
       prefix: `${PROGRESS_PREFIX}${userId}:`,
     })
 
-    for (const { name } of keys) {
-      const data = await this.kv.get(name)
-      if (data) {
-        results.push(deserializeProgress(data))
-      }
-    }
+    if (keys.length === 0) return []
 
-    return results
+    const progressDataPromises = keys.map((key) => this.kv.get(key.name))
+    const allProgressData = await Promise.all(progressDataPromises)
+
+    return allProgressData
+      .filter((data): data is string => data !== null)
+      .map(deserializeProgress)
   }
 
   async create(

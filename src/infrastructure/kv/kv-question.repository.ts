@@ -7,10 +7,9 @@ import type { ProgressRepository } from '../repositories/progress.repository'
 import type { EdgeOneKV } from './edgeone-kv.types'
 
 const QUESTION_PREFIX = 'question:'
-const CONCEPT_QUESTIONS_PREFIX = 'concept_questions:'
 
-function conceptQuestionKey(conceptId: string, questionId: string): string {
-  return `${CONCEPT_QUESTIONS_PREFIX}${conceptId}:${questionId}`
+function questionKey(conceptId: string, questionId: string): string {
+  return `${QUESTION_PREFIX}${conceptId}:${questionId}`
 }
 
 function serializeQuestion(question: Question): string {
@@ -37,43 +36,40 @@ export class KVQuestionRepository implements QuestionRepository {
   ) {}
 
   async findById(id: string): Promise<Question | null> {
-    const data = await this.kv.get(`${QUESTION_PREFIX}${id}`)
+    // Since keys are structured as question:conceptId:id, we need to find the key first
+    const { keys } = await this.kv.list({ prefix: QUESTION_PREFIX })
+    const targetKey = keys.find((k) => k.name.endsWith(`:${id}`))
+    if (!targetKey) return null
+
+    const data = await this.kv.get(targetKey.name)
     if (!data) return null
     return deserializeQuestion(data)
   }
 
   async findAll(): Promise<Question[]> {
-    const questions: Question[] = []
-
     const { keys } = await this.kv.list({ prefix: QUESTION_PREFIX })
+    if (keys.length === 0) return []
 
-    for (const { name } of keys) {
-      const data = await this.kv.get(name)
-      if (data) {
-        questions.push(deserializeQuestion(data))
-      }
-    }
+    const questionDataPromises = keys.map((key) => this.kv.get(key.name))
+    const allQuestionData = await Promise.all(questionDataPromises)
 
-    return questions
+    return allQuestionData
+      .filter((data): data is string => data !== null)
+      .map(deserializeQuestion)
   }
 
   async findByConceptId(conceptId: string): Promise<Question[]> {
-    const questions: Question[] = []
-
     const { keys } = await this.kv.list({
-      prefix: `${CONCEPT_QUESTIONS_PREFIX}${conceptId}:`,
+      prefix: `${QUESTION_PREFIX}${conceptId}:`,
     })
+    if (keys.length === 0) return []
 
-    for (const { name } of keys) {
-      const parts = name.split(':')
-      const questionId = parts[parts.length - 1]
-      const question = await this.findById(questionId)
-      if (question) {
-        questions.push(question)
-      }
-    }
+    const questionDataPromises = keys.map((key) => this.kv.get(key.name))
+    const allQuestionData = await Promise.all(questionDataPromises)
 
-    return questions
+    return allQuestionData
+      .filter((data): data is string => data !== null)
+      .map(deserializeQuestion)
   }
 
   async findDueQuestions(userId: string): Promise<Question[]> {
@@ -83,13 +79,13 @@ export class KVQuestionRepository implements QuestionRepository {
       .filter((p) => p.nextReview <= now)
       .map((p) => p.conceptId)
 
-    const questions: Question[] = []
-    for (const conceptId of dueConceptIds) {
-      const conceptQuestions = await this.findByConceptId(conceptId)
-      questions.push(...conceptQuestions)
-    }
+    if (dueConceptIds.length === 0) return []
 
-    return questions
+    const questionsPromises = dueConceptIds.map((conceptId) =>
+      this.findByConceptId(conceptId),
+    )
+    const questionsArrays = await Promise.all(questionsPromises)
+    return questionsArrays.flat()
   }
 
   async create(
@@ -103,11 +99,9 @@ export class KVQuestionRepository implements QuestionRepository {
     }
 
     await this.kv.put(
-      `${QUESTION_PREFIX}${question.id}`,
+      questionKey(question.conceptId, question.id),
       serializeQuestion(question),
     )
-
-    await this.kv.put(conceptQuestionKey(question.conceptId, question.id), '1')
 
     return question
   }
@@ -122,16 +116,29 @@ export class KVQuestionRepository implements QuestionRepository {
       updatedAt: new Date(),
     }
 
-    await this.kv.put(`${QUESTION_PREFIX}${id}`, serializeQuestion(updated))
+    // Since conceptId might have changed, we need to handle potential key change
+    if (data.conceptId && data.conceptId !== existing.conceptId) {
+      await this.kv.delete(questionKey(existing.conceptId, id))
+      await this.kv.put(
+        questionKey(data.conceptId, id),
+        serializeQuestion(updated),
+      )
+    } else {
+      await this.kv.put(
+        questionKey(existing.conceptId, id),
+        serializeQuestion(updated),
+      )
+    }
+
     return updated
   }
 
   async delete(id: string): Promise<void> {
-    const existing = await this.findById(id)
-    await this.kv.delete(`${QUESTION_PREFIX}${id}`)
+    const { keys } = await this.kv.list({ prefix: QUESTION_PREFIX })
+    const targetKey = keys.find((k) => k.name.endsWith(`:${id}`))
 
-    if (existing) {
-      await this.kv.delete(conceptQuestionKey(existing.conceptId, id))
+    if (targetKey) {
+      await this.kv.delete(targetKey.name)
     }
   }
 }

@@ -41,18 +41,15 @@ export class KVConceptRepository implements ConceptRepository {
   }
 
   async findAll(): Promise<Concept[]> {
-    const concepts: Concept[] = []
-
     const { keys } = await this.kv.list({ prefix: CONCEPT_PREFIX })
+    if (keys.length === 0) return []
 
-    for (const { name } of keys) {
-      const data = await this.kv.get(name)
-      if (data) {
-        concepts.push(deserializeConcept(data))
-      }
-    }
+    const conceptDataPromises = keys.map((key) => this.kv.get(key.name))
+    const allConceptData = await Promise.all(conceptDataPromises)
 
-    return concepts
+    return allConceptData
+      .filter((data): data is string => data !== null)
+      .map(deserializeConcept)
   }
 
   async findByCategory(category: string): Promise<Concept[]> {
