@@ -16,7 +16,7 @@ coverage:
 ignore:
   - 'src/middleware.ts'
   - 'src/infrastructure/auth/**'
-  - 'src/app/auth/**'
+
 
 comment:
   layout: 'reach,diff,flags,files'
