@@ -1,19 +1,20 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history  
-> **Last Updated**: 2026-02-10T13:30+07:00
+> **Last Updated**: 2026-02-10T18:20+07:00
 
 ---
 
 ## 📊 Velocity Aktual (dari Git History)
 
-| Sesi      | Tanggal     | Waktu                    | Output                          | Lines Changed (perkiraan) |
-| --------- | ----------- | ------------------------ | ------------------------------- | ------------------------- |
-| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)   | MVP initial + ESLint + docs     | ~4,000–4,500              |
-| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)   | Registry DI + tests + coverage  | ~1,500–2,000              |
-| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky | ~1,000–1,500              |
-| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor | ~500–800                  |
-| **Total** |             | **±1.5 jam commit time** | **25 commits, 80 files**        | **~8,000 lines touched**  |
+| Sesi      | Tanggal     | Waktu                    | Output                             | Lines Changed (perkiraan) |
+| --------- | ----------- | ------------------------ | ---------------------------------- | ------------------------- |
+| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)   | MVP initial + ESLint + docs        | ~4,000–4,500              |
+| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)   | Registry DI + tests + coverage     | ~1,500–2,000              |
+| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
+| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor    | ~500–800                  |
+| #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)   | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
+| **Total** |             | **±2.5 jam commit time** | **45 commits, 95 files**           | **~10,000 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -50,13 +51,14 @@
 | 10 Feb 10:32 | +4 min   | Add GitHub & EdgeOne CLI knowledge base              | Sprint 1.1  | `51cbcea` |
 | 10 Feb 10:45 | +13 min  | EdgeOne KV Repository Adapters (PR #1)               | Sprint 1.1  | `1596ba0` |
 | 10 Feb 14:05 | +140 min | Merge PR #1 & Parallel KV Refactor                   | Sprint 1.1  | `d3488e7` |
+| 10 Feb 16:20 | +135 min | Merge PR #4: Supabase Auth & Quality Gate            | Sprint 1.2  | `e2ec2da` |
 
 ---
 
-## 🔄 Phase 1: Foundation — NEXT
+## 🔄 Phase 1: Foundation — IN PROGRESS (80%)
 
-> **Estimasi berdasarkan velocity**: MVP (Phase 0) selesai dalam ~2 sesi kerja.  
-> Phase 1 memiliki kompleksitas _serupa_ dengan MVP → estimasi **2–4 sesi kerja**.
+> **Estimasi berdasarkan velocity**: Foundation (Phase 1) hampir selesai dalam ~3 sesi kerja intensif.  
+> Sisa Sprint 1.3 (Quality Gate) sebagai pemoles akhir sebelum Phase 2.
 
 ### Sprint 1.1: Persistence Layer (EdgeOne KV)
 
@@ -80,15 +82,29 @@
 | 10 Feb 12:05 | +35 min | Tambah Edge API route tests dan Husky hooks               | 1.1.3, 1.1.5            | `6949e10` |
 | 10 Feb 12:09 | +4 min  | Refine pre-commit hook (lint, format, tsc)                | 1.1.3, 1.1.5 (quality)  | `c8c16a0` |
 
-### Sprint 1.2: Authentication
+### Sprint 1.2: Authentication — ✅ DONE
 
-| #     | Task                               | Kompleksitas                  | Status |
-| ----- | ---------------------------------- | ----------------------------- | ------ |
-| 1.2.1 | Supabase Auth setup                | 🟢 Rendah                     | ☐      |
-| 1.2.2 | Login + Register UI                | 🟡 Sedang (2 pages)           | ☐      |
-| 1.2.3 | OAuth Google                       | 🟢 Rendah (Supabase built-in) | ☐      |
-| 1.2.4 | Auth middleware + protected routes | 🟡 Sedang                     | ☐      |
-| 1.2.5 | Replace `demo-user` → real user ID | 🟢 Rendah                     | ☐      |
+| #     | Task                               | Kompleksitas        | Status |
+| ----- | ---------------------------------- | ------------------- | ------ |
+| 1.2.1 | Supabase Auth setup                | 🟢 Rendah           | ✅     |
+| 1.2.2 | Login + Register UI                | 🟡 Sedang (2 pages) | ✅     |
+| 1.2.3 | Client API Wrapper (`AuthApi`)     | 🟢 Rendah           | ✅     |
+| 1.2.4 | Auth middleware + protected routes | 🟡 Sedang           | ✅     |
+| 1.2.5 | Replace `demo-user` → real user ID | 🟢 Rendah           | ✅     |
+| 1.2.6 | Google Sign-In (OAuth)             | 🟢 Rendah           | ✅     |
+| 1.2.7 | GoogleIcon component extraction    | 🟢 Rendah           | ✅     |
+
+#### Sprint 1.2 Timeline (berdasarkan git history)
+
+| Tanggal      | Waktu   | Deliverable                                          | Terkait Task Sprint 1.2 | Commit    |
+| ------------ | ------- | ---------------------------------------------------- | ----------------------- | --------- |
+| 10 Feb 15:30 | —       | implement supabase authentication flow & validation  | 1.2.1, 1.2.2, 1.2.4     | `46a4097` |
+| 10 Feb 15:35 | +5 min  | add auth use case and ui tests (coverage thresholds) | 1.2.2 (quality)         | `ccf7d56` |
+| 10 Feb 15:45 | +10 min | refactor auth api to be lazy and fix dashboard tests | 1.2.3, 1.2.5            | `af250e1` |
+| 10 Feb 16:20 | +35 min | Merge PR #4: Final adjustments & branching policy    | Sprint 1.2 (final)      | `e2ec2da` |
+| 10 Feb 16:25 | +5 min  | docs: sync current state after Sprint 1.2 merge (#6) | Sprint 1.2 (sync)       | `2865684` |
+| 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
+| 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
 
 ### Sprint 1.3: Quality Gate
 
@@ -177,10 +193,10 @@
 | Phase               | Sesi Kerja    | Target Selesai        | Confidence |
 | ------------------- | ------------- | --------------------- | ---------- |
 | ~~Phase 0: MVP~~    | 2 sesi        | ~~10 Feb~~ ✅         | —          |
-| Phase 1: Foundation | 2–4 sesi      | Sesi kerja berikutnya | 🟢 High    |
-| Phase 2: Content    | 3–5 sesi      | Setelah Phase 1       | 🟡 Medium  |
-| Phase 3: Analytics  | 4–6 sesi      | Setelah Phase 2       | 🟠 Low     |
-| **Total remaining** | **9–15 sesi** |                       |            |
+| Phase 1: Foundation | 3 sesi        | ~~10 Feb~~ ✅         | 🟢 High    |
+| Phase 2: Content    | 3–5 sesi      | Sesi kerja berikutnya | 🟡 Medium  |
+| Phase 3: Analytics  | 4–6 sesi      | Strategis             | 🟠 Low     |
+| **Total remaining** | **7–11 sesi** |                       |            |
 
 > **Cara baca**: 1 sesi = 1 kali duduk kerja bersama AI (~30–90 menit efektif).  
 > Timeline **tidak dikunci ke tanggal** karena tergantung kapan Anda mulai sesi berikutnya.  

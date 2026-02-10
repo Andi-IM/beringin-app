@@ -4,9 +4,13 @@
 // WAJIB: Hanya render, logic di use case
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import type { ConceptWithStatus } from '@/domain/entities/concept.entity'
+import { DashboardApi } from '@/infrastructure/client/dashboard.api'
+import { AuthApi } from '@/infrastructure/client/auth.api'
 
 export default function DashboardPage() {
+  const router = useRouter()
   const [concepts, setConcepts] = useState<ConceptWithStatus[]>([])
   const [stats, setStats] = useState({
     total: 0,
@@ -16,7 +20,14 @@ export default function DashboardPage() {
     lapsed: 0,
   })
 
-  const userId = 'demo-user'
+  async function handleLogout() {
+    try {
+      await AuthApi.signOut()
+      router.push('/')
+    } catch (error) {
+      console.error('Logout error:', error)
+    }
+  }
 
   useEffect(() => {
     loadDashboard()
@@ -24,12 +35,7 @@ export default function DashboardPage() {
 
   async function loadDashboard() {
     try {
-      // Note: This violates architecture but acceptable for MVP
-      // TODO: Move to use case in production
-      // eslint-disable-next-line no-restricted-globals
-      const response = await fetch(`/api/dashboard?userId=${userId}`)
-      if (!response.ok) throw new Error('Failed to fetch dashboard data')
-      const result = await response.json()
+      const result = await DashboardApi.getDashboardData()
       setConcepts(result.concepts)
       setStats(result.stats)
     } catch (error) {
@@ -73,9 +79,17 @@ export default function DashboardPage() {
     <main className="min-h-screen bg-gradient-to-b from-beringin-green to-gray-900 px-4 py-12">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-8 text-white">
-          <h1 className="mb-2 font-serif text-4xl">🌳 Dashboard Beringin</h1>
-          <p className="text-lg opacity-90">Sistem Akar Pengetahuan Anda</p>
+        <div className="mb-8 flex items-end justify-between text-white">
+          <div>
+            <h1 className="mb-2 font-serif text-4xl">🌳 Dashboard Beringin</h1>
+            <p className="text-lg opacity-90">Sistem Akar Pengetahuan Anda</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="rounded-lg bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20"
+          >
+            Keluar
+          </button>
         </div>
 
         {/* Stats */}

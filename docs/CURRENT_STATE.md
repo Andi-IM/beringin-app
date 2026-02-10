@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-10T12:09+07:00
+> **Last Updated**: 2026-02-10T18:20+07:00
 
 ## 🎯 Status Overview
 
@@ -9,7 +9,7 @@
 | --------------- | ------------- | ---------------------- |
 | **Development** | ✅ Active     | Phase 1 - Foundation   |
 | **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 179/179 passing (100%) |
+| **Tests**       | ✅ Passing    | 209/209 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions         |
 
@@ -17,7 +17,7 @@
 
 - Phase 0: MVP — ✅ DONE
 - Phase 1 / Sprint 1.1: Persistence Layer (EdgeOne KV) — ✅ DONE
-- Phase 1 / Sprint 1.2: Authentication — 🔜 NEXT (fokus berikutnya)
+- Phase 1 / Sprint 1.2: Authentication — ✅ DONE
 - Phase 1 / Sprint 1.3: Quality Gate — 🔜 NEXT
 
 ## 🏗️ Implemented Features
@@ -26,8 +26,11 @@
 
 1. **Landing Page** - Halaman utama dengan navigasi
 2. **Study Session** - Sesi belajar dengan self-grading
-3. **Dashboard** - Monitoring status konsep
+3. **Dashboard** - Monitoring status konsep (Refactored to Client Component)
 4. **Adaptive Scheduler** - Algoritma SRS berbasis SM-2 modifikasi
+5. **Authentication Flow** - Login & Register menggunakan Supabase Auth (Lazy-loaded client)
+6. **Google Sign-In** - OAuth login via Supabase dengan reusable `GoogleIcon` component
+7. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
 
 ### ✅ Architecture (Done)
 
@@ -41,13 +44,15 @@
 ✅ GitHub CLI knowledge base (.agent/rules/github-cli.md)
 ✅ EdgeOne CLI knowledge base (.agent/rules/edgeone-cli.md)
 ✅ EdgeOne KV repository adapters (src/infrastructure/kv/)
+✅ Strict Branching Policy (Force feature branches, forbid direct push dev/main)
+✅ Robust Error Handling (Full catch block logging in UI & Use Cases)
+✅ Codecov integration with layered patch coverage thresholds
 ```
 
 ### ⚠️ In Progress / Known Issues
 
 | Issue                              | Severity | Status                    |
 | ---------------------------------- | -------- | ------------------------- |
-| Hardcoded user ID (`demo-user`)    | Low      | MVP limit, pending auth   |
 | `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup |
 | `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1   |
 
@@ -59,17 +64,18 @@
   "react": "^19.0.0",
   "tailwindcss": "^3.4.1",
   "typescript": "^5.7.3",
-  "jest": "^30.2.0"
+  "jest": "^30.2.0",
+  "@supabase/supabase-js": "^2.48.1"
 }
 ```
 
 ## 📈 Test Coverage
 
 ```
-Statements : 86.80%
-Branches   : 81.02%
-Functions  : 85.93%
-Lines      : 89.94%
+Statements : 87.21%
+Branches   : 81.33%
+Functions  : 86.42%
+Lines      : 90.15%
 ```
 
 ## 🔧 Available Scripts
@@ -85,6 +91,48 @@ Lines      : 89.94%
 | `npm run test:ci`      | CI mode with coverage    |
 
 ## 📝 Recent Changes
+
+### 2026-02-10 (Sesi #9)
+
+- ✅ **PR #10 Feedback Resolution**:
+  - Refactor `GoogleIcon` — removed `React.FC`, using `React.ComponentProps<'svg'>` with prop spreading.
+  - Extracted `OAUTH_PROVIDER` constant in `auth.api.ts`, eliminated magic strings.
+  - Updated test assertions to match new generic error messages.
+- ✅ **Dashboard Test Fix**:
+  - Fixed ambiguous `findByText('Stabil')` collision between stats label and concept card badge.
+  - Used `findAllByText` + class filtering for reliable stat verification.
+- ✅ **Infrastructure & CI**:
+  - Added `.codecov.yml` with layered coverage thresholds (50% patch target).
+  - Configured ignore rules for hard-to-test infra boundaries (middleware, Supabase clients).
+  - Fixed `supabase-client.ts` unused `error` variables.
+  - Renamed root `package.json` to `beringin-app-root` (Haste Map collision fix).
+  - Configured `gh` CLI to use HTTPS protocol.
+- ✅ **CI Status**: 7/7 checks pass (build, test, CodeQL, GitGuardian, Codecov). 209/209 tests.
+
+### 2026-02-10 (Sesi #8)
+
+- ✅ **Google Sign-In Implementation**:
+  - Implementasi fungsi `signInWithGoogle` di `AuthApi` client wrapper.
+  - Penambahan tombol Google Sign-In premium dengan Google branding pada halaman Login.
+  - Penambahan unit tests untuk OAuth flow dengan **100% statement coverage** pada area terdampak.
+- ✅ **Infrastructure & Quality**:
+  - Sinkronisasi roadmap aktual dan velocity data.
+  - Pembersihan feature branches pasca merge Sprint 1.2.
+
+### 2026-02-10 (Sesi #7)
+
+- ✅ Implementasi Supabase Auth:
+  - `signIn`, `signUp`, `getCurrentUser` use cases
+  - Middleware perlindungan rute
+  - `AuthApi` client wrapper dengan lazy loading Supabase (fix CI crash)
+- ✅ Peningkatan Kualitas Kode:
+  - Migrasi `window.location.href` ke `useRouter` di Dashboard
+  - Logging error eksplisit pada seluruh catch block
+  - Pembersihan variabel tidak terpakai dan duplikasi kode
+- ✅ Verifikasi & Coverage:
+  - **209/209 tests pass**
+  - **100% test coverage** pada client API wrappers (`AuthApi`, `DashboardApi`)
+  - Konfigurasi CI branch `dev` (sebelumnya mismatch `develop`)
 
 ### 2026-02-10 (Sesi #6)
 
@@ -154,10 +202,10 @@ Lines      : 89.94%
 
 ## 🚧 Next Steps
 
-1. Implement user authentication (Supabase) dan ganti `demo-user` → real user ID
-2. Tambah concept/question management UI (admin CRUD)
-3. Meningkatkan coverage `Registry` dan mengurangi `act()` warnings di test UI
-4. Menambah E2E test (Playwright) untuk flow utama (landing → session → dashboard)
+1. Sprint 1.3 Quality Gate: Playwright E2E, `act()` warnings cleanup, Registry coverage
+2. Tambah concept/question management UI (admin CRUD — Phase 2)
+3. E2E test untuk flow utama (landing → login → session → dashboard)
+4. Mobile responsive audit & dark mode polish
 
 ---
 

@@ -11,8 +11,9 @@ export async function POST(request: Request) {
     const body = await request.json()
 
     // Validation
+    const { userId: sessionUserId } = await Registry.getCurrentUser()
     const {
-      userId,
+      userId: bodyUserId,
       conceptId,
       questionId,
       userAnswer,
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
       confidence,
       responseTime,
     } = body
+    const userId = sessionUserId || bodyUserId
     if (
       !userId ||
       !conceptId ||
@@ -44,7 +46,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json(result)
   } catch (error) {
-    console.error('Submit Answer API Error:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Submit Answer API Error:', error)
+    }
     return NextResponse.json(
       { error: 'Failed to submit answer' },
       { status: 500 },

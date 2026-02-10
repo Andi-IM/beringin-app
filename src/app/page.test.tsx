@@ -37,7 +37,7 @@ describe('HomePage', () => {
     render(<HomePage />)
 
     const learnButton = screen.getByText('Mulai Belajar')
-    const dashboardButton = screen.getByText('Dashboard')
+    const dashboardButton = screen.getByText('Dashboard Konten')
 
     expect(learnButton).toBeInTheDocument()
     expect(dashboardButton).toBeInTheDocument()
@@ -101,6 +101,7 @@ describe('HomePage', () => {
       'from-beringin-green',
       'to-gray-900',
       'flex',
+      'flex-col',
       'items-center',
       'justify-center',
     )
@@ -115,7 +116,7 @@ describe('HomePage', () => {
       'text-gray-900',
       'px-8',
       'py-3',
-      'rounded-lg',
+      'rounded-xl',
       'font-semibold',
       'hover:bg-yellow-500',
       'transition',

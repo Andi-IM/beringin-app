@@ -9,6 +9,7 @@ Beringin adalah aplikasi pembelajaran berbasis **Spaced Repetition System (SRS)*
 - **Adaptive Scheduling** - Algoritma cerdas yang menyesuaikan interval review berdasarkan performa
 - **Self-Grading** - Penilaian mandiri dengan tingkat kepercayaan (Yakin/Ragu/Tebak)
 - **Progress Tracking** - Dashboard untuk memantau status konsep (Stabil/Rapuh/Belajar/Lupa)
+- **Authentication** - Login dengan Email/Password dan Google Sign-In via Supabase Auth
 - **Clean Architecture** - Kode terstruktur dengan pemisahan layer yang jelas
 
 ## 🚀 Quick Start
@@ -35,14 +36,21 @@ Buka [http://localhost:3000](http://localhost:3000) untuk melihat aplikasi.
 src/
 ├── app/                    # UI Layer (Next.js Pages)
 │   ├── page.tsx           # Landing page
+│   ├── login/             # Login page (Email + Google)
+│   ├── register/          # Register page
 │   ├── dashboard/         # Dashboard page
 │   └── session/           # Learning session page
 ├── application/           # Application Layer (Use Cases)
 │   └── usecases/          # Business logic orchestration
+├── components/            # Shared UI Components
+│   └── icons/             # Icon components (GoogleIcon, etc.)
 ├── domain/                # Domain Layer (Core Business)
 │   ├── entities/          # Business entities
 │   └── policies/          # Business rules & algorithms
 └── infrastructure/        # Infrastructure Layer
+    ├── auth/              # Supabase auth clients
+    ├── client/            # Client API wrappers (AuthApi, DashboardApi)
+    ├── kv/                # EdgeOne KV adapters
     └── repositories/      # Data access & persistence
 ```
 
@@ -71,15 +79,17 @@ npm run test:watch    # Watch mode
 npm run test:coverage # With coverage report
 ```
 
-Coverage saat ini: **~87% statements, ~81% branches**
+Coverage saat ini: **~87% statements, ~81% branches** (209 tests)
 
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 16 + React 19
 - **Language**: TypeScript 5.7
+- **Auth**: Supabase Auth (Email + Google OAuth)
 - **Styling**: Tailwind CSS 3.4
 - **Testing**: Jest 30 + React Testing Library
-- **Linting**: ESLint 9 (Flat Config)
+- **Linting**: ESLint 9 (Flat Config) + Prettier
+- **CI/CD**: GitHub Actions + Husky
 
 ## 📄 License
 

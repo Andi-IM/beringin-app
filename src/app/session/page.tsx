@@ -17,8 +17,6 @@ export default function SessionPage() {
   const [startTime, setStartTime] = useState<number>(Date.now())
   const [totalDue, setTotalDue] = useState(0)
 
-  const userId = 'demo-user' // Hardcoded for MVP
-
   useEffect(() => {
     loadNextQuestion()
   }, [])
@@ -28,7 +26,7 @@ export default function SessionPage() {
       // Note: This violates architecture but acceptable for MVP
       // TODO: Move to use case in production
       // eslint-disable-next-line no-restricted-globals
-      const response = await fetch(`/api/session/next?userId=${userId}`)
+      const response = await fetch(`/api/session/next`)
       if (!response.ok) throw new Error('Failed to fetch next question')
       const result = await response.json()
 
@@ -57,7 +55,6 @@ export default function SessionPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userId,
           conceptId: question.conceptId,
           questionId: question.id,
           userAnswer,
