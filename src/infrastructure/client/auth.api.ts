@@ -28,4 +28,16 @@ export const AuthApi = {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
   },
+
+  async signInWithGoogle() {
+    const supabase = getSupabase()
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+    if (error) return { success: false, error: error.message }
+    return { success: true }
+  },
 }

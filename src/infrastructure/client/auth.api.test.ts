@@ -11,6 +11,7 @@ describe('AuthApi', () => {
       signInWithPassword: jest.fn(),
       signUp: jest.fn(),
       signOut: jest.fn(),
+      signInWithOAuth: jest.fn(),
     },
   }
 
@@ -86,6 +87,28 @@ describe('AuthApi', () => {
       const mockError = new Error('Signout failed')
       mockSupabase.auth.signOut.mockResolvedValue({ error: mockError })
       await expect(AuthApi.signOut()).rejects.toThrow('Signout failed')
+    })
+  })
+
+  describe('signInWithGoogle', () => {
+    it('returns success true on successful google sign in', async () => {
+      mockSupabase.auth.signInWithOAuth.mockResolvedValue({ error: null })
+      const result = await AuthApi.signInWithGoogle()
+      expect(result).toEqual({ success: true })
+      expect(mockSupabase.auth.signInWithOAuth).toHaveBeenCalledWith({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+    })
+
+    it('returns error on failed google sign in', async () => {
+      mockSupabase.auth.signInWithOAuth.mockResolvedValue({
+        error: { message: 'OAuth error' },
+      })
+      const result = await AuthApi.signInWithGoogle()
+      expect(result).toEqual({ success: false, error: 'OAuth error' })
     })
   })
 })

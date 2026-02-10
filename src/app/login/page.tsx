@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { AuthApi } from '@/infrastructure/client/auth.api'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { GoogleIcon } from '@/components/icons/GoogleIcon'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -26,6 +27,22 @@ export default function LoginPage() {
       }
     } catch (err) {
       console.error('Login error:', err)
+      setError('An unexpected error occurred')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const result = await AuthApi.signInWithGoogle()
+      if (!result.success) {
+        setError(result.error || 'Google login failed')
+      }
+    } catch (err) {
+      console.error('Google login error:', err)
       setError('An unexpected error occurred')
     } finally {
       setLoading(false)
@@ -102,6 +119,17 @@ export default function LoginPage() {
               </button>
             </div>
           </form>
+
+          <div className="mt-4">
+            <button
+              onClick={handleGoogleLogin}
+              disabled={loading}
+              className="flex w-full items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
+            >
+              <GoogleIcon className="h-5 w-5" />
+              Masuk dengan Google
+            </button>
+          </div>
 
           <div className="mt-6">
             <div className="relative">
