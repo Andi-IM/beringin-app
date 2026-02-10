@@ -10,6 +10,7 @@ jest.mock('next/navigation', () => ({
 jest.mock('@/infrastructure/client/auth.api', () => ({
   AuthApi: {
     signIn: jest.fn(),
+    signInWithGoogle: jest.fn(),
   },
 }))
 
@@ -31,6 +32,9 @@ describe('LoginPage', () => {
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Masuk' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: 'Masuk dengan Google' }),
+    ).toBeInTheDocument()
   })
 
   it('navigates to dashboard on successful login', async () => {
@@ -86,6 +90,44 @@ describe('LoginPage', () => {
     })
 
     fireEvent.click(screen.getByRole('button', { name: 'Masuk' }))
+
+    expect(
+      await screen.findByText('An unexpected error occurred'),
+    ).toBeInTheDocument()
+  })
+
+  it('calls signInWithGoogle on button click', async () => {
+    ;(AuthApi.signInWithGoogle as jest.Mock).mockResolvedValueOnce({
+      success: true,
+    })
+    render(<LoginPage />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk dengan Google' }))
+
+    await waitFor(() => {
+      expect(AuthApi.signInWithGoogle).toHaveBeenCalled()
+    })
+  })
+
+  it('shows error message on failed google login', async () => {
+    ;(AuthApi.signInWithGoogle as jest.Mock).mockResolvedValueOnce({
+      success: false,
+      error: 'Google login failed',
+    })
+    render(<LoginPage />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk dengan Google' }))
+
+    expect(await screen.findByText('Google login failed')).toBeInTheDocument()
+  })
+
+  it('shows unexpected error message on google login API crash', async () => {
+    ;(AuthApi.signInWithGoogle as jest.Mock).mockRejectedValueOnce(
+      new Error('API crash'),
+    )
+    render(<LoginPage />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Masuk dengan Google' }))
 
     expect(
       await screen.findByText('An unexpected error occurred'),
