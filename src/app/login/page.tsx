@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Registry } from '@/registry'
+import { AuthApi } from '@/infrastructure/client/auth.api'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -18,14 +18,14 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      const result = await Registry.signIn({ email, password })
+      const result = await AuthApi.signIn({ email, password })
       if (result.success) {
         router.push('/dashboard')
-        router.refresh()
       } else {
         setError(result.error || 'Login failed')
       }
     } catch (err) {
+      console.error('Login error:', err)
       setError('An unexpected error occurred')
     } finally {
       setLoading(false)

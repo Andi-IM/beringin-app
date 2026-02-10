@@ -1,11 +1,27 @@
-'use client'
-
-import { render, screen, waitFor, act } from '@testing-library/react'
+import { render, screen, waitFor, act, fireEvent } from '@testing-library/react'
 import DashboardPage from './page'
+import { DashboardApi } from '@/infrastructure/client/dashboard.api'
+import { AuthApi } from '@/infrastructure/client/auth.api'
 
-// Mock fetch
-const mockFetch = jest.fn()
-global.fetch = mockFetch
+// Mock APIs
+jest.mock('@/infrastructure/client/dashboard.api', () => ({
+  DashboardApi: {
+    getDashboardData: jest.fn(),
+  },
+}))
+
+jest.mock('@/infrastructure/client/auth.api', () => ({
+  AuthApi: {
+    signOut: jest.fn(),
+  },
+}))
+
+const mockPush = jest.fn()
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: mockPush,
+  }),
+}))
 
 describe('DashboardPage', () => {
   const mockConcepts = [
@@ -45,12 +61,9 @@ describe('DashboardPage', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    mockFetch.mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        concepts: mockConcepts,
-        stats: mockStats,
-      }),
+    ;(DashboardApi.getDashboardData as jest.Mock).mockResolvedValue({
+      concepts: mockConcepts,
+      stats: mockStats,
     })
   })
 
@@ -61,13 +74,13 @@ describe('DashboardPage', () => {
     expect(screen.getByText('Sistem Akar Pengetahuan Anda')).toBeInTheDocument()
   })
 
-  it('calls fetch on mount', async () => {
+  it('calls DashboardApi on mount', async () => {
     await act(async () => {
       render(<DashboardPage />)
     })
 
     await waitFor(() => {
-      expect(mockFetch).toHaveBeenCalledWith('/api/dashboard')
+      expect(DashboardApi.getDashboardData).toHaveBeenCalled()
     })
   })
 
@@ -119,12 +132,9 @@ describe('DashboardPage', () => {
   })
 
   it('shows empty state when no concepts exist', async () => {
-    mockFetch.mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        concepts: [],
-        stats: { total: 0, stable: 0, fragile: 0, learning: 0, lapsed: 0 },
-      }),
+    ;(DashboardApi.getDashboardData as jest.Mock).mockResolvedValueOnce({
+      concepts: [],
+      stats: { total: 0, stable: 0, fragile: 0, learning: 0, lapsed: 0 },
     })
 
     await act(async () => {
@@ -213,12 +223,9 @@ describe('DashboardPage', () => {
       },
     ]
 
-    mockFetch.mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        concepts: conceptsWithAllStatuses,
-        stats: { total: 4, stable: 1, fragile: 1, learning: 1, lapsed: 1 },
-      }),
+    ;(DashboardApi.getDashboardData as jest.Mock).mockResolvedValueOnce({
+      concepts: conceptsWithAllStatuses,
+      stats: { total: 4, stable: 1, fragile: 1, learning: 1, lapsed: 1 },
     })
 
     await act(async () => {
@@ -257,14 +264,14 @@ describe('DashboardPage', () => {
 
   it('handles loading state gracefully', () => {
     // Mock a delayed response
-    mockFetch.mockImplementation(
+    ;(DashboardApi.getDashboardData as jest.Mock).mockImplementation(
       () =>
         new Promise((resolve) =>
           setTimeout(
             () =>
               resolve({
-                ok: true,
-                json: async () => ({ concepts: [], stats: mockStats }),
+                concepts: [],
+                stats: mockStats,
               }),
             100,
           ),
@@ -275,5 +282,19 @@ describe('DashboardPage', () => {
 
     // Initially should show loading state (no concepts yet)
     expect(screen.queryByText('Test Concept 1')).not.toBeInTheDocument()
+  })
+
+  it('handles logout correctly', async () => {
+    ;(AuthApi.signOut as jest.Mock).mockResolvedValueOnce(undefined)
+
+    render(<DashboardPage />)
+
+    const logoutButton = screen.getByText('Keluar')
+    fireEvent.click(logoutButton)
+
+    await waitFor(() => {
+      expect(AuthApi.signOut).toHaveBeenCalled()
+      expect(mockPush).toHaveBeenCalledWith('/')
+    })
   })
 })

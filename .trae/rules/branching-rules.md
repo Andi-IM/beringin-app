@@ -1,5 +1,8 @@
 Aturan Branch untuk AI di proyek Beringin:
 
+- **DILARANG** push langsung ke branch `main` dan `dev`. Semua perubahan harus melalui Pull Request.
+- **Wajib Feature Branch**: Setiap fitur atau task baru HARUS dikembangkan di branch `feature/*` yang terpisah.
+- **Roadmap Alignment**: Nama branch dan isi perubahan harus sesuai dengan task yang ada di `docs/ROADMAP.md`.
 - Workflow: `feature/*` -> Pull Request ke `dev`. Secara periodik, `dev` akan di-merge ke `main` untuk auto-deploy.
 - Branch `dev` adalah tempat integrasi utama untuk semua fitur baru.
 - Branch `main` hanya di-merge dari `dev` untuk memicu deployment ke EdgeOne.
