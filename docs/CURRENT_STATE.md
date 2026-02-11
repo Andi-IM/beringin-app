@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-11T18:10:00+07:00
+> **Last Updated**: 2026-02-11T19:00:00+07:00
 
 ## 🎯 Status Overview
 
@@ -9,7 +9,7 @@
 | --------------- | ------------- | ---------------------- |
 | **Development** | ✅ Active     | Phase 2 - Content Mgmt |
 | **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 224/224 passing (100%) |
+| **Tests**       | ✅ Passing    | 251/251 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions (Green) |
 
@@ -19,7 +19,7 @@
 - Phase 1 / Sprint 1.1: Persistence Layer (EdgeOne KV) — ✅ DONE
 - Phase 1 / Sprint 1.2: Authentication — ✅ DONE
 - Phase 1 / Sprint 1.3: Quality Gate — ✅ DONE
-- Phase 1 / Final Stabilization: CI/CD Robustness — ✅ DONE
+- Phase 2 / Sprint 2.1: Admin Panel (Concepts CRUD) — ✅ DONE (PR #18)
 
 ## 🏗️ Implemented Features
 
@@ -32,6 +32,7 @@
 5. **Authentication Flow** - Login & Register menggunakan Supabase Auth (Lazy-loaded client)
 6. **Google Sign-In** - OAuth login via Supabase dengan reusable `GoogleIcon` component
 7. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
+8. **Admin Panel** - CRUD interface untuk Concepts (\`/admin/concepts\`) menggunakan Server Actions.
 
 ### ✅ Architecture (Done)
 
@@ -75,10 +76,10 @@
 ## 📈 Test Coverage
 
 ```
-Statements : 87.21%
-Branches   : 81.33%
-Functions  : 86.42%
-Lines      : 90.15%
+Statements : 88.54%
+Branches   : 84.12%
+Functions  : 89.20%
+Lines      : 91.35%
 ```
 
 ## 🔧 Available Scripts
@@ -120,16 +121,23 @@ Lines      : 90.15%
   - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
   - Cleanup unused code di `register/page.tsx`.
 
-### 2026-02-11 (Sesi #12)
+### 2026-02-11 (Sesi #13)
 
-- ✅ **CI/CD & Quality Checks**:
-  - **Codecov Resolution**: Patch coverage 100% (Overall ~90%). Ditambahkan unit test untuk `error.tsx` dan `global-error.tsx`.
-  - **Environment Stabilization**: Fix Husky hooks `core.hooksPath` dan formatting drift di `next-env.d.ts`.
-  - **Robustness**: `pre-push` hook memeriksa build produksi sebelum push.
-- ✅ **Documentation Polish**:
-  - Updated `README.md` dengan status badges modern.
-  - Finalized `ROADMAP.md` (Phase 1 Complete).
-  - Consolidated Post-Mortem PR #17.
+- ✅ **Sprint 2.1: Admin Panel (Concepts CRUD)**:
+  - Implementasi CRUD untuk `Concepts` (View, Create, Edit, Delete).
+  - Penggunaan **Next.js Server Actions** untuk mutasi data yang aman.
+  - Komponen reusable `ConceptForm` dengan validasi `Zod`.
+  - Integrasi dengan `Registry` untuk akses repositori admin.
+- ✅ **Quality Gate & Coverage**:
+  - Penambahan unit test untuk 4 use cases baru (CRUD).
+  - Penambahan component tests untuk `AdminSidebar`, `ConceptTable`, dan `ConceptForm`.
+  - Registry test untuk verifikasi delegasi admin methods.
+  - Resolusi patch coverage Codecov (target 50%+ terpenuhi).
+- ✅ **Bug Fixes & Refactoring**:
+  - Penanganan _flaky test_ pada `updateConcept` dengan async delay.
+  - Perbaikan accessibility (label-input association) di `ConceptForm`.
+  - Pembersihan syntax error (nested divs) di `ConceptForm`.
+- ✅ **CI/CD**: PR #18 created merging `feat/admin-panel` to `dev`. 251/251 tests pass.
 
 ### 2026-02-11 (Sesi #11)
 
@@ -231,9 +239,9 @@ Lines      : 90.15%
 
 ## 🚧 Next Steps
 
-1. Sprint 1.3 Quality Gate: Playwright E2E, `act()` warnings cleanup, Registry coverage
-2. Tambah concept/question management UI (admin CRUD — Phase 2)
-3. E2E test untuk flow utama (landing → login → session → dashboard)
+1. Sprint 2.1.3 Question CRUD (Admin Panel extension)
+2. Bulk import (JSON/CSV) for Reza's convenience ⭐
+3. Markdown support in descriptions
 4. Mobile responsive audit & dark mode polish
 
 ---
