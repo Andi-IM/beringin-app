@@ -7,3 +7,4 @@ coverage
 *.config.js
 *.config.ts
 public
+next-env.d.ts

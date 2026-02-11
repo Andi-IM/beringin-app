@@ -1,9 +1,22 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history  
-> **Last Updated**: 2026-02-10T18:20+07:00
+> **Last Updated**: 2026-02-11T18:00:00+07:00
 
 ---
+
+## 🎯 Strategic Alignment (The "Reza Standard")
+
+Agar tetap relevan dengan persona **Reza** (Professional/CPNS Aspirant) yang anti-gamifikasi dangkal, roadmap ini diprioritaskan berdasarkan **3 Pilar Strategis**:
+
+1.  **Trust (Brutal Honesty)**: Utamakan metrik retensi nyata daripada engagement palsu (streak).
+2.  **Efficiency**: Fitur yang memotong waktu belajar (Bulk Import, Smart Scheduling).
+3.  **Depth**: Support untuk materi kompleks (UUD, Pasal) lewat Cloze Deletion.
+
+_Legend:_
+
+- ⭐ **Critical for Reza**: Fitur wajib untuk "Trust" & "Efficiency".
+- ⚠️ **Risk of Vanity**: Fitur yang harus hati-hati diimplementasi agar tidak dianggap "gimmick".
 
 ## 📊 Velocity Aktual (dari Git History)
 
@@ -14,7 +27,12 @@
 | #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
 | #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor    | ~500–800                  |
 | #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)   | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
-| **Total** |             | **±2.5 jam commit time** | **45 commits, 95 files**           | **~10,000 lines touched** |
+| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)   | Google Sign-In + Refactor          | ~800–1,200                |
+| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)   | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
+| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)   | Auth Tests + Coverage Sync         | ~400–600                  |
+| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~450–500                  |
+| #12       | 11 Feb 2026 | 17:30–18:00 (30 menit)   | CI Hardening + Coverage + README   | ~500–800                  |
+| **Total** |             | **±5.5 jam commit time** | **74 commits**                     | **~14,000 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -24,12 +42,12 @@
 
 ### Throughput Terukur (AI-Assisted)
 
-| Metrik                          | Nilai yang Lebih Realistis            |
+| Metrik                          | Nilai Realistis (Rata-rata)           |
 | ------------------------------- | ------------------------------------- |
-| Lines of code per sesi          | ~1,500–2,500 lines tersentuh          |
-| Files changed per sesi          | ~15–30 files                          |
-| Test cases created per sesi     | ~30–60 test cases (unit + API route)  |
-| Rata-rata per jam kerja efektif | ~4,000–6,000 LoC, ~20 files tersentuh |
+| Lines of code per sesi          | ~1,000–1,500 lines tersentuh          |
+| Files changed per sesi          | ~10–20 files                          |
+| Test cases created per sesi     | ~20–40 test cases (unit + API route)  |
+| Rata-rata per jam kerja efektif | ~2,500–3,000 LoC, ~15 files tersentuh |
 
 ---
 
@@ -55,7 +73,7 @@
 
 ---
 
-## 🔄 Phase 1: Foundation — IN PROGRESS (80%)
+## ✅ Phase 1: Foundation — DONE
 
 > **Estimasi berdasarkan velocity**: Foundation (Phase 1) hampir selesai dalam ~3 sesi kerja intensif.  
 > Sisa Sprint 1.3 (Quality Gate) sebagai pemoles akhir sebelum Phase 2.
@@ -110,10 +128,11 @@
 
 | #     | Task                           | Kompleksitas | Status |
 | ----- | ------------------------------ | ------------ | ------ |
-| 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ☐      |
-| 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ☐      |
-| 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ☐      |
-| 1.3.4 | Error boundary component       | 🟢 Rendah    | ☐      |
+| 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ✅     |
+| 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ✅     |
+| 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ✅     |
+| 1.3.4 | Error boundary component       | 🟢 Rendah    | ✅     |
+| 1.3.5 | User Guide Documentation       | 🟢 Rendah    | ✅     |
 
 ---
 
@@ -130,14 +149,14 @@
 | 2.1.2 | Concept CRUD UI        | 🟡 Sedang    | ☐      |
 | 2.1.3 | Question CRUD UI       | 🟡 Sedang    | ☐      |
 | 2.1.4 | Category management    | 🟢 Rendah    | ☐      |
-| 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐      |
+| 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   |
 
 ### Sprint 2.2: Enhanced Learning
 
 | #     | Task                 | Kompleksitas | Status |
 | ----- | -------------------- | ------------ | ------ |
 | 2.2.1 | Question type: MCQ   | 🟡 Sedang    | ☐      |
-| 2.2.2 | Question type: Cloze | 🟡 Sedang    | ☐      |
+| 2.2.2 | Question type: Cloze | 🟡 Sedang    | ☐ ⭐   |
 | 2.2.3 | Markdown support     | 🟢 Rendah    | ☐      |
 | 2.2.4 | Image attachments    | 🟡 Sedang    | ☐      |
 | 2.2.5 | Audio playback       | 🟡 Sedang    | ☐      |
@@ -162,9 +181,9 @@
 
 | #     | Task                             | Kompleksitas | Status |
 | ----- | -------------------------------- | ------------ | ------ |
-| 3.1.1 | Study streak tracking            | 🟢 Rendah    | ☐      |
+| 3.1.1 | Study streak tracking            | 🟢 Rendah    | ☐ ⚠️   |
 | 3.1.2 | Time spent analytics             | 🟡 Sedang    | ☐      |
-| 3.1.3 | Retention rate graph             | 🟠 Tinggi    | ☐      |
+| 3.1.3 | Retention rate graph             | 🟠 Tinggi    | ☐ ⭐   |
 | 3.1.4 | Difficult concept identification | 🟡 Sedang    | ☐      |
 | 3.1.5 | Forgetting curve visualization   | 🟠 Tinggi    | ☐      |
 
@@ -210,7 +229,7 @@
 - [ ] Collaborative decks
 - [ ] Integrasi Notion / Obsidian
 - [ ] Public API
-- [ ] Gamification (achievements, leaderboard)
+- [ ] Gamification (achievements, leaderboard) ⚠️ _Low Priority for Reza_
 
 ---
 
