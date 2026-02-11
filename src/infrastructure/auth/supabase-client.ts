@@ -19,7 +19,9 @@ export async function createClient() {
             // The `set` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
-            console.error(error)
+            if (process.env.NODE_ENV !== 'test') {
+              console.error(error)
+            }
           }
         },
         remove(name: string, options: CookieOptions) {
@@ -29,7 +31,9 @@ export async function createClient() {
             // The `delete` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
-            console.error(error)
+            if (process.env.NODE_ENV !== 'test') {
+              console.error(error)
+            }
           }
         },
       },

@@ -11,7 +11,6 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  // const router = useRouter() // Unused
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()

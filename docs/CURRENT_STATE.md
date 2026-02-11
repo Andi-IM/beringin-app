@@ -109,6 +109,14 @@ Lines      : 90.15%
   - Configured `gh` CLI to use HTTPS protocol.
 - ✅ **CI Status**: 7/7 checks pass (build, test, CodeQL, GitGuardian, Codecov). 209/209 tests.
 
+### 2026-02-10 (Sesi #10 - current)
+
+- ✅ **Sprint 1.2 Synchronization**:
+  - Implementasi unit test untuk `auth/callback/route.ts` (100% auth coverage).
+  - Perbaikan Codecov configuration untuk include `src/app/auth/**`.
+  - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
+  - Cleanup unused code di `register/page.tsx`.
+
 ### 2026-02-10 (Sesi #8)
 
 - ✅ **Google Sign-In Implementation**:
