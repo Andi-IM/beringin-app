@@ -5,9 +5,16 @@ import {
   updateConceptAction,
 } from '@/app/admin/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
+import { logger } from '@/lib/logger'
 
 // Mock server actions - using manual mock from src/app/admin/concepts/__mocks__/actions.ts
 jest.mock('@/app/admin/concepts/actions')
+
+jest.mock('@/lib/logger', () => ({
+  logger: {
+    error: jest.fn(),
+  },
+}))
 
 const mockConcept: Concept = {
   id: '1',
@@ -86,7 +93,6 @@ describe('ConceptForm', () => {
   })
 
   it('should handle submission error', async () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
     ;(createConceptAction as jest.Mock).mockRejectedValue(new Error('Failed'))
 
     render(<ConceptForm />)
@@ -104,16 +110,14 @@ describe('ConceptForm', () => {
     fireEvent.click(screen.getByText('Create Concept', { selector: 'button' }))
 
     await waitFor(() => {
+      expect(logger.error).toHaveBeenCalled()
       expect(
         screen.getByText('Failed to save concept. Please try again.'),
       ).toBeInTheDocument()
     })
-
-    consoleSpy.mockRestore()
   })
 
   it('should handle NEXT_REDIRECT error safely in tests', async () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
     const redirectError = new Error('NEXT_REDIRECT')
     ;(redirectError as any).handledByTest = true
     ;(createConceptAction as jest.Mock).mockRejectedValue(redirectError)
@@ -137,11 +141,9 @@ describe('ConceptForm', () => {
     })
 
     // Validate that we reached the catch block but didn't log an error or show UI error
-    expect(consoleSpy).not.toHaveBeenCalled()
+    expect(logger.error).not.toHaveBeenCalled()
     expect(
       screen.queryByText('Failed to save concept. Please try again.'),
     ).not.toBeInTheDocument()
-
-    consoleSpy.mockRestore()
   })
 })

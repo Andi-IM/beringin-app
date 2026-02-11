@@ -2,9 +2,16 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { ConceptTable } from './ConceptTable'
 import { deleteConceptAction } from '@/app/admin/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
+import { logger } from '@/lib/logger'
 
 jest.mock('@/app/admin/concepts/actions', () => ({
   deleteConceptAction: jest.fn(),
+}))
+
+jest.mock('@/lib/logger', () => ({
+  logger: {
+    error: jest.fn(),
+  },
 }))
 
 const mockConcepts: Concept[] = [
@@ -62,8 +69,6 @@ describe('ConceptTable', () => {
   it('should handle delete failure', async () => {
     window.confirm = jest.fn(() => true)
     window.alert = jest.fn()
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
-
     ;(deleteConceptAction as jest.Mock).mockRejectedValue(new Error('Failed'))
 
     render(<ConceptTable concepts={mockConcepts} />)
@@ -75,10 +80,8 @@ describe('ConceptTable', () => {
 
     await waitFor(() => {
       expect(deleteConceptAction).toHaveBeenCalled()
-      expect(consoleSpy).toHaveBeenCalled()
+      expect(logger.error).toHaveBeenCalled()
       expect(window.alert).toHaveBeenCalledWith('Failed to delete concept')
     })
-
-    consoleSpy.mockRestore()
   })
 })

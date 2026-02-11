@@ -88,9 +88,7 @@ describe('DashboardPage', () => {
   })
 
   it('displays stats correctly', async () => {
-    await act(async () => {
-      render(<DashboardPage />)
-    })
+    render(<DashboardPage />)
 
     // Wait for the total to be displayed
     const totalStat = await screen.findByText(mockStats.total.toString())
