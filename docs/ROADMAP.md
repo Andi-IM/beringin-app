@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history
-> **Last Updated**: 2026-02-11T19:36:00+07:00
+> **Last Updated**: 2026-02-11T21:45:00+07:00
 
 ---
 
@@ -34,7 +34,8 @@ _Legend:_
 | #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)   | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
 | #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)   | PR #19 Polish + License            | ~800–1,000                |
 | #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)   | Technical Debt Resolution          | ~500–800                  |
-| **Total** |             | **±7.1 jam commit time** | **96 commits**                     | **~17,000 lines touched** |
+| #16       | 11 Feb 2026 | 21:00–21:45 (45 menit)   | Conflict Resolution & Docs Fix     | ~200–300                  |
+| **Total** |             | **±7.9 jam commit time** | **100 commits**                    | **~17,300 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
