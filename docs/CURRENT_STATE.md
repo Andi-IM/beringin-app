@@ -117,6 +117,13 @@ Lines      : 90.15%
   - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
   - Cleanup unused code di `register/page.tsx`.
 
+### 2026-02-11 (Sesi #11)
+
+- ✅ **Documentation**:
+  - Created `docs/USER_GUIDE.md` (v1.0) dengan status perubahan tracked.
+  - Verifikasi User Guide vs App Behavior menggunakan Integration Test (`user-guide.integration.test.tsx`).
+  - Added Troubleshooting section untuk menangani edge cases (network error).
+
 ### 2026-02-10 (Sesi #8)
 
 - ✅ **Google Sign-In Implementation**:

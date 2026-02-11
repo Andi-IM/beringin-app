@@ -14,7 +14,8 @@
 | #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
 | #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor    | ~500–800                  |
 | #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)   | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
-| **Total** |             | **±2.5 jam commit time** | **45 commits, 95 files**           | **~10,000 lines touched** |
+| #8        | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~200–300                  |
+| **Total** |             | **±2.8 jam commit time** | **48 commits**                     | **~10,300 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -114,6 +115,7 @@
 | 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ☐      |
 | 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ☐      |
 | 1.3.4 | Error boundary component       | 🟢 Rendah    | ☐      |
+| 1.3.5 | User Guide Documentation       | 🟢 Rendah    | ✅     |
 
 ---
 
