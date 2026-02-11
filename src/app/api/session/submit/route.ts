@@ -3,6 +3,7 @@
 
 import { Registry } from '@/registry'
 import { NextResponse } from 'next/server'
+import { logger } from '@/lib/logger'
 
 export const runtime = 'edge'
 
@@ -46,9 +47,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(result)
   } catch (error) {
-    if (process.env.NODE_ENV !== 'test') {
-      console.error('Submit Answer API Error:', error)
-    }
+    logger.error('Submit Answer API Error:', error)
     return NextResponse.json(
       { error: 'Failed to submit answer' },
       { status: 500 },

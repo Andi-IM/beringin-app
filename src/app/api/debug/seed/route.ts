@@ -3,6 +3,7 @@
 
 import { Registry } from '@/registry'
 import { NextResponse } from 'next/server'
+import { logger } from '@/lib/logger'
 
 export const runtime = 'edge'
 
@@ -12,9 +13,7 @@ export async function POST() {
     await Registry.seedInitialData()
     return NextResponse.json({ message: 'Seed data created successfully' })
   } catch (error) {
-    if (process.env.NODE_ENV !== 'test') {
-      console.error('Seed API Error:', error)
-    }
+    logger.error('Seed API Error:', error)
     return NextResponse.json({ error: 'Failed to seed data' }, { status: 500 })
   }
 }
