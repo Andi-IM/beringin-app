@@ -3,18 +3,21 @@
 
 import { Registry } from '@/registry'
 import { NextResponse } from 'next/server'
+import { logger } from '@/lib/logger'
 
 export const runtime = 'edge'
 
 export async function POST() {
+  if (process.env.NODE_ENV === 'production') {
+    return new NextResponse(null, { status: 404 })
+  }
+
   // In a real app, this should be protected by API key or admin auth
   try {
     await Registry.seedInitialData()
     return NextResponse.json({ message: 'Seed data created successfully' })
   } catch (error) {
-    if (process.env.NODE_ENV !== 'test') {
-      console.error('Seed API Error:', error)
-    }
+    logger.error('Seed API Error:', error)
     return NextResponse.json({ error: 'Failed to seed data' }, { status: 500 })
   }
 }

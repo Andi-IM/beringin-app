@@ -1,9 +1,27 @@
 # 🗺️ Roadmap - Beringin
 
+<<<<<<< HEAD
 > Rencana pengembangan berbasis data nyata dari git history  
 > **Last Updated**: 2026-02-10T18:20+07:00
+=======
+> Rencana pengembangan berbasis data nyata dari git history
+> **Last Updated**: 2026-02-11T19:36:00+07:00
+>>>>>>> origin/dev
 
 ---
+
+## 🎯 Strategic Alignment (The "Reza Standard")
+
+Agar tetap relevan dengan persona **Reza** (Professional/CPNS Aspirant) yang anti-gamifikasi dangkal, roadmap ini diprioritaskan berdasarkan **3 Pilar Strategis**:
+
+1.  **Trust (Brutal Honesty)**: Utamakan metrik retensi nyata daripada engagement palsu (streak).
+2.  **Efficiency**: Fitur yang memotong waktu belajar (Bulk Import, Smart Scheduling).
+3.  **Depth**: Support untuk materi kompleks (UUD, Pasal) lewat Cloze Deletion.
+
+_Legend:_
+
+- ⭐ **Critical for Reza**: Fitur wajib untuk "Trust" & "Efficiency".
+- ⚠️ **Risk of Vanity**: Fitur yang harus hati-hati diimplementasi agar tidak dianggap "gimmick".
 
 ## 📊 Velocity Aktual (dari Git History)
 
@@ -14,22 +32,33 @@
 | #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
 | #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor    | ~500–800                  |
 | #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)   | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
+<<<<<<< HEAD
 | **Total** |             | **±2.5 jam commit time** | **45 commits, 95 files**           | **~10,000 lines touched** |
+=======
+| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)   | Google Sign-In + Refactor          | ~800–1,200                |
+| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)   | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
+| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)   | Auth Tests + Coverage Sync         | ~400–600                  |
+| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~450–500                  |
+| #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)   | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
+| #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)   | PR #19 Polish + License            | ~800–1,000                |
+| #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)   | Technical Debt Resolution          | ~500–800                  |
+| **Total** |             | **±7.1 jam commit time** | **96 commits**                     | **~17,000 lines touched** |
+>>>>>>> origin/dev
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
-> - `git rev-list --count HEAD` → 19 commits
-> - `git diff --stat <root> HEAD` → 78 files changed, 5,278 insertions(+), 1,642 deletions(-)
+> - `git rev-list --count HEAD` → 21 commits
+> - `git diff --stat <root> HEAD` → 80+ files changed, 5,300+ insertions(+), 1,650+ deletions(-)
 > - Lines touched ≈ insertions + deletions
 
 ### Throughput Terukur (AI-Assisted)
 
-| Metrik                          | Nilai yang Lebih Realistis            |
+| Metrik                          | Nilai Realistis (Rata-rata)           |
 | ------------------------------- | ------------------------------------- |
-| Lines of code per sesi          | ~1,500–2,500 lines tersentuh          |
-| Files changed per sesi          | ~15–30 files                          |
-| Test cases created per sesi     | ~30–60 test cases (unit + API route)  |
-| Rata-rata per jam kerja efektif | ~4,000–6,000 LoC, ~20 files tersentuh |
+| Lines of code per sesi          | ~1,000–1,500 lines tersentuh          |
+| Files changed per sesi          | ~10–20 files                          |
+| Test cases created per sesi     | ~20–40 test cases (unit + API route)  |
+| Rata-rata per jam kerja efektif | ~2,500–3,000 LoC, ~15 files tersentuh |
 
 ---
 
@@ -55,7 +84,11 @@
 
 ---
 
+<<<<<<< HEAD
 ## 🔄 Phase 1: Foundation — IN PROGRESS (80%)
+=======
+## ✅ Phase 1: Foundation — DONE
+>>>>>>> origin/dev
 
 > **Estimasi berdasarkan velocity**: Foundation (Phase 1) hampir selesai dalam ~3 sesi kerja intensif.  
 > Sisa Sprint 1.3 (Quality Gate) sebagai pemoles akhir sebelum Phase 2.
@@ -93,6 +126,21 @@
 | 1.2.5 | Replace `demo-user` → real user ID | 🟢 Rendah           | ✅     |
 | 1.2.6 | Google Sign-In (OAuth)             | 🟢 Rendah           | ✅     |
 | 1.2.7 | GoogleIcon component extraction    | 🟢 Rendah           | ✅     |
+<<<<<<< HEAD
+
+#### Sprint 1.2 Timeline (berdasarkan git history)
+
+| Tanggal      | Waktu   | Deliverable                                          | Terkait Task Sprint 1.2 | Commit    |
+| ------------ | ------- | ---------------------------------------------------- | ----------------------- | --------- |
+| 10 Feb 15:30 | —       | implement supabase authentication flow & validation  | 1.2.1, 1.2.2, 1.2.4     | `46a4097` |
+| 10 Feb 15:35 | +5 min  | add auth use case and ui tests (coverage thresholds) | 1.2.2 (quality)         | `ccf7d56` |
+| 10 Feb 15:45 | +10 min | refactor auth api to be lazy and fix dashboard tests | 1.2.3, 1.2.5            | `af250e1` |
+| 10 Feb 16:20 | +35 min | Merge PR #4: Final adjustments & branching policy    | Sprint 1.2 (final)      | `e2ec2da` |
+| 10 Feb 16:25 | +5 min  | docs: sync current state after Sprint 1.2 merge (#6) | Sprint 1.2 (sync)       | `2865684` |
+| 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
+| 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
+=======
+>>>>>>> origin/dev
 
 #### Sprint 1.2 Timeline (berdasarkan git history)
 
@@ -106,14 +154,28 @@
 | 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
 | 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
 
-### Sprint 1.3: Quality Gate
+#### Sprint 1.2 Timeline (berdasarkan git history)
+
+| Tanggal      | Waktu   | Deliverable                                          | Terkait Task Sprint 1.2 | Commit    |
+| ------------ | ------- | ---------------------------------------------------- | ----------------------- | --------- |
+| 10 Feb 15:30 | —       | implement supabase authentication flow & validation  | 1.2.1, 1.2.2, 1.2.4     | `46a4097` |
+| 10 Feb 15:35 | +5 min  | add auth use case and ui tests (coverage thresholds) | 1.2.2 (quality)         | `ccf7d56` |
+| 10 Feb 15:45 | +10 min | refactor auth api to be lazy and fix dashboard tests | 1.2.3, 1.2.5            | `af250e1` |
+| 10 Feb 16:20 | +35 min | Merge PR #4: Final adjustments & branching policy    | Sprint 1.2 (final)      | `e2ec2da` |
+| 10 Feb 16:25 | +5 min  | docs: sync current state after Sprint 1.2 merge (#6) | Sprint 1.2 (sync)       | `2865684` |
+| 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
+| 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
+
+### Sprint 1.3: Quality Gate — ✅ DONE
 
 | #     | Task                           | Kompleksitas | Status |
 | ----- | ------------------------------ | ------------ | ------ |
-| 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ☐      |
-| 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ☐      |
-| 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ☐      |
-| 1.3.4 | Error boundary component       | 🟢 Rendah    | ☐      |
+| 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ✅     |
+| 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ✅     |
+| 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ✅     |
+| 1.3.4 | Error boundary component       | 🟢 Rendah    | ✅     |
+| 1.3.5 | User Guide Documentation       | 🟢 Rendah    | ✅     |
+| 1.3.6 | Technical Debt Resolution      | 🟢 Rendah    | ✅     |
 
 ---
 
@@ -122,22 +184,22 @@
 > Kompleksitas lebih tinggi (CRUD UI, question types, responsive).  
 > Estimasi **3–5 sesi kerja**.
 
-### Sprint 2.1: Admin Panel
+### Sprint 2.1: Admin Panel — ✅ DONE (PR #18)
 
 | #     | Task                   | Kompleksitas | Status |
 | ----- | ---------------------- | ------------ | ------ |
-| 2.1.1 | Admin layout + sidebar | 🟡 Sedang    | ☐      |
-| 2.1.2 | Concept CRUD UI        | 🟡 Sedang    | ☐      |
+| 2.1.1 | Admin layout + sidebar | 🟡 Sedang    | ✅     |
+| 2.1.2 | Concept CRUD UI        | 🟡 Sedang    | ✅     |
 | 2.1.3 | Question CRUD UI       | 🟡 Sedang    | ☐      |
-| 2.1.4 | Category management    | 🟢 Rendah    | ☐      |
-| 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐      |
+| 2.1.4 | Category management    | 🟢 Rendah    | ✅     |
+| 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   |
 
 ### Sprint 2.2: Enhanced Learning
 
 | #     | Task                 | Kompleksitas | Status |
 | ----- | -------------------- | ------------ | ------ |
 | 2.2.1 | Question type: MCQ   | 🟡 Sedang    | ☐      |
-| 2.2.2 | Question type: Cloze | 🟡 Sedang    | ☐      |
+| 2.2.2 | Question type: Cloze | 🟡 Sedang    | ☐ ⭐   |
 | 2.2.3 | Markdown support     | 🟢 Rendah    | ☐      |
 | 2.2.4 | Image attachments    | 🟡 Sedang    | ☐      |
 | 2.2.5 | Audio playback       | 🟡 Sedang    | ☐      |
@@ -162,9 +224,9 @@
 
 | #     | Task                             | Kompleksitas | Status |
 | ----- | -------------------------------- | ------------ | ------ |
-| 3.1.1 | Study streak tracking            | 🟢 Rendah    | ☐      |
+| 3.1.1 | Study streak tracking            | 🟢 Rendah    | ☐ ⚠️   |
 | 3.1.2 | Time spent analytics             | 🟡 Sedang    | ☐      |
-| 3.1.3 | Retention rate graph             | 🟠 Tinggi    | ☐      |
+| 3.1.3 | Retention rate graph             | 🟠 Tinggi    | ☐ ⭐   |
 | 3.1.4 | Difficult concept identification | 🟡 Sedang    | ☐      |
 | 3.1.5 | Forgetting curve visualization   | 🟠 Tinggi    | ☐      |
 
@@ -190,6 +252,7 @@
 
 ## � Proyeksi Timeline (kalibrasi dari data nyata)
 
+<<<<<<< HEAD
 | Phase               | Sesi Kerja    | Target Selesai        | Confidence |
 | ------------------- | ------------- | --------------------- | ---------- |
 | ~~Phase 0: MVP~~    | 2 sesi        | ~~10 Feb~~ ✅         | —          |
@@ -197,6 +260,15 @@
 | Phase 2: Content    | 3–5 sesi      | Sesi kerja berikutnya | 🟡 Medium  |
 | Phase 3: Analytics  | 4–6 sesi      | Strategis             | 🟠 Low     |
 | **Total remaining** | **7–11 sesi** |                       |            |
+=======
+| Phase                   | Sesi Kerja    | Target Selesai        | Confidence |
+| ----------------------- | ------------- | --------------------- | ---------- |
+| ~~Phase 0: MVP~~        | 2 sesi        | ~~10 Feb~~ ✅         | —          |
+| ~~Phase 1: Foundation~~ | 3 sesi        | ~~11 Feb~~ ✅         | 🟢 High    |
+| Phase 2: Content        | 3–5 sesi      | Sesi kerja berikutnya | 🟡 Medium  |
+| Phase 3: Analytics      | 4–6 sesi      | Strategis             | 🟠 Low     |
+| **Total remaining**     | **7–11 sesi** |                       |            |
+>>>>>>> origin/dev
 
 > **Cara baca**: 1 sesi = 1 kali duduk kerja bersama AI (~30–90 menit efektif).  
 > Timeline **tidak dikunci ke tanggal** karena tergantung kapan Anda mulai sesi berikutnya.  
@@ -210,7 +282,7 @@
 - [ ] Collaborative decks
 - [ ] Integrasi Notion / Obsidian
 - [ ] Public API
-- [ ] Gamification (achievements, leaderboard)
+- [ ] Gamification (achievements, leaderboard) ⚠️ _Low Priority for Reza_
 
 ---
 

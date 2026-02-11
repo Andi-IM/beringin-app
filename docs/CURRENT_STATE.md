@@ -1,6 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
+<<<<<<< HEAD
 > **Last Updated**: 2026-02-10T18:20+07:00
 
 ## 🎯 Status Overview
@@ -12,13 +13,33 @@
 | **Tests**       | ✅ Passing    | 209/209 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions         |
+=======
+> **Last Updated**: 2026-02-11T20:15:00+07:00
+
+## 🎯 Status Overview
+
+| Aspek           | Status        | Catatan                           |
+| --------------- | ------------- | --------------------------------- |
+| **Development** | ✅ Active     | Phase 2 - Content Mgmt            |
+| **Build**       | ✅ Passing    | `npm run build` OK                |
+| **Tests**       | ✅ Passing    | 255/255 passing (83.62% coverage) |
+| **Lint**        | ✅ Passing    | 0 errors, 0 warnings              |
+| **CI/CD**       | ✅ Configured | GitHub Actions (Green)            |
+| **License**     | ✅ MIT        | Added 2026-02-11                  |
+>>>>>>> origin/dev
 
 ## 🧭 Sprint Status
 
 - Phase 0: MVP — ✅ DONE
 - Phase 1 / Sprint 1.1: Persistence Layer (EdgeOne KV) — ✅ DONE
 - Phase 1 / Sprint 1.2: Authentication — ✅ DONE
+<<<<<<< HEAD
 - Phase 1 / Sprint 1.3: Quality Gate — 🔜 NEXT
+=======
+- Phase 1 / Sprint 1.3: Quality Gate — ✅ DONE
+- Phase 2 / Sprint 2.1: Admin Panel (Concepts CRUD) — ✅ DONE (PR #18)
+- Phase 2 / Sprint 2.1.3: Question CRUD UI — ☐ IN PROGRESS
+>>>>>>> origin/dev
 
 ## 🏗️ Implemented Features
 
@@ -31,6 +52,10 @@
 5. **Authentication Flow** - Login & Register menggunakan Supabase Auth (Lazy-loaded client)
 6. **Google Sign-In** - OAuth login via Supabase dengan reusable `GoogleIcon` component
 7. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
+<<<<<<< HEAD
+=======
+8. **Admin Panel** - CRUD interface untuk Concepts (\`/admin/concepts\`) menggunakan Server Actions.
+>>>>>>> origin/dev
 
 ### ✅ Architecture (Done)
 
@@ -39,7 +64,9 @@
 ✅ Domain layer bebas framework
 ✅ Repository pattern untuk data access
 ✅ Use Case pattern untuk business logic
-✅ Registry pattern untuk Dependency Injection
+- [x] **Registry Pattern**: Centralized dependency injection for Use Cases.
+- [x] **Error Handling**: React Error Boundaries & Global Error Handlers.
+- [x] **Persona Alignment**: Prioritas fitur berdasarkan "Reza Standard".
 ✅ ESLint rules untuk enforce architecture
 ✅ GitHub CLI knowledge base (.agent/rules/github-cli.md)
 ✅ EdgeOne CLI knowledge base (.agent/rules/edgeone-cli.md)
@@ -51,10 +78,19 @@
 
 ### ⚠️ In Progress / Known Issues
 
+<<<<<<< HEAD
 | Issue                              | Severity | Status                    |
 | ---------------------------------- | -------- | ------------------------- |
 | `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup |
 | `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1   |
+=======
+| Issue                              | Severity | Status                                            |
+| ---------------------------------- | -------- | ------------------------------------------------- |
+| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup                         |
+| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1                           |
+| React `act()` warnings di UI tests | Low      | Tests pass, dari async state updates di useEffect |
+| `middleware.ts` deprecated warning | Low      | Perlu migrasi ke proxy pattern                    |
+>>>>>>> origin/dev
 
 ## 📦 Dependencies
 
@@ -72,10 +108,17 @@
 ## 📈 Test Coverage
 
 ```
+<<<<<<< HEAD
 Statements : 87.21%
 Branches   : 81.33%
 Functions  : 86.42%
 Lines      : 90.15%
+=======
+Statements : 83.62%
+Branches   : 82.58%
+Functions  : 79.89%
+Lines      : 84.82%
+>>>>>>> origin/dev
 ```
 
 ## 🔧 Available Scripts
@@ -92,6 +135,55 @@ Lines      : 90.15%
 
 ## 📝 Recent Changes
 
+<<<<<<< HEAD
+=======
+### 2026-02-11 (Sesi #15 - Latest)
+
+- ✅ **Technical Debt Resolution**:
+  - Fixed ESLint warnings and cleaned up code quality issues
+  - Updated documentation timestamps across all files
+  - Synchronized roadmap with actual git history
+  - Added MIT license to project
+  - Maintained 255/255 tests passing with 83.62% overall coverage
+
+### 2026-02-11 (Sesi #14)
+
+- ✅ **PR #19: Admin Panel Polish & Feedback**:
+  - Refactor `updateConceptAction` validation — removed truthy requirement to allow partial updates.
+  - Resolved Codecov gap in `ConceptForm.tsx` — achieved 100% line coverage for the component.
+  - Fixed flaky infrastructure tests — resolved race condition in `createdAt`/`updatedAt` timestamps.
+  - Implemented **Test-Safe Redirects** — using `handledByTest` property to prevent unhandled rejections in Jest.
+- ✅ **Project Governance**:
+  - Added repository **MIT License**.
+  - Updated `package.json` with license metadata.
+- ✅ **CI Status**: 255/255 tests passing. All 7 checks green on GitHub.
+
+### 2026-02-11 (Sesi #13)
+
+- ✅ **Sprint 2.1: Admin Panel (Concepts CRUD)**:
+  - Implementasi CRUD untuk `Concepts` (View, Create, Edit, Delete).
+  - Penggunaan **Next.js Server Actions** untuk mutasi data yang aman.
+  - Komponen reusable `ConceptForm` dengan validasi `Zod`.
+  - Integrasi dengan `Registry` untuk akses repositori admin.
+- ✅ **Quality Gate & Coverage**:
+  - Penambahan unit test untuk 4 use cases baru (CRUD).
+  - Penambahan component tests untuk `AdminSidebar`, `ConceptTable`, dan `ConceptForm`.
+  - Registry test untuk verifikasi delegasi admin methods.
+  - Resolusi patch coverage Codecov (target 50%+ terpenuhi).
+- ✅ **Bug Fixes & Refactoring**:
+  - Penanganan _flaky test_ pada `updateConcept` dengan async delay.
+  - Perbaikan accessibility (label-input association) di `ConceptForm`.
+  - Pembersihan syntax error (nested divs) di `ConceptForm`.
+- ✅ **CI/CD**: PR #19 created merging `feat/admin-panel-polish` to `dev`. 255/255 tests pass.
+
+### 2026-02-11 (Sesi #11)
+
+- ✅ **Documentation**:
+  - Created `docs/USER_GUIDE.md` (v1.0) dengan status perubahan tracked.
+  - Verifikasi User Guide vs App Behavior menggunakan Integration Test (`user-guide.integration.test.tsx`).
+  - Added Troubleshooting section untuk menangani edge cases (network error).
+
+>>>>>>> origin/dev
 ### 2026-02-10 (Sesi #9)
 
 - ✅ **PR #10 Feedback Resolution**:
@@ -109,6 +201,17 @@ Lines      : 90.15%
   - Configured `gh` CLI to use HTTPS protocol.
 - ✅ **CI Status**: 7/7 checks pass (build, test, CodeQL, GitGuardian, Codecov). 209/209 tests.
 
+<<<<<<< HEAD
+=======
+### 2026-02-10 (Sesi #10)
+
+- ✅ **Sprint 1.2 Synchronization**:
+  - Implementasi unit test untuk `auth/callback/route.ts` (100% auth coverage).
+  - Perbaikan Codecov configuration untuk include `src/app/auth/**`.
+  - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
+  - Cleanup unused code di `register/page.tsx`.
+
+>>>>>>> origin/dev
 ### 2026-02-10 (Sesi #8)
 
 - ✅ **Google Sign-In Implementation**:
@@ -123,8 +226,13 @@ Lines      : 90.15%
 
 - ✅ Implementasi Supabase Auth:
   - `signIn`, `signUp`, `getCurrentUser` use cases
+<<<<<<< HEAD
   - Middleware perlindungan rute
   - `AuthApi` client wrapper dengan lazy loading Supabase (fix CI crash)
+=======
+  - **Client-Side Infrastructure**: Wrapper API (`AuthApi`) dikonsumsi langsung oleh Client Components untuk performa (lazy loading).
+  - **Error Boundaries**: Penggunaan `error.tsx` dan komponen `ErrorBoundary` custom untuk degradasi UI yang anggun (graceful degradation).
+>>>>>>> origin/dev
 - ✅ Peningkatan Kualitas Kode:
   - Migrasi `window.location.href` ke `useRouter` di Dashboard
   - Logging error eksplisit pada seluruh catch block
@@ -157,14 +265,15 @@ Lines      : 90.15%
   - `pre-push`: `npm run test:ci`
 - ✅ Menyesuaikan CI agar lulus dengan coverage UI layer `src/app/*` ≥ 70%
 
-### 2026-02-10 (Sesi #5)
+### 2026-02-10 (Sesi #4 - Configuration)
 
-- ✅ Refined AI rules into dedicated TRAE rule files (architecture, quality, deployment, workflow)
-- ✅ Updated `AGENTS.md` and `CONTRIBUTING.md` with Sprint/Task-aligned branching, commit, and PR rules
-- ✅ Updated `.agent/workflows/start-task.md` to enforce Sprint-first workflow for all new tasks
-- ✅ Synced `docs/ROADMAP.md` Phase 0 timeline and Sprint 1.1 status with actual git history
+- ✅ Added ESLint architecture enforcement rules
+- ✅ Renamed `AdaptiveScheduler` to `AdaptiveSchedulerPolicy`
+- ✅ Fixed lint errors for CI compatibility
+- ✅ Added test file rule relaxations
+- ✅ Configured GitHub Actions CI workflow
 
-### 2026-02-10 (Sesi #4)
+### 2026-02-10 (Sesi #4 - EdgeOne Setup)
 
 - ✅ Created `edgeone.json` with KV namespace binding (ns-LDVwXjJrAM0H)
 - ✅ Implemented KV repository adapters: concept, question, progress
@@ -202,10 +311,19 @@ Lines      : 90.15%
 
 ## 🚧 Next Steps
 
+<<<<<<< HEAD
 1. Sprint 1.3 Quality Gate: Playwright E2E, `act()` warnings cleanup, Registry coverage
 2. Tambah concept/question management UI (admin CRUD — Phase 2)
 3. E2E test untuk flow utama (landing → login → session → dashboard)
 4. Mobile responsive audit & dark mode polish
+=======
+1. **Sprint 2.1.3 Question CRUD UI** - Extension of Admin Panel following Concept CRUD patterns
+2. Bulk import (JSON/CSV) for Reza's convenience ⭐
+3. Markdown support in descriptions
+4. Mobile responsive audit & dark mode polish
+5. Address middleware deprecation warning (migrate to proxy pattern)
+6. Resolve React `act()` warnings in UI tests
+>>>>>>> origin/dev
 
 ---
 

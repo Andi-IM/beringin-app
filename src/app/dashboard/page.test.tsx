@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import DashboardPage from './page'
 import { DashboardApi } from '@/infrastructure/client/dashboard.api'
 import { AuthApi } from '@/infrastructure/client/auth.api'
@@ -75,7 +75,9 @@ describe('DashboardPage', () => {
   })
 
   it('calls DashboardApi on mount and displays data', async () => {
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     await waitFor(() => {
       expect(DashboardApi.getDashboardData).toHaveBeenCalled()
@@ -120,7 +122,9 @@ describe('DashboardPage', () => {
       stats: { total: 0, stable: 0, fragile: 0, learning: 0, lapsed: 0 },
     })
 
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     expect(await screen.findByText('Belum ada konsep.')).toBeInTheDocument()
     expect(
@@ -131,10 +135,14 @@ describe('DashboardPage', () => {
   it('handles logout correctly', async () => {
     ;(AuthApi.signOut as jest.Mock).mockResolvedValueOnce(undefined)
 
-    render(<DashboardPage />)
+    await act(async () => {
+      render(<DashboardPage />)
+    })
 
     const logoutButton = screen.getByText('Keluar')
-    fireEvent.click(logoutButton)
+    await act(async () => {
+      fireEvent.click(logoutButton)
+    })
 
     await waitFor(() => {
       expect(AuthApi.signOut).toHaveBeenCalled()

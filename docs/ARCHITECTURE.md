@@ -1,6 +1,7 @@
 # 🏛️ Architecture - Beringin
 
-> Dokumentasi arsitektur dan keputusan desain
+> **Status Dokumen**: ✅ Aktif (v1.2)
+> **Terakhir Diperbarui**: 2026-02-11T19:36:00+07:00
 
 ## Overview
 
@@ -13,50 +14,50 @@ Beringin menggunakan **Clean Architecture** untuk memastikan:
 
 ```
 ┌────────────────────────────────────────────────────────┐
-│                      UI Layer                          │
-│                   (src/app/*)                          │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐      │
-│  │  page.tsx   │ │  dashboard  │ │   session   │      │
-│  └──────┬──────┘ └──────┬──────┘ └──────┬──────┘      │
+│ UI Layer                                               │
+│ (src/app/_)                                            │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │
+│ │ Client Comp │ │ Server Comp │ │ Pages       │        │
+│ └───────┬─────┘ └───────┬─────┘ └───────┬─────┘        │
 └─────────┼───────────────┼───────────────┼──────────────┘
           │               │               │
+          │ (via Registry)│               │ (via Server Actions / Client Wrapper)
           ▼               ▼               ▼
+┌───────────────────────┐ ┌──────────────────────────────┐
+│ Application Layer     │ │ Client-Side Infra            │
+│ (src/application/_)   │ │ (src/infrastructure/client/_)│
+└─────────┬─────────────┘ └──────┬───────────────────────┘
+          │                      │
+          ▼                      ▼
 ┌────────────────────────────────────────────────────────┐
-│                  Application Layer                     │
-│              (src/application/usecases/*)              │
-│  ┌─────────────────┐ ┌─────────────────────────────┐  │
-│  │ getNextQuestion │ │ submitAnswer.usecase.ts     │  │
-│  └────────┬────────┘ └──────────────┬──────────────┘  │
-└───────────┼─────────────────────────┼──────────────────┘
-            │                         │
-            ▼                         ▼
-┌────────────────────────────────────────────────────────┐
-│                    Domain Layer                        │
-│                (src/domain/*)                          │
-│  ┌─────────────────────┐ ┌───────────────────────┐    │
-│  │ entities/           │ │ policies/             │    │
-│  │ - concept.entity    │ │ - scheduler.policy    │    │
-│  │ - question.entity   │ │                       │    │
-│  │ - user-progress     │ │                       │    │
-│  └─────────────────────┘ └───────────────────────┘    │
+│ Domain Layer                                           │
+│ (src/domain/_)                                         │
 └────────────────────────────────────────────────────────┘
-            ▲                         ▲
-            │                         │
-┌───────────┼─────────────────────────┼──────────────────┐
-│           │  Infrastructure Layer   │                  │
-│           │ (src/infrastructure/*)  │                  │
-│  ┌────────┴────────┐  ┌────────────┴────────────┐     │
-│  │ repositories/   │  │ (future: API clients)   │     │
-│  │ - concept.repo  │  │                         │     │
-│  │ - question.repo │  │                         │     │
-│  │ - progress.repo │  │                         │     │
-│  └─────────────────┘  └─────────────────────────┘     │
-└────────────────────────────────────────────────────────┘
+          ▲
+          │
+┌─────────┴──────────────────────────────────────────┐
+│ Infrastructure Layer                               │
+│ (src/infrastructure/\*)                            │
+│ ┌──────────────┐ ┌─────────────┐ ┌───────────────┐ │
+│ │ Repositories │ │ Supabase    │ │ Edge Runtime  │ │
+│ └──────────────┘ └─────────────┘ └───────────────┘ │
+└────────────────────────────────────────────────────┘
+
 ```
+
+### 3. Error Handling Pattern
+
+Beringin menggunakan pendekatan berlapis untuk menangani error:
+
+1.  **Global Error Boundary (`app/global-error.tsx`)**: Menangkap crash kritis di root layout.
+2.  **Route Error Boundary (`app/error.tsx`)**: Handler default Next.js untuk segmen halaman.
+3.  **Component Error Boundary (`src/app/components/ErrorBoundary.tsx`)**: Digunakan secara granular untuk membungkus komponen berisiko agar tidak meruntuhkan seluruh halaman.
+
+Semua error dicatat melalui Centralized Logger (`src/lib/logger.ts`).
 
 ---
 
-## Layer Rules
+## 4. Layer Rules
 
 ### 1. UI Layer (`src/app/`)
 
@@ -70,9 +71,19 @@ Beringin menggunakan **Clean Architecture** untuk memastikan:
 **ESLint Enforcement:**
 
 ```javascript
-// no-restricted-globals: fetch
-// Fetch harus melalui Infrastructure layer
+// Fetch harus melalui Infrastructure layer atau Server Actions
 ```
+
+### 1.1 Server Actions (`src/app/admin/*/actions.ts`)
+
+**Status**: 🆕 Added in Sprint 2.1 (Admin Panel)
+
+**Aturan:**
+
+- ✅ Digunakan untuk mutasi data (POST/PUT/DELETE) dari Client Components.
+- ✅ Melakukan validasi input (Zod) sebelum memanggil Use Case.
+- ✅ Menangani pemetaan data (e.g. `FormData` -> `Entity`).
+- ❌ TIDAK BOLEH berisi business logic murni.
 
 ### 2. Application Layer (`src/application/usecases/`)
 
@@ -129,7 +140,33 @@ export async function submitAnswer(
 
 ---
 
-### 5. Dependency Injection (`src/registry.ts`)
+### 5. Client-Side Infrastructure (`src/infrastructure/client/`)
+
+**Status**: 🆕 Added in Sprint 1.2
+
+**Pattern:**
+Komponen UI Client (`'use client'`) tidak bisa mengimpor modul Node.js atau server-side libraries langsung. Kita menggunakan **Client API Wrappers** sebagai jembatan.
+
+**Aturan:**
+
+- ✅ Berisi wrapper statis untuk pemanggilan API / Supabase client side.
+- ✅ Memungkinkan lazy-loading (code splitting).
+- ❌ TIDAK BOLEH mengandung business logic (hanya pass-through).
+
+```typescript
+// src/infrastructure/client/auth.api.ts
+export const AuthApi = {
+  async signIn(data) {
+    // Lazy load Supabase client only when needed
+    const supabase = createClient()
+    return supabase.auth.signInWithPassword(data)
+  },
+}
+```
+
+---
+
+### 6. Dependency Injection (`src/registry.ts`)
 
 **Aturan:**
 
@@ -223,6 +260,22 @@ UI → Registry → Application → Domain ← Infrastructure
 1. UI components NEVER import from `infrastructure` or `application/usecases` directly.
 2. UI components ONLY import from `registry`.
 3. `registry` composes the application by injecting Infrastructure implementations into Use Cases.
+
+---
+
+---
+
+## 📜 Architectural Decision Log (ADL)
+
+| Tanggal    | Keputusan                          | Konteks                                                                 | Status     |
+| ---------- | ---------------------------------- | ----------------------------------------------------------------------- | ---------- |
+| 2026-02-09 | **Clean Architecture**             | Memisahkan UI, Domain, Infra untuk testability jangka panjang.          | ✅ Adopted |
+| 2026-02-10 | **Registry Pattern**               | Dependency Injection tanpa framework berat (Inversify/NestJS).          | ✅ Adopted |
+| 2026-02-10 | **EdgeOne KV**                     | Mengganti LocalStorage/Supabase DB untuk persistence di Edge.           | ✅ Adopted |
+| 2026-02-10 | **Client-Side Infra**              | Memisahkan `AuthApi` untuk mendukung Lazy Loading di Client Components. | ✅ Adopted |
+| 2026-02-10 | **Strict ESLint Arch Enforcement** | Mencegah import cross-layer yang ilegal secara otomatis.                | ✅ Adopted |
+| 2026-02-11 | **Server Actions**                 | Digunakan untuk Admin CRUD mutations di Next.js.                        | ✅ Adopted |
+| 2026-02-11 | **Test-Safe Redirects**            | Menangani re-throw `redirect()` agar tidak crash di Jest.               | ✅ Adopted |
 
 ---
 
