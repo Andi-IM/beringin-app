@@ -1,3 +1,6 @@
+'use client'
+
+import { useTransition } from 'react'
 import Link from 'next/link'
 import { deleteConceptAction } from '@/app/admin/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
@@ -7,17 +10,21 @@ interface ConceptTableProps {
 }
 
 export function ConceptTable({ concepts }: ConceptTableProps) {
+  const [isPending, startTransition] = useTransition()
+
   const handleDelete = async (id: string) => {
     if (!window.confirm('Are you sure you want to delete this concept?')) {
       return
     }
 
-    try {
-      await deleteConceptAction(id)
-    } catch (error) {
-      console.error('Failed to delete', error)
-      alert('Failed to delete concept')
-    }
+    startTransition(async () => {
+      try {
+        await deleteConceptAction(id)
+      } catch (error) {
+        console.error('Failed to delete', error)
+        alert('Failed to delete concept')
+      }
+    })
   }
 
   return (
@@ -60,9 +67,10 @@ export function ConceptTable({ concepts }: ConceptTableProps) {
                 </Link>
                 <button
                   onClick={() => handleDelete(concept.id)}
-                  className="ml-4 text-red-600 hover:text-red-900"
+                  disabled={isPending}
+                  className="ml-4 text-red-600 hover:text-red-900 disabled:opacity-50"
                 >
-                  Delete
+                  {isPending ? 'Deleting...' : 'Delete'}
                 </button>
               </td>
             </tr>

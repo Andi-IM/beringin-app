@@ -143,12 +143,9 @@ export const Registry = {
     return conceptRepo.findById(id)
   },
 
-  async createConcept(data: {
-    title: string
-    description: string
-    category: string
-    parentId?: string
-  }) {
+  async createConcept(
+    data: import('@/application/usecases/createConcept.usecase').CreateConceptData,
+  ) {
     const { createConcept } =
       await import('@/application/usecases/createConcept.usecase')
     const { conceptRepo } = await this.getRepositories()
@@ -157,12 +154,7 @@ export const Registry = {
 
   async updateConcept(
     id: string,
-    data: {
-      title?: string
-      description?: string
-      category?: string
-      parentId?: string
-    },
+    data: import('@/application/usecases/updateConcept.usecase').UpdateConceptData,
   ) {
     const { updateConcept } =
       await import('@/application/usecases/updateConcept.usecase')

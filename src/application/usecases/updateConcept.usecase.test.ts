@@ -50,4 +50,26 @@ describe('updateConcept Use Case', () => {
       updateConcept('non-existent-id', { title: 'New' }, conceptRepo),
     ).rejects.toThrow('Concept not found')
   })
+
+  it('should validate title length', async () => {
+    await expect(
+      updateConcept(existingConcept.id, { title: 'ab' }, conceptRepo),
+    ).rejects.toThrow('Title must be at least 3 characters')
+  })
+
+  it('should validate description length', async () => {
+    await expect(
+      updateConcept(
+        existingConcept.id,
+        { description: 'too short' },
+        conceptRepo,
+      ),
+    ).rejects.toThrow('Description must be at least 10 characters')
+  })
+
+  it('should validate category presence', async () => {
+    await expect(
+      updateConcept(existingConcept.id, { category: '' }, conceptRepo),
+    ).rejects.toThrow('Category is required')
+  })
 })

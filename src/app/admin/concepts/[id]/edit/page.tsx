@@ -4,13 +4,13 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
 interface EditConceptPageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 export default async function EditConceptPage({
   params,
 }: EditConceptPageProps) {
-  const { id } = await params
+  const { id } = params
   const concept = await Registry.getConceptById(id)
 
   if (!concept) {
