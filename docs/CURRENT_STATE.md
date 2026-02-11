@@ -137,7 +137,13 @@ Lines      : 91.35%
   - Penanganan _flaky test_ pada `updateConcept` dengan async delay.
   - Perbaikan accessibility (label-input association) di `ConceptForm`.
   - Pembersihan syntax error (nested divs) di `ConceptForm`.
-- ✅ **CI/CD**: PR #18 created merging `feat/admin-panel` to `dev`. 251/251 tests pass.
+- ✅ **CI/CD**: PR #19 created merging `feat/admin-panel-polish` to `dev`. 255/255 tests pass.
+
+### 2026-02-11 (Miscellaneous)
+
+- ✅ **Project Governance**:
+  - Added repository **MIT License**.
+  - Updated `package.json` with license metadata.
 
 ### 2026-02-11 (Sesi #11)
 
