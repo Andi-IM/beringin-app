@@ -8,6 +8,10 @@ import { logger } from '@/lib/logger'
 export const runtime = 'edge'
 
 export async function POST() {
+  if (process.env.NODE_ENV === 'production') {
+    return new NextResponse(null, { status: 404 })
+  }
+
   // In a real app, this should be protected by API key or admin auth
   try {
     await Registry.seedInitialData()

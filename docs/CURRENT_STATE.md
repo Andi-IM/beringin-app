@@ -1,24 +1,25 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-11T15:55:40+07:00
+> **Last Updated**: 2026-02-11T18:10:00+07:00
 
 ## 🎯 Status Overview
 
 | Aspek           | Status        | Catatan                |
 | --------------- | ------------- | ---------------------- |
-| **Development** | ✅ Active     | Phase 1 - Foundation   |
+| **Development** | ✅ Active     | Phase 2 - Content Mgmt |
 | **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 209/209 passing (100%) |
+| **Tests**       | ✅ Passing    | 224/224 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
-| **CI/CD**       | ✅ Configured | GitHub Actions         |
+| **CI/CD**       | ✅ Configured | GitHub Actions (Green) |
 
 ## 🧭 Sprint Status
 
 - Phase 0: MVP — ✅ DONE
 - Phase 1 / Sprint 1.1: Persistence Layer (EdgeOne KV) — ✅ DONE
 - Phase 1 / Sprint 1.2: Authentication — ✅ DONE
-- Phase 1 / Sprint 1.3: Quality Gate — 🔜 NEXT
+- Phase 1 / Sprint 1.3: Quality Gate — ✅ DONE
+- Phase 1 / Final Stabilization: CI/CD Robustness — ✅ DONE
 
 ## 🏗️ Implemented Features
 
@@ -39,7 +40,9 @@
 ✅ Domain layer bebas framework
 ✅ Repository pattern untuk data access
 ✅ Use Case pattern untuk business logic
-✅ Registry pattern untuk Dependency Injection
+- [x] **Registry Pattern**: Centralized dependency injection for Use Cases.
+- [x] **Error Handling**: React Error Boundaries & Global Error Handlers.
+- [x] **Persona Alignment**: Prioritas fitur berdasarkan "Reza Standard".
 ✅ ESLint rules untuk enforce architecture
 ✅ GitHub CLI knowledge base (.agent/rules/github-cli.md)
 ✅ EdgeOne CLI knowledge base (.agent/rules/edgeone-cli.md)
@@ -117,6 +120,17 @@ Lines      : 90.15%
   - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
   - Cleanup unused code di `register/page.tsx`.
 
+### 2026-02-11 (Sesi #12)
+
+- ✅ **CI/CD & Quality Checks**:
+  - **Codecov Resolution**: Patch coverage 100% (Overall ~90%). Ditambahkan unit test untuk `error.tsx` dan `global-error.tsx`.
+  - **Environment Stabilization**: Fix Husky hooks `core.hooksPath` dan formatting drift di `next-env.d.ts`.
+  - **Robustness**: `pre-push` hook memeriksa build produksi sebelum push.
+- ✅ **Documentation Polish**:
+  - Updated `README.md` dengan status badges modern.
+  - Finalized `ROADMAP.md` (Phase 1 Complete).
+  - Consolidated Post-Mortem PR #17.
+
 ### 2026-02-11 (Sesi #11)
 
 - ✅ **Documentation**:
@@ -138,8 +152,8 @@ Lines      : 90.15%
 
 - ✅ Implementasi Supabase Auth:
   - `signIn`, `signUp`, `getCurrentUser` use cases
-  - Middleware perlindungan rute
-  - `AuthApi` client wrapper dengan lazy loading Supabase (fix CI crash)
+  - **Client-Side Infrastructure**: Wrapper API (`AuthApi`) dikonsumsi langsung oleh Client Components untuk performa (lazy loading).
+  - **Error Boundaries**: Penggunaan `error.tsx` dan komponen `ErrorBoundary` custom untuk degradasi UI yang anggun (graceful degradation).
 - ✅ Peningkatan Kualitas Kode:
   - Migrasi `window.location.href` ke `useRouter` di Dashboard
   - Logging error eksplisit pada seluruh catch block

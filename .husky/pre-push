@@ -1,14 +1,9 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+
+echo "husky pre-push: running npm run build..."
+npm run build || exit 1
 
 echo "husky pre-push: running npm run test:ci..."
-npm run test:ci
-status=$?
+npm run test:ci || exit 1
 
-if [ $status -eq 0 ]; then
-  echo "husky pre-push: tests passed ✅"
-else
-  echo "husky pre-push: tests failed ❌ (exit code $status)"
-fi
-
-exit $status
+echo "husky pre-push: all checks passed ✅"
