@@ -1,6 +1,16 @@
-[![codecov](https://codecov.io/gh/Andi-IM/beringin-app/graph/badge.svg?token=PQj9KJS9R6)](https://codecov.io/gh/Andi-IM/beringin-app)
-
 # 🌳 Beringin
+
+<p align="left">
+  <a href="https://github.com/Andi-IM/beringin-app/actions/workflows/ci.yml">
+    <img src="https://github.com/Andi-IM/beringin-app/actions/workflows/ci.yml/badge.svg" alt="CI Status" />
+  </a>
+  <a href="https://codecov.io/gh/Andi-IM/beringin-app">
+    <img src="https://codecov.io/gh/Andi-IM/beringin-app/graph/badge.svg?token=PQj9KJS9R6" alt="codecov" />
+  </a>
+  <img src="https://img.shields.io/github/license/Andi-IM/beringin-app" alt="License" />
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TS-5.7-blue?logo=typescript" alt="TypeScript" />
+</p>
 
 > **Ilmu yang Berakar Kuat, Tak Mudah Lupa**
 

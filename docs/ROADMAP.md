@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history  
-> **Last Updated**: 2026-02-11T15:55:40+07:00
+> **Last Updated**: 2026-02-11T18:00:00+07:00
 
 ---
 
@@ -31,7 +31,8 @@ _Legend:_
 | #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)   | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
 | #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)   | Auth Tests + Coverage Sync         | ~400–600                  |
 | #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~450–500                  |
-| **Total** |             | **±5.0 jam commit time** | **68 commits**                     | **~13,000 lines touched** |
+| #12       | 11 Feb 2026 | 17:30–18:00 (30 menit)   | CI Hardening + Coverage + README   | ~500–800                  |
+| **Total** |             | **±5.5 jam commit time** | **74 commits**                     | **~14,000 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -72,7 +73,7 @@ _Legend:_
 
 ---
 
-## 🔄 Phase 1: Foundation — IN PROGRESS (80%)
+## ✅ Phase 1: Foundation — DONE
 
 > **Estimasi berdasarkan velocity**: Foundation (Phase 1) hampir selesai dalam ~3 sesi kerja intensif.  
 > Sisa Sprint 1.3 (Quality Gate) sebagai pemoles akhir sebelum Phase 2.
@@ -127,9 +128,9 @@ _Legend:_
 
 | #     | Task                           | Kompleksitas | Status |
 | ----- | ------------------------------ | ------------ | ------ |
-| 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ☐      |
-| 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ☐      |
-| 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ☐      |
+| 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ✅     |
+| 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ✅     |
+| 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ✅     |
 | 1.3.4 | Error boundary component       | 🟢 Rendah    | ✅     |
 | 1.3.5 | User Guide Documentation       | 🟢 Rendah    | ✅     |
 
