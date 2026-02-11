@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import { ConceptTable } from './ConceptTable'
 import { deleteConceptAction } from '@/app/admin/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
@@ -39,11 +39,13 @@ describe('ConceptTable', () => {
     window.confirm = jest.fn(() => true)
     render(<ConceptTable concepts={mockConcepts} />)
 
-    const deleteBtn = screen.getByText('Delete')
+    const deleteBtn = screen.getByRole('button', { name: 'Delete' })
     fireEvent.click(deleteBtn)
 
     expect(window.confirm).toHaveBeenCalled()
-    expect(deleteConceptAction).toHaveBeenCalledWith('1')
+    await waitFor(() => {
+      expect(deleteConceptAction).toHaveBeenCalledWith('1')
+    })
   })
 
   it('should handle delete cancellation', async () => {
@@ -66,17 +68,16 @@ describe('ConceptTable', () => {
 
     render(<ConceptTable concepts={mockConcepts} />)
 
-    const deleteBtn = screen.getByText('Delete')
+    const deleteBtn = screen.getByRole('button', { name: 'Delete' })
     fireEvent.click(deleteBtn)
 
     expect(window.confirm).toHaveBeenCalled()
-    expect(deleteConceptAction).toHaveBeenCalled()
 
-    // Wait for async action
-    await new Promise((resolve) => setTimeout(resolve, 0))
-
-    expect(consoleSpy).toHaveBeenCalled()
-    expect(window.alert).toHaveBeenCalledWith('Failed to delete concept')
+    await waitFor(() => {
+      expect(deleteConceptAction).toHaveBeenCalled()
+      expect(consoleSpy).toHaveBeenCalled()
+      expect(window.alert).toHaveBeenCalledWith('Failed to delete concept')
+    })
 
     consoleSpy.mockRestore()
   })

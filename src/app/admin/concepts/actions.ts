@@ -28,6 +28,10 @@ export async function updateConceptAction(id: string, formData: FormData) {
   const description = formData.get('description') as string
   const category = formData.get('category') as string
 
+  if (!title || !description || !category) {
+    throw new Error('Missing required fields')
+  }
+
   await Registry.updateConcept(id, {
     title,
     description,
