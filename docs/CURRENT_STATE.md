@@ -1,21 +1,6 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> <<<<<<< HEAD
-> **Last Updated**: 2026-02-10T18:20+07:00
-
-## 🎯 Status Overview
-
-| Aspek           | Status        | Catatan                |
-| --------------- | ------------- | ---------------------- |
-| **Development** | ✅ Active     | Phase 1 - Foundation   |
-| **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 209/209 passing (100%) |
-| **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
-| **CI/CD**       | ✅ Configured | GitHub Actions         |
-
-=======
-
 > **Last Updated**: 2026-02-11T20:15:00+07:00
 
 ## 🎯 Status Overview
@@ -29,19 +14,14 @@
 | **CI/CD**       | ✅ Configured | GitHub Actions (Green)            |
 | **License**     | ✅ MIT        | Added 2026-02-11                  |
 
-> > > > > > > origin/dev
-
 ## 🧭 Sprint Status
 
 - Phase 0: MVP — ✅ DONE
 - Phase 1 / Sprint 1.1: Persistence Layer (EdgeOne KV) — ✅ DONE
 - Phase 1 / Sprint 1.2: Authentication — ✅ DONE
-  <<<<<<< HEAD
-- # Phase 1 / Sprint 1.3: Quality Gate — 🔜 NEXT
 - Phase 1 / Sprint 1.3: Quality Gate — ✅ DONE
 - Phase 2 / Sprint 2.1: Admin Panel (Concepts CRUD) — ✅ DONE (PR #18)
 - Phase 2 / Sprint 2.1.3: Question CRUD UI — ☐ IN PROGRESS
-  > > > > > > > origin/dev
 
 ## 🏗️ Implemented Features
 
@@ -80,20 +60,12 @@
 
 ### ⚠️ In Progress / Known Issues
 
-<<<<<<< HEAD
-| Issue | Severity | Status |
-| ---------------------------------- | -------- | ------------------------- |
-| `act()` warnings di test Dashboard | Low | Tests pass, perlu cleanup |
-| `Registry` belum punya unit tests | Low | Akan dicakup di Phase 1 |
-=======
-| Issue | Severity | Status |
+| Issue                              | Severity | Status                                            |
 | ---------------------------------- | -------- | ------------------------------------------------- |
-| `act()` warnings di test Dashboard | Low | Tests pass, perlu cleanup |
-| `Registry` belum punya unit tests | Low | Akan dicakup di Phase 1 |
-| React `act()` warnings di UI tests | Low | Tests pass, dari async state updates di useEffect |
-| `middleware.ts` deprecated warning | Low | Perlu migrasi ke proxy pattern |
-
-> > > > > > > origin/dev
+| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup                         |
+| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1                           |
+| React `act()` warnings di UI tests | Low      | Tests pass, dari async state updates di useEffect |
+| `middleware.ts` deprecated warning | Low      | Perlu migrasi ke proxy pattern                    |
 
 ## 📦 Dependencies
 
@@ -111,17 +83,10 @@
 ## 📈 Test Coverage
 
 ```
-<<<<<<< HEAD
-Statements : 87.21%
-Branches   : 81.33%
-Functions  : 86.42%
-Lines      : 90.15%
-=======
 Statements : 83.62%
 Branches   : 82.58%
 Functions  : 79.89%
 Lines      : 84.82%
->>>>>>> origin/dev
 ```
 
 ## 🔧 Available Scripts
@@ -137,8 +102,6 @@ Lines      : 84.82%
 | `npm run test:ci`      | CI mode with coverage    |
 
 ## 📝 Recent Changes
-
-# <<<<<<< HEAD
 
 ### 2026-02-11 (Sesi #15 - Latest)
 
@@ -186,37 +149,6 @@ Lines      : 84.82%
   - Verifikasi User Guide vs App Behavior menggunakan Integration Test (`user-guide.integration.test.tsx`).
   - Added Troubleshooting section untuk menangani edge cases (network error).
 
-> > > > > > > origin/dev
-
-### 2026-02-10 (Sesi #9)
-
-- ✅ **PR #10 Feedback Resolution**:
-  - Refactor `GoogleIcon` — removed `React.FC`, using `React.ComponentProps<'svg'>` with prop spreading.
-  - Extracted `OAUTH_PROVIDER` constant in `auth.api.ts`, eliminated magic strings.
-  - Updated test assertions to match new generic error messages.
-- ✅ **Dashboard Test Fix**:
-  - Fixed ambiguous `findByText('Stabil')` collision between stats label and concept card badge.
-  - Used `findAllByText` + class filtering for reliable stat verification.
-- ✅ **Infrastructure & CI**:
-  - Added `.codecov.yml` with layered coverage thresholds (50% patch target).
-  - Configured ignore rules for hard-to-test infra boundaries (middleware, Supabase clients).
-  - Fixed `supabase-client.ts` unused `error` variables.
-  - Renamed root `package.json` to `beringin-app-root` (Haste Map collision fix).
-  - Configured `gh` CLI to use HTTPS protocol.
-- ✅ **CI Status**: 7/7 checks pass (build, test, CodeQL, GitGuardian, Codecov). 209/209 tests.
-
-# <<<<<<< HEAD
-
-### 2026-02-10 (Sesi #10)
-
-- ✅ **Sprint 1.2 Synchronization**:
-  - Implementasi unit test untuk `auth/callback/route.ts` (100% auth coverage).
-  - Perbaikan Codecov configuration untuk include `src/app/auth/**`.
-  - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
-  - Cleanup unused code di `register/page.tsx`.
-
-> > > > > > > origin/dev
-
 ### 2026-02-10 (Sesi #8)
 
 - ✅ **Google Sign-In Implementation**:
@@ -231,12 +163,9 @@ Lines      : 84.82%
 
 - ✅ Implementasi Supabase Auth:
   - `signIn`, `signUp`, `getCurrentUser` use cases
-    <<<<<<< HEAD
   - Middleware perlindungan rute
-  - # `AuthApi` client wrapper dengan lazy loading Supabase (fix CI crash)
   - **Client-Side Infrastructure**: Wrapper API (`AuthApi`) dikonsumsi langsung oleh Client Components untuk performa (lazy loading).
   - **Error Boundaries**: Penggunaan `error.tsx` dan komponen `ErrorBoundary` custom untuk degradasi UI yang anggun (graceful degradation).
-    > > > > > > > origin/dev
 - ✅ Peningkatan Kualitas Kode:
   - Migrasi `window.location.href` ke `useRouter` di Dashboard
   - Logging error eksplisit pada seluruh catch block
@@ -315,8 +244,6 @@ Lines      : 84.82%
 
 ## 🚧 Next Steps
 
-<<<<<<< HEAD
-
 1. Sprint 1.3 Quality Gate: Playwright E2E, `act()` warnings cleanup, Registry coverage
 2. Tambah concept/question management UI (admin CRUD — Phase 2)
 3. E2E test untuk flow utama (landing → login → session → dashboard)
@@ -327,7 +254,6 @@ Lines      : 84.82%
 8. Mobile responsive audit & dark mode polish
 9. Address middleware deprecation warning (migrate to proxy pattern)
 10. Resolve React `act()` warnings in UI tests
-    > > > > > > > origin/dev
 
 ---
 

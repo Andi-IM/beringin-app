@@ -1,14 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
-<<<<<<< HEAD
-
-> Rencana pengembangan berbasis data nyata dari git history  
-> **Last Updated**: 2026-02-10T18:20+07:00
-> =======
 > Rencana pengembangan berbasis data nyata dari git history
 > **Last Updated**: 2026-02-11T19:36:00+07:00
->
-> > > > > > > origin/dev
 
 ---
 
@@ -27,27 +20,21 @@ _Legend:_
 
 ## 📊 Velocity Aktual (dari Git History)
 
-| Sesi  | Tanggal     | Waktu                   | Output                             | Lines Changed (perkiraan) |
-| ----- | ----------- | ----------------------- | ---------------------------------- | ------------------------- |
-| #1    | 9 Feb 2026  | 23:36–23:56 (20 menit)  | MVP initial + ESLint + docs        | ~4,000–4,500              |
-| #2–#3 | 10 Feb 2026 | 09:32–09:45 (13 menit)  | Registry DI + tests + coverage     | ~1,500–2,000              |
-| #4–#5 | 10 Feb 2026 | 10:32–12:09 (±60 menit) | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
-| #6    | 10 Feb 2026 | 13:30–14:05 (35 menit)  | PR #1 review & merge + refactor    | ~500–800                  |
-| #7    | 10 Feb 2026 | 15:30–16:25 (55 menit)  | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
-
-<<<<<<< HEAD
-| **Total** | | **±2.5 jam commit time** | **45 commits, 95 files** | **~10,000 lines touched** |
-=======
-| #8 | 10 Feb 2026 | 18:00–18:30 (30 menit) | Google Sign-In + Refactor | ~800–1,200 |
-| #9 | 10 Feb 2026 | 19:00–20:00 (60 menit) | Dashboard Fix + CI/CD hardening | ~1,000–1,500 |
-| #10 | 10 Feb 2026 | 21:00–21:30 (30 menit) | Auth Tests + Coverage Sync | ~400–600 |
-| #11 | 11 Feb 2026 | 15:35–15:55 (20 menit) | User Guide + Verification | ~450–500 |
-| #13 | 11 Feb 2026 | 18:30–19:10 (40 menit) | Admin Panel (Concepts CRUD) | ~1,200–1,500 |
-| #14 | 11 Feb 2026 | 19:15–19:40 (25 menit) | PR #19 Polish + License | ~800–1,000 |
-| #15 | 11 Feb 2026 | 20:00–20:30 (30 menit) | Technical Debt Resolution | ~500–800 |
-| **Total** | | **±7.1 jam commit time** | **96 commits** | **~17,000 lines touched** |
-
-> > > > > > > origin/dev
+| Sesi      | Tanggal     | Waktu                    | Output                             | Lines Changed (perkiraan) |
+| --------- | ----------- | ------------------------ | ---------------------------------- | ------------------------- |
+| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)   | MVP initial + ESLint + docs        | ~4,000–4,500              |
+| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)   | Registry DI + tests + coverage     | ~1,500–2,000              |
+| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
+| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor    | ~500–800                  |
+| #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)   | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
+| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)   | Google Sign-In + Refactor          | ~800–1,200                |
+| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)   | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
+| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)   | Auth Tests + Coverage Sync         | ~400–600                  |
+| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~450–500                  |
+| #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)   | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
+| #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)   | PR #19 Polish + License            | ~800–1,000                |
+| #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)   | Technical Debt Resolution          | ~500–800                  |
+| **Total** |             | **±7.1 jam commit time** | **96 commits**                     | **~17,000 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -88,15 +75,7 @@ _Legend:_
 
 ---
 
-<<<<<<< HEAD
-
-## 🔄 Phase 1: Foundation — IN PROGRESS (80%)
-
-=======
-
 ## ✅ Phase 1: Foundation — DONE
-
-> > > > > > > origin/dev
 
 > **Estimasi berdasarkan velocity**: Foundation (Phase 1) hampir selesai dalam ~3 sesi kerja intensif.  
 > Sisa Sprint 1.3 (Quality Gate) sebagai pemoles akhir sebelum Phase 2.
@@ -134,24 +113,6 @@ _Legend:_
 | 1.2.5 | Replace `demo-user` → real user ID | 🟢 Rendah           | ✅     |
 | 1.2.6 | Google Sign-In (OAuth)             | 🟢 Rendah           | ✅     |
 | 1.2.7 | GoogleIcon component extraction    | 🟢 Rendah           | ✅     |
-
-<<<<<<< HEAD
-
-#### Sprint 1.2 Timeline (berdasarkan git history)
-
-| Tanggal      | Waktu   | Deliverable                                          | Terkait Task Sprint 1.2 | Commit    |
-| ------------ | ------- | ---------------------------------------------------- | ----------------------- | --------- |
-| 10 Feb 15:30 | —       | implement supabase authentication flow & validation  | 1.2.1, 1.2.2, 1.2.4     | `46a4097` |
-| 10 Feb 15:35 | +5 min  | add auth use case and ui tests (coverage thresholds) | 1.2.2 (quality)         | `ccf7d56` |
-| 10 Feb 15:45 | +10 min | refactor auth api to be lazy and fix dashboard tests | 1.2.3, 1.2.5            | `af250e1` |
-| 10 Feb 16:20 | +35 min | Merge PR #4: Final adjustments & branching policy    | Sprint 1.2 (final)      | `e2ec2da` |
-| 10 Feb 16:25 | +5 min  | docs: sync current state after Sprint 1.2 merge (#6) | Sprint 1.2 (sync)       | `2865684` |
-| 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
-| 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
-
-=======
-
-> > > > > > > origin/dev
 
 #### Sprint 1.2 Timeline (berdasarkan git history)
 
@@ -263,24 +224,13 @@ _Legend:_
 
 ## � Proyeksi Timeline (kalibrasi dari data nyata)
 
-<<<<<<< HEAD
-| Phase | Sesi Kerja | Target Selesai | Confidence |
-| ------------------- | ------------- | --------------------- | ---------- |
-| ~~Phase 0: MVP~~ | 2 sesi | ~~10 Feb~~ ✅ | — |
-| Phase 1: Foundation | 3 sesi | ~~10 Feb~~ ✅ | 🟢 High |
-| Phase 2: Content | 3–5 sesi | Sesi kerja berikutnya | 🟡 Medium |
-| Phase 3: Analytics | 4–6 sesi | Strategis | 🟠 Low |
-| **Total remaining** | **7–11 sesi** | | |
-=======
-| Phase | Sesi Kerja | Target Selesai | Confidence |
+| Phase                   | Sesi Kerja    | Target Selesai        | Confidence |
 | ----------------------- | ------------- | --------------------- | ---------- |
-| ~~Phase 0: MVP~~ | 2 sesi | ~~10 Feb~~ ✅ | — |
-| ~~Phase 1: Foundation~~ | 3 sesi | ~~11 Feb~~ ✅ | 🟢 High |
-| Phase 2: Content | 3–5 sesi | Sesi kerja berikutnya | 🟡 Medium |
-| Phase 3: Analytics | 4–6 sesi | Strategis | 🟠 Low |
-| **Total remaining** | **7–11 sesi** | | |
-
-> > > > > > > origin/dev
+| ~~Phase 0: MVP~~        | 2 sesi        | ~~10 Feb~~ ✅         | —          |
+| ~~Phase 1: Foundation~~ | 3 sesi        | ~~11 Feb~~ ✅         | 🟢 High    |
+| Phase 2: Content        | 3–5 sesi      | Sesi kerja berikutnya | 🟡 Medium  |
+| Phase 3: Analytics      | 4–6 sesi      | Strategis             | 🟠 Low     |
+| **Total remaining**     | **7–11 sesi** |                       |            |
 
 > **Cara baca**: 1 sesi = 1 kali duduk kerja bersama AI (~30–90 menit efektif).  
 > Timeline **tidak dikunci ke tanggal** karena tergantung kapan Anda mulai sesi berikutnya.  
