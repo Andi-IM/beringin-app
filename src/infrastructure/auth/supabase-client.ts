@@ -17,7 +17,7 @@ export async function createClient() {
           try {
             cookieStore.set({ name, value, ...options })
           } catch (error) {
-            logger.error(error)
+            logger.error('Error setting cookie from Server Component. This can be ignored if middleware is refreshing sessions.', error)
           }
         },
         remove(name: string, options: CookieOptions) {
