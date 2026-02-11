@@ -39,7 +39,9 @@
 ✅ Domain layer bebas framework
 ✅ Repository pattern untuk data access
 ✅ Use Case pattern untuk business logic
-✅ Registry pattern untuk Dependency Injection
+- [x] **Registry Pattern**: Centralized dependency injection for Use Cases.
+- [x] **Error Handling**: React Error Boundaries & Global Error Handlers.
+- [x] **Persona Alignment**: Prioritas fitur berdasarkan "Reza Standard".
 ✅ ESLint rules untuk enforce architecture
 ✅ GitHub CLI knowledge base (.agent/rules/github-cli.md)
 ✅ EdgeOne CLI knowledge base (.agent/rules/edgeone-cli.md)
@@ -138,8 +140,8 @@ Lines      : 90.15%
 
 - ✅ Implementasi Supabase Auth:
   - `signIn`, `signUp`, `getCurrentUser` use cases
-  - Middleware perlindungan rute
-  - `AuthApi` client wrapper dengan lazy loading Supabase (fix CI crash)
+  - **Client-Side Infrastructure**: Wrapper API (`AuthApi`) dikonsumsi langsung oleh Client Components untuk performa (lazy loading).
+  - **Error Boundaries**: Penggunaan `error.tsx` dan komponen `ErrorBoundary` custom untuk degradasi UI yang anggun (graceful degradation).
 - ✅ Peningkatan Kualitas Kode:
   - Migrasi `window.location.href` ke `useRouter` di Dashboard
   - Logging error eksplisit pada seluruh catch block

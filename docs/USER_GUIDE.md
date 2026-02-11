@@ -1,7 +1,7 @@
 # 📖 Panduan Pengguna - Beringin App
 
-> **Status Dokumen**: ✅ Aktif (v1.0)
-> **Terakhir Diperbarui**: 2026-02-11T15:55:40+07:00
+> **Status Dokumen**: ✅ Aktif (v1.1)
+> **Terakhir Diperbarui**: 2026-02-11T16:50:00+07:00
 
 Selamat datang di **Beringin**, aplikasi pembelajaran adaptif yang membantu Anda membangun pengetahuan yang **kokoh seperti pohon beringin**. Kami fokus pada _retensi jangka panjang_, bukan sekadar menghafal semalam.
 
@@ -84,6 +84,19 @@ Setelah jawaban muncul, nilai pemahaman Anda sendiri secara jujur. Algoritma Ber
 
 ---
 
+## 🛠️ Penanganan Kendala
+
+Meskipun kami berusaha menjaga aplikasi tetap stabil, terkadang gangguan teknis bisa terjadi. Beringin dilengkapi dengan **Error Boundary** untuk memastikan satu masalah kecil tidak merusak seluruh pengalaman belajar Anda.
+
+### Jika Muncul Pesan Error:
+
+1. **Pesan "Waduh, ada masalah dikit..."**: Ini berarti terjadi kesalahan pada salah satu bagian layar.
+   - Klik tombol **"Coba Lagi"** untuk mereset komponen tersebut.
+   - Jika masih bermasalah, coba muat ulang (refresh) browser Anda.
+2. **Sesi Belajar Terhenti**: Jangan khawatir, progres Anda biasanya sudah tersimpan secara otomatis setiap kali Anda menekan tombol penilaian (Again/Hard/Good/Easy).
+
+---
+
 ## 🚪 Keluar (Logout)
 
 Untuk keluar dari akun, klik tombol **"Logout"** di pojok kanan atas Dashboard. Pastikan progres Anda sudah tersimpan (penyimpanan otomatis dilakukan setiap kali Anda menyelesaikan penilaian kartu).
@@ -98,4 +111,5 @@ Untuk keluar dari akun, klik tombol **"Logout"** di pojok kanan atas Dashboard. 
 
 | Versi    | Tanggal    | Deskripsi Perubahan                                                                              |
 | :------- | :--------- | :----------------------------------------------------------------------------------------------- |
+| **v1.1** | 2026-02-11 | Penambahan section "Penanganan Kendala" (Error Boundary) dan sinkronisasi status fitur terbaru.  |
 | **v1.0** | 2026-02-11 | Rilis awal dokumen untuk MVP Phase 1 (Foundation). Mencakup Login, Dashboard, dan Study Session. |

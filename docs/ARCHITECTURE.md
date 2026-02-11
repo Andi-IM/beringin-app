@@ -45,9 +45,19 @@ Beringin menggunakan **Clean Architecture** untuk memastikan:
 
 ```
 
+### 3. Error Handling Pattern
+
+Beringin menggunakan pendekatan berlapis untuk menangani error:
+
+1.  **Global Error Boundary (`app/global-error.tsx`)**: Menangkap crash kritis di root layout.
+2.  **Route Error Boundary (`app/error.tsx`)**: Handler default Next.js untuk segmen halaman.
+3.  **Component Error Boundary (`src/app/components/ErrorBoundary.tsx`)**: Digunakan secara granular untuk membungkus komponen berisiko agar tidak meruntuhkan seluruh halaman.
+
+Semua error dicatat melalui Centralized Logger (`src/lib/logger.ts`).
+
 ---
 
-## Layer Rules
+## 4. Layer Rules
 
 ### 1. UI Layer (`src/app/`)
 

@@ -130,7 +130,7 @@ _Legend:_
 | 1.3.1 | Playwright E2E setup + 2 flows | 🟡 Sedang    | ☐      |
 | 1.3.2 | Fix `act()` warnings           | 🟢 Rendah    | ☐      |
 | 1.3.3 | Registry coverage 35% → 80%    | 🟢 Rendah    | ☐      |
-| 1.3.4 | Error boundary component       | 🟢 Rendah    | ☐      |
+| 1.3.4 | Error boundary component       | 🟢 Rendah    | ✅     |
 | 1.3.5 | User Guide Documentation       | 🟢 Rendah    | ✅     |
 
 ---
