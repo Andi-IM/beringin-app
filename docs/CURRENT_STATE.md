@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-10T18:20+07:00
+> **Last Updated**: 2026-02-11T15:55:40+07:00
 
 ## 🎯 Status Overview
 
@@ -116,6 +116,13 @@ Lines      : 90.15%
   - Perbaikan Codecov configuration untuk include `src/app/auth/**`.
   - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
   - Cleanup unused code di `register/page.tsx`.
+
+### 2026-02-11 (Sesi #11)
+
+- ✅ **Documentation**:
+  - Created `docs/USER_GUIDE.md` (v1.0) dengan status perubahan tracked.
+  - Verifikasi User Guide vs App Behavior menggunakan Integration Test (`user-guide.integration.test.tsx`).
+  - Added Troubleshooting section untuk menangani edge cases (network error).
 
 ### 2026-02-10 (Sesi #8)
 

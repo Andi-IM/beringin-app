@@ -2,6 +2,7 @@
 // Retrieves the currently authenticated user's ID
 
 import { createClient } from '@/infrastructure/auth/supabase-client'
+import { logger } from '@/lib/logger'
 
 export interface GetCurrentUserOutput {
   userId: string | null
@@ -16,9 +17,7 @@ export async function getCurrentUser(): Promise<GetCurrentUserOutput> {
 
     return { userId: user?.id ?? null }
   } catch (error) {
-    if (process.env.NODE_ENV !== 'test') {
-      console.error('Error fetching current user:', error)
-    }
+    logger.error('Error fetching current user:', error)
     return { userId: null }
   }
 }
