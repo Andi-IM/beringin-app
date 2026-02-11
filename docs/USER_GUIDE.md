@@ -1,7 +1,7 @@
 # 📖 Panduan Pengguna - Beringin App
 
 > **Status Dokumen**: ✅ Aktif (v1.1)
-> **Terakhir Diperbarui**: 2026-02-11T16:50:00+07:00
+> **Terakhir Diperbarui**: 2026-02-11T17:20:00+07:00
 
 Selamat datang di **Beringin**, aplikasi pembelajaran adaptif yang membantu Anda membangun pengetahuan yang **kokoh seperti pohon beringin**. Kami fokus pada _retensi jangka panjang_, bukan sekadar menghafal semalam.
 

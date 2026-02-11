@@ -12,7 +12,9 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to our centralized logger
-    logger.error('Route error caught:', error)
+    logger.error('Route error caught by Next.js Error boundary:', error, {
+      digest: error.digest,
+    })
   }, [error])
 
   return (

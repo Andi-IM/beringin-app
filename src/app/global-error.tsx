@@ -11,7 +11,9 @@ export default function GlobalError({
   reset: () => void
 }) {
   useEffect(() => {
-    logger.error('Global root error caught:', error)
+    logger.error('Global root error caught by Next.js GlobalError:', error, {
+      digest: error.digest,
+    })
   }, [error])
 
   return (
