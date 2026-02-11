@@ -1,5 +1,4 @@
 import { Registry } from '@/registry'
-import { InMemoryConceptRepository } from '@/infrastructure/repositories/in-memory.repository'
 
 // We need to mock the dynamic imports in Registry
 // But strictly speaking, Registry is just a facade.

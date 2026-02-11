@@ -1,7 +1,7 @@
 # 🏛️ Architecture - Beringin
 
 > **Status Dokumen**: ✅ Aktif (v1.2)
-> **Terakhir Diperbarui**: 2026-02-11T19:00:00+07:00
+> **Terakhir Diperbarui**: 2026-02-11T19:36:00+07:00
 
 ## Overview
 
@@ -275,6 +275,7 @@ UI → Registry → Application → Domain ← Infrastructure
 | 2026-02-10 | **Client-Side Infra**              | Memisahkan `AuthApi` untuk mendukung Lazy Loading di Client Components. | ✅ Adopted |
 | 2026-02-10 | **Strict ESLint Arch Enforcement** | Mencegah import cross-layer yang ilegal secara otomatis.                | ✅ Adopted |
 | 2026-02-11 | **Server Actions**                 | Digunakan untuk Admin CRUD mutations di Next.js.                        | ✅ Adopted |
+| 2026-02-11 | **Test-Safe Redirects**            | Menangani re-throw `redirect()` agar tidak crash di Jest.               | ✅ Adopted |
 
 ---
 

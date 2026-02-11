@@ -111,4 +111,37 @@ describe('ConceptForm', () => {
 
     consoleSpy.mockRestore()
   })
+
+  it('should handle NEXT_REDIRECT error safely in tests', async () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const redirectError = new Error('NEXT_REDIRECT')
+    ;(redirectError as any).handledByTest = true
+    ;(createConceptAction as jest.Mock).mockRejectedValue(redirectError)
+
+    render(<ConceptForm />)
+
+    fireEvent.change(screen.getByLabelText('Title'), {
+      target: { value: 'New Title' },
+    })
+    fireEvent.change(screen.getByLabelText('Category'), {
+      target: { value: 'New Category' },
+    })
+    fireEvent.change(screen.getByLabelText('Description'), {
+      target: { value: 'Long enough description for validation' },
+    })
+
+    fireEvent.click(screen.getByText('Create Concept', { selector: 'button' }))
+
+    await waitFor(() => {
+      expect(createConceptAction).toHaveBeenCalled()
+    })
+
+    // Validate that we reached the catch block but didn't log an error or show UI error
+    expect(consoleSpy).not.toHaveBeenCalled()
+    expect(
+      screen.queryByText('Failed to save concept. Please try again.'),
+    ).not.toBeInTheDocument()
+
+    consoleSpy.mockRestore()
+  })
 })

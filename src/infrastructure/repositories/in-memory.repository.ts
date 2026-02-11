@@ -36,11 +36,12 @@ export class InMemoryConceptRepository implements ConceptRepository {
   async create(
     data: Omit<Concept, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<Concept> {
+    const now = new Date()
     const concept: Concept = {
       ...data,
       id: Math.random().toString(36).substring(7),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
     }
     concepts.push(concept)
     return concept
@@ -117,11 +118,12 @@ export class InMemoryQuestionRepository implements QuestionRepository {
   async create(
     data: Omit<Question, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<Question> {
+    const now = new Date()
     const question: Question = {
       ...data,
       id: Math.random().toString(36).substring(7),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
     }
     questions.push(question)
     return question
@@ -164,10 +166,11 @@ export class InMemoryProgressRepository implements ProgressRepository {
   async create(
     data: Omit<UserProgress, 'createdAt' | 'updatedAt'>,
   ): Promise<UserProgress> {
+    const now = new Date()
     const userProgress: UserProgress = {
       ...data,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
     }
     progress.push(userProgress)
     return userProgress

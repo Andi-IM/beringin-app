@@ -1,7 +1,7 @@
 # 📖 Panduan Pengguna - Beringin App
 
-> **Status Dokumen**: ✅ Aktif (v1.1)
-> **Terakhir Diperbarui**: 2026-02-11T17:20:00+07:00
+> **Status Dokumen**: ✅ Aktif (v1.2)
+> **Terakhir Diperbarui**: 2026-02-11T19:39:00+07:00
 
 Selamat datang di **Beringin**, aplikasi pembelajaran adaptif yang membantu Anda membangun pengetahuan yang **kokoh seperti pohon beringin**. Kami fokus pada _retensi jangka panjang_, bukan sekadar menghafal semalam.
 
@@ -84,16 +84,34 @@ Setelah jawaban muncul, nilai pemahaman Anda sendiri secara jujur. Algoritma Ber
 
 ---
 
+## ⚙️ Manajemen Konten (Admin Panel)
+
+Sebagai pengguna dengan hak akses khusus (Admin), Anda dapat mengelola materi pembelajaran langsung dari aplikasi.
+
+### 1. Mengakses Panel Admin
+
+- Navigasi ke alamat `/admin`.
+- Gunakan **Sidebar** untuk berpindah antar menu (saat ini tersedia menu **Concepts**).
+
+### 2. Mengelola Konsep (Concepts)
+
+- **Melihat Daftar**: Menu "Concepts" menampilkan tabel berisi seluruh materi yang ada.
+- **Tambah Baru**: Klik tombol **"Create Concept"** untuk menambahkan materi baru (Judul, Kategori, Deskripsi).
+- **Ubah (Edit)**: Klik ikon pensil/tombol edit pada baris materi untuk memperbarui informasi.
+- **Hapus (Delete)**: Klik tombol hapus untuk membuang materi. Aplikasi akan meminta konfirmasi sebelum data benar-benar dihapus.
+
+---
+
 ## 🛠️ Penanganan Kendala
 
 Meskipun kami berusaha menjaga aplikasi tetap stabil, terkadang gangguan teknis bisa terjadi. Beringin dilengkapi dengan **Error Boundary** untuk memastikan satu masalah kecil tidak merusak seluruh pengalaman belajar Anda.
 
 ### Jika Muncul Pesan Error:
 
-1. **Pesan "Waduh, ada masalah dikit..."**: Ini berarti terjadi kesalahan pada salah satu bagian layar.
-   - Klik tombol **"Coba Lagi"** untuk mereset komponen tersebut.
-   - Jika masih bermasalah, coba muat ulang (refresh) browser Anda.
-2. **Sesi Belajar Terhenti**: Jangan khawatir, progres Anda biasanya sudah tersimpan secara otomatis setiap kali Anda menekan tombol penilaian (Again/Hard/Good/Easy).
+1.  **Pesan "Waduh, ada masalah dikit..."**: Ini berarti terjadi kesalahan pada salah satu bagian layar.
+    - Klik tombol **"Coba Lagi"** untuk mereset komponen tersebut.
+    - Jika masih bermasalah, coba muat ulang (refresh) browser Anda.
+2.  **Sesi Belajar Terhenti**: Jangan khawatir, progres Anda biasanya sudah tersimpan secara otomatis setiap kali Anda menekan tombol penilaian (Again/Hard/Good/Easy).
 
 ---
 
@@ -111,5 +129,6 @@ Untuk keluar dari akun, klik tombol **"Logout"** di pojok kanan atas Dashboard. 
 
 | Versi    | Tanggal    | Deskripsi Perubahan                                                                              |
 | :------- | :--------- | :----------------------------------------------------------------------------------------------- |
+| **v1.2** | 2026-02-11 | Penambahan panduan **Manajemen Konten (Admin Panel)** untuk CRUD Concept.                        |
 | **v1.1** | 2026-02-11 | Penambahan section "Penanganan Kendala" (Error Boundary) dan sinkronisasi status fitur terbaru.  |
 | **v1.0** | 2026-02-11 | Rilis awal dokumen untuk MVP Phase 1 (Foundation). Mencakup Login, Dashboard, dan Study Session. |

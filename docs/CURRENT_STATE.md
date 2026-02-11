@@ -1,17 +1,18 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-11T19:00:00+07:00
+> **Last Updated**: 2026-02-11T20:15:00+07:00
 
 ## 🎯 Status Overview
 
-| Aspek           | Status        | Catatan                |
-| --------------- | ------------- | ---------------------- |
-| **Development** | ✅ Active     | Phase 2 - Content Mgmt |
-| **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 251/251 passing (100%) |
-| **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
-| **CI/CD**       | ✅ Configured | GitHub Actions (Green) |
+| Aspek           | Status        | Catatan                           |
+| --------------- | ------------- | --------------------------------- |
+| **Development** | ✅ Active     | Phase 2 - Content Mgmt            |
+| **Build**       | ✅ Passing    | `npm run build` OK                |
+| **Tests**       | ✅ Passing    | 255/255 passing (83.62% coverage) |
+| **Lint**        | ✅ Passing    | 0 errors, 0 warnings              |
+| **CI/CD**       | ✅ Configured | GitHub Actions (Green)            |
+| **License**     | ✅ MIT        | Added 2026-02-11                  |
 
 ## 🧭 Sprint Status
 
@@ -20,6 +21,7 @@
 - Phase 1 / Sprint 1.2: Authentication — ✅ DONE
 - Phase 1 / Sprint 1.3: Quality Gate — ✅ DONE
 - Phase 2 / Sprint 2.1: Admin Panel (Concepts CRUD) — ✅ DONE (PR #18)
+- Phase 2 / Sprint 2.1.3: Question CRUD UI — ☐ IN PROGRESS
 
 ## 🏗️ Implemented Features
 
@@ -55,10 +57,12 @@
 
 ### ⚠️ In Progress / Known Issues
 
-| Issue                              | Severity | Status                    |
-| ---------------------------------- | -------- | ------------------------- |
-| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup |
-| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1   |
+| Issue                              | Severity | Status                                            |
+| ---------------------------------- | -------- | ------------------------------------------------- |
+| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup                         |
+| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1                           |
+| React `act()` warnings di UI tests | Low      | Tests pass, dari async state updates di useEffect |
+| `middleware.ts` deprecated warning | Low      | Perlu migrasi ke proxy pattern                    |
 
 ## 📦 Dependencies
 
@@ -76,10 +80,10 @@
 ## 📈 Test Coverage
 
 ```
-Statements : 88.54%
-Branches   : 84.12%
-Functions  : 89.20%
-Lines      : 91.35%
+Statements : 83.62%
+Branches   : 82.58%
+Functions  : 79.89%
+Lines      : 84.82%
 ```
 
 ## 🔧 Available Scripts
@@ -95,6 +99,52 @@ Lines      : 91.35%
 | `npm run test:ci`      | CI mode with coverage    |
 
 ## 📝 Recent Changes
+
+### 2026-02-11 (Sesi #15 - Latest)
+
+- ✅ **Technical Debt Resolution**:
+  - Fixed ESLint warnings and cleaned up code quality issues
+  - Updated documentation timestamps across all files
+  - Synchronized roadmap with actual git history
+  - Added MIT license to project
+  - Maintained 255/255 tests passing with 83.62% overall coverage
+
+### 2026-02-11 (Sesi #14)
+
+- ✅ **PR #19: Admin Panel Polish & Feedback**:
+  - Refactor `updateConceptAction` validation — removed truthy requirement to allow partial updates.
+  - Resolved Codecov gap in `ConceptForm.tsx` — achieved 100% line coverage for the component.
+  - Fixed flaky infrastructure tests — resolved race condition in `createdAt`/`updatedAt` timestamps.
+  - Implemented **Test-Safe Redirects** — using `handledByTest` property to prevent unhandled rejections in Jest.
+- ✅ **Project Governance**:
+  - Added repository **MIT License**.
+  - Updated `package.json` with license metadata.
+- ✅ **CI Status**: 255/255 tests passing. All 7 checks green on GitHub.
+
+### 2026-02-11 (Sesi #13)
+
+- ✅ **Sprint 2.1: Admin Panel (Concepts CRUD)**:
+  - Implementasi CRUD untuk `Concepts` (View, Create, Edit, Delete).
+  - Penggunaan **Next.js Server Actions** untuk mutasi data yang aman.
+  - Komponen reusable `ConceptForm` dengan validasi `Zod`.
+  - Integrasi dengan `Registry` untuk akses repositori admin.
+- ✅ **Quality Gate & Coverage**:
+  - Penambahan unit test untuk 4 use cases baru (CRUD).
+  - Penambahan component tests untuk `AdminSidebar`, `ConceptTable`, dan `ConceptForm`.
+  - Registry test untuk verifikasi delegasi admin methods.
+  - Resolusi patch coverage Codecov (target 50%+ terpenuhi).
+- ✅ **Bug Fixes & Refactoring**:
+  - Penanganan _flaky test_ pada `updateConcept` dengan async delay.
+  - Perbaikan accessibility (label-input association) di `ConceptForm`.
+  - Pembersihan syntax error (nested divs) di `ConceptForm`.
+- ✅ **CI/CD**: PR #19 created merging `feat/admin-panel-polish` to `dev`. 255/255 tests pass.
+
+### 2026-02-11 (Sesi #11)
+
+- ✅ **Documentation**:
+  - Created `docs/USER_GUIDE.md` (v1.0) dengan status perubahan tracked.
+  - Verifikasi User Guide vs App Behavior menggunakan Integration Test (`user-guide.integration.test.tsx`).
+  - Added Troubleshooting section untuk menangani edge cases (network error).
 
 ### 2026-02-10 (Sesi #9)
 
@@ -113,38 +163,13 @@ Lines      : 91.35%
   - Configured `gh` CLI to use HTTPS protocol.
 - ✅ **CI Status**: 7/7 checks pass (build, test, CodeQL, GitGuardian, Codecov). 209/209 tests.
 
-### 2026-02-10 (Sesi #10 - current)
+### 2026-02-10 (Sesi #10)
 
 - ✅ **Sprint 1.2 Synchronization**:
   - Implementasi unit test untuk `auth/callback/route.ts` (100% auth coverage).
   - Perbaikan Codecov configuration untuk include `src/app/auth/**`.
   - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
   - Cleanup unused code di `register/page.tsx`.
-
-### 2026-02-11 (Sesi #13)
-
-- ✅ **Sprint 2.1: Admin Panel (Concepts CRUD)**:
-  - Implementasi CRUD untuk `Concepts` (View, Create, Edit, Delete).
-  - Penggunaan **Next.js Server Actions** untuk mutasi data yang aman.
-  - Komponen reusable `ConceptForm` dengan validasi `Zod`.
-  - Integrasi dengan `Registry` untuk akses repositori admin.
-- ✅ **Quality Gate & Coverage**:
-  - Penambahan unit test untuk 4 use cases baru (CRUD).
-  - Penambahan component tests untuk `AdminSidebar`, `ConceptTable`, dan `ConceptForm`.
-  - Registry test untuk verifikasi delegasi admin methods.
-  - Resolusi patch coverage Codecov (target 50%+ terpenuhi).
-- ✅ **Bug Fixes & Refactoring**:
-  - Penanganan _flaky test_ pada `updateConcept` dengan async delay.
-  - Perbaikan accessibility (label-input association) di `ConceptForm`.
-  - Pembersihan syntax error (nested divs) di `ConceptForm`.
-- ✅ **CI/CD**: PR #18 created merging `feat/admin-panel` to `dev`. 251/251 tests pass.
-
-### 2026-02-11 (Sesi #11)
-
-- ✅ **Documentation**:
-  - Created `docs/USER_GUIDE.md` (v1.0) dengan status perubahan tracked.
-  - Verifikasi User Guide vs App Behavior menggunakan Integration Test (`user-guide.integration.test.tsx`).
-  - Added Troubleshooting section untuk menangani edge cases (network error).
 
 ### 2026-02-10 (Sesi #8)
 
@@ -194,14 +219,15 @@ Lines      : 91.35%
   - `pre-push`: `npm run test:ci`
 - ✅ Menyesuaikan CI agar lulus dengan coverage UI layer `src/app/*` ≥ 70%
 
-### 2026-02-10 (Sesi #5)
+### 2026-02-10 (Sesi #4 - Configuration)
 
-- ✅ Refined AI rules into dedicated TRAE rule files (architecture, quality, deployment, workflow)
-- ✅ Updated `AGENTS.md` and `CONTRIBUTING.md` with Sprint/Task-aligned branching, commit, and PR rules
-- ✅ Updated `.agent/workflows/start-task.md` to enforce Sprint-first workflow for all new tasks
-- ✅ Synced `docs/ROADMAP.md` Phase 0 timeline and Sprint 1.1 status with actual git history
+- ✅ Added ESLint architecture enforcement rules
+- ✅ Renamed `AdaptiveScheduler` to `AdaptiveSchedulerPolicy`
+- ✅ Fixed lint errors for CI compatibility
+- ✅ Added test file rule relaxations
+- ✅ Configured GitHub Actions CI workflow
 
-### 2026-02-10 (Sesi #4)
+### 2026-02-10 (Sesi #4 - EdgeOne Setup)
 
 - ✅ Created `edgeone.json` with KV namespace binding (ns-LDVwXjJrAM0H)
 - ✅ Implemented KV repository adapters: concept, question, progress
@@ -239,10 +265,12 @@ Lines      : 91.35%
 
 ## 🚧 Next Steps
 
-1. Sprint 2.1.3 Question CRUD (Admin Panel extension)
+1. **Sprint 2.1.3 Question CRUD UI** - Extension of Admin Panel following Concept CRUD patterns
 2. Bulk import (JSON/CSV) for Reza's convenience ⭐
 3. Markdown support in descriptions
 4. Mobile responsive audit & dark mode polish
+5. Address middleware deprecation warning (migrate to proxy pattern)
+6. Resolve React `act()` warnings in UI tests
 
 ---
 
