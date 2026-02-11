@@ -27,6 +27,7 @@ describe('updateConcept Use Case', () => {
     }
 
     // Act
+    await new Promise((resolve) => setTimeout(resolve, 10))
     const result = await updateConcept(
       existingConcept.id,
       updateData,
