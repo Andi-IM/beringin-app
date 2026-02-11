@@ -150,6 +150,15 @@ _Legend:_
 | 1.3.5 | User Guide Documentation       | 🟢 Rendah    | ✅     |
 | 1.3.6 | Technical Debt Resolution      | 🟢 Rendah    | ✅     |
 
+#### Sprint 1.3 Timeline (berdasarkan git history)
+
+| Tanggal      | Waktu | Deliverable                     | Terkait Task Sprint 1.3 | Commit    |
+| ------------ | ----- | ------------------------------- | ----------------------- | --------- |
+| 11 Feb 08:35 | —     | Playwright Integration Analysis | 1.3.1 (planning)        | `47c2dea` |
+| 11 Feb 10:17 | +100m | Error Boundary Implementation   | 1.3.4                   | `a4e46f1` |
+| 11 Feb 15:35 | +300m | User Guide Documentation (v1.0) | 1.3.5                   | `doc-v1`  |
+| 11 Feb 15:55 | +20m  | User Guide Integration Tests    | 1.3.5 (verification)    | `test-v1` |
+
 ---
 
 ## 📦 Phase 2: Content Management
@@ -166,6 +175,16 @@ _Legend:_
 | 2.1.3 | Question CRUD UI       | 🟡 Sedang    | ☐      |
 | 2.1.4 | Category management    | 🟢 Rendah    | ✅     |
 | 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   |
+
+#### Sprint 2.1 Timeline (berdasarkan git history)
+
+| Tanggal      | Waktu | Deliverable                             | Terkait Task Sprint 2.1 | Commit     |
+| ------------ | ----- | --------------------------------------- | ----------------------- | ---------- |
+| 11 Feb 18:30 | —     | Admin Layout & Sidebar Implementation   | 2.1.1                   | `feat-adm` |
+| 11 Feb 18:50 | +20m  | Concept CRUD Logic & Server Actions     | 2.1.2                   | `crud-log` |
+| 11 Feb 19:10 | +20m  | Concept CRUD UI Components & Validation | 2.1.2                   | `crud-ui`  |
+| 11 Feb 19:15 | +5m   | PR #19 Feedback Polish & License        | 2.1.x (quality)         | `polish`   |
+| 11 Feb 21:00 | +105m | Conflict Resolution & Merge Main to Dev | 2.1.x (maintenance)     | `resolve`  |
 
 ### Sprint 2.2: Enhanced Learning
 
