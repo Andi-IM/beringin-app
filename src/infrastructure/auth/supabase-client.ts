@@ -17,11 +17,20 @@ export async function createClient() {
           try {
             cookieStore.set({ name, value, ...options })
           } catch (error) {
-            logger.error('Error setting cookie from Server Component. This can be ignored if middleware is refreshing sessions.', error)
+            logger.error(
+              'Error setting cookie from Server Component. This can be ignored if middleware is refreshing sessions.',
+              error,
+            )
           }
         },
         remove(name: string, options: CookieOptions) {
-            logger.error('Error deleting cookie from Server Component. This can be ignored if middleware is refreshing sessions.', error)
+          try {
+            cookieStore.delete({ name, ...options })
+          } catch (error) {
+            logger.error(
+              'Error deleting cookie from Server Component. This can be ignored if middleware is refreshing sessions.',
+              error,
+            )
           }
         },
       },
