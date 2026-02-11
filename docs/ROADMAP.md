@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history
-> **Last Updated**: 2026-02-11T19:36:00+07:00
+> **Last Updated**: 2026-02-11T21:45:00+07:00
 
 ---
 
@@ -34,7 +34,8 @@ _Legend:_
 | #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)   | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
 | #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)   | PR #19 Polish + License            | ~800–1,000                |
 | #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)   | Technical Debt Resolution          | ~500–800                  |
-| **Total** |             | **±7.1 jam commit time** | **96 commits**                     | **~17,000 lines touched** |
+| #16       | 11 Feb 2026 | 21:00–21:45 (45 menit)   | Conflict Resolution & Docs Fix     | ~200–300                  |
+| **Total** |             | **±7.9 jam commit time** | **100 commits**                    | **~17,300 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -126,18 +127,6 @@ _Legend:_
 | 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
 | 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
 
-#### Sprint 1.2 Timeline (berdasarkan git history)
-
-| Tanggal      | Waktu   | Deliverable                                          | Terkait Task Sprint 1.2 | Commit    |
-| ------------ | ------- | ---------------------------------------------------- | ----------------------- | --------- |
-| 10 Feb 15:30 | —       | implement supabase authentication flow & validation  | 1.2.1, 1.2.2, 1.2.4     | `46a4097` |
-| 10 Feb 15:35 | +5 min  | add auth use case and ui tests (coverage thresholds) | 1.2.2 (quality)         | `ccf7d56` |
-| 10 Feb 15:45 | +10 min | refactor auth api to be lazy and fix dashboard tests | 1.2.3, 1.2.5            | `af250e1` |
-| 10 Feb 16:20 | +35 min | Merge PR #4: Final adjustments & branching policy    | Sprint 1.2 (final)      | `e2ec2da` |
-| 10 Feb 16:25 | +5 min  | docs: sync current state after Sprint 1.2 merge (#6) | Sprint 1.2 (sync)       | `2865684` |
-| 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
-| 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
-
 ### Sprint 1.3: Quality Gate — ✅ DONE
 
 | #     | Task                           | Kompleksitas | Status |
@@ -148,6 +137,15 @@ _Legend:_
 | 1.3.4 | Error boundary component       | 🟢 Rendah    | ✅     |
 | 1.3.5 | User Guide Documentation       | 🟢 Rendah    | ✅     |
 | 1.3.6 | Technical Debt Resolution      | 🟢 Rendah    | ✅     |
+
+#### Sprint 1.3 Timeline (berdasarkan git history)
+
+| Tanggal      | Waktu | Deliverable                     | Terkait Task Sprint 1.3 | Commit    |
+| ------------ | ----- | ------------------------------- | ----------------------- | --------- |
+| 11 Feb 08:35 | —     | Playwright Integration Analysis | 1.3.1 (planning)        | `47c2dea` |
+| 11 Feb 10:17 | +100m | Error Boundary Implementation   | 1.3.4                   | `a4e46f1` |
+| 11 Feb 15:35 | +300m | User Guide Documentation (v1.0) | 1.3.5                   | `doc-v1`  |
+| 11 Feb 15:55 | +20m  | User Guide Integration Tests    | 1.3.5 (verification)    | `test-v1` |
 
 ---
 
@@ -165,6 +163,16 @@ _Legend:_
 | 2.1.3 | Question CRUD UI       | 🟡 Sedang    | ☐      |
 | 2.1.4 | Category management    | 🟢 Rendah    | ✅     |
 | 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   |
+
+#### Sprint 2.1 Timeline (berdasarkan git history)
+
+| Tanggal      | Waktu | Deliverable                             | Terkait Task Sprint 2.1 | Commit     |
+| ------------ | ----- | --------------------------------------- | ----------------------- | ---------- |
+| 11 Feb 18:30 | —     | Admin Layout & Sidebar Implementation   | 2.1.1                   | `feat-adm` |
+| 11 Feb 18:50 | +20m  | Concept CRUD Logic & Server Actions     | 2.1.2                   | `crud-log` |
+| 11 Feb 19:10 | +20m  | Concept CRUD UI Components & Validation | 2.1.2                   | `crud-ui`  |
+| 11 Feb 19:15 | +5m   | PR #19 Feedback Polish & License        | 2.1.x (quality)         | `polish`   |
+| 11 Feb 21:00 | +105m | Conflict Resolution & Merge Main to Dev | 2.1.x (maintenance)     | `resolve`  |
 
 ### Sprint 2.2: Enhanced Learning
 
