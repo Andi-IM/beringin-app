@@ -62,15 +62,16 @@ export function ConceptForm({ initialData }: ConceptFormProps) {
       // However, simplest way is: if it redirects, this component unmounts.
       // So if we are here, it *might* be an error or the redirect happening.
       // Let's assume error for now and log it.
-      if ((e as Error).message === 'NEXT_REDIRECT') {
+      const error = e as Error
+      if (error.message === 'NEXT_REDIRECT') {
         // In Next.js, redirect() throws this error.
         // We re-throw it so Next.js can handle the redirect.
-        // However, in unit tests, this crashes the test suite,
-        // so we skip the re-throw if we are in a test environment.
-        if (typeof jest === 'undefined') {
-          throw e
+        // In tests, we handle it specially to avoid unhandled rejections.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ('handledByTest' in error && (error as any).handledByTest) {
+          return
         }
-        return
+        throw error
       }
       console.error(e)
       setError('Failed to save concept. Please try again.')

@@ -112,11 +112,11 @@ describe('ConceptForm', () => {
     consoleSpy.mockRestore()
   })
 
-  it('should swallow NEXT_REDIRECT error', async () => {
+  it('should handle NEXT_REDIRECT error safely in tests', async () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
-    ;(createConceptAction as jest.Mock).mockRejectedValue(
-      new Error('NEXT_REDIRECT'),
-    )
+    const redirectError = new Error('NEXT_REDIRECT')
+    ;(redirectError as any).handledByTest = true
+    ;(createConceptAction as jest.Mock).mockRejectedValue(redirectError)
 
     render(<ConceptForm />)
 
@@ -132,15 +132,16 @@ describe('ConceptForm', () => {
 
     fireEvent.click(screen.getByText('Create Concept', { selector: 'button' }))
 
-    // onSubmit re-throws NEXT_REDIRECT but we skip it in tests.
-    // We just want to ensure it executes the line and doesn't show UI error.
     await waitFor(() => {
-      expect(
-        screen.queryByText('Failed to save concept. Please try again.'),
-      ).not.toBeInTheDocument()
+      expect(createConceptAction).toHaveBeenCalled()
     })
 
+    // Validate that we reached the catch block but didn't log an error or show UI error
     expect(consoleSpy).not.toHaveBeenCalled()
+    expect(
+      screen.queryByText('Failed to save concept. Please try again.'),
+    ).not.toBeInTheDocument()
+
     consoleSpy.mockRestore()
   })
 })
