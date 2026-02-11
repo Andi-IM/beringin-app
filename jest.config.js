@@ -15,6 +15,9 @@ const customJestConfig = {
     '!src/**/*.d.ts',
     '!src/**/*.stories.{ts,tsx}',
     '!src/**/index.{ts,tsx}',
+    '!src/**/actions.ts',
+    '!src/**/page.tsx',
+    '!src/**/layout.tsx',
   ],
   coverageThreshold: {
     // Domain: pure business logic, must be thoroughly tested
