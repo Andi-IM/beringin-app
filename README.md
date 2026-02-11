@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/Andi-IM/beringin-app/graph/badge.svg?token=PQj9KJS9R6)](https://codecov.io/gh/Andi-IM/beringin-app)
+
 # 🌳 Beringin
 
 > **Ilmu yang Berakar Kuat, Tak Mudah Lupa**
