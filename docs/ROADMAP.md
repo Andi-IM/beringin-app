@@ -28,12 +28,12 @@
 
 ### Throughput Terukur (AI-Assisted)
 
-| Metrik                          | Nilai yang Lebih Realistis            |
+| Metrik                          | Nilai Realistis (Rata-rata)           |
 | ------------------------------- | ------------------------------------- |
-| Lines of code per sesi          | ~1,500–2,500 lines tersentuh          |
-| Files changed per sesi          | ~15–30 files                          |
-| Test cases created per sesi     | ~30–60 test cases (unit + API route)  |
-| Rata-rata per jam kerja efektif | ~4,000–6,000 LoC, ~20 files tersentuh |
+| Lines of code per sesi          | ~1,000–1,500 lines tersentuh          |
+| Files changed per sesi          | ~10–20 files                          |
+| Test cases created per sesi     | ~20–40 test cases (unit + API route)  |
+| Rata-rata per jam kerja efektif | ~2,500–3,000 LoC, ~15 files tersentuh |
 
 ---
 
