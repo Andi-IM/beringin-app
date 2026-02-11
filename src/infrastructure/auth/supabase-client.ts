@@ -17,7 +17,6 @@ export async function createClient() {
           try {
             cookieStore.set({ name, value, ...options })
           } catch (error) {
-            // user sessions.
             logger.error(error)
           }
         },
