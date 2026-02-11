@@ -14,8 +14,11 @@
 | #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
 | #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor    | ~500–800                  |
 | #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)   | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
-| #8        | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~200–300                  |
-| **Total** |             | **±2.8 jam commit time** | **48 commits**                     | **~10,300 lines touched** |
+| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)   | Google Sign-In + Refactor          | ~800–1,200                |
+| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)   | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
+| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)   | Auth Tests + Coverage Sync         | ~400–600                  |
+| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~450–500                  |
+| **Total** |             | **±5.0 jam commit time** | **68 commits**                     | **~13,000 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
