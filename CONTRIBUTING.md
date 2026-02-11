@@ -142,7 +142,14 @@ Repo ini sudah dikonfigurasi dengan Husky:
 - `pre-commit`: menjalankan `npm run lint`, `npm run check-format`, `npx tsc --noEmit`
 - `pre-push`: menjalankan `npm run test:ci`
 
-Saat menjalankan `git commit` / `git push`, hook ini akan otomatis berjalan dan memblokir jika ada error. Jika hook terasa lambat, jalankan perintah yang sama secara manual sebelum commit/push untuk mempercepat feedback loop.
+Saat menjalankan `git commit` / `git push`, hook ini akan otomatis berjalan dan memblokir jika ada error.
+
+> [!WARNING]
+> **Belajar dari PR #17**: Jangan bypass hook ini dengan `--no-verify`. Kegagalan CI paling umum adalah:
+>
+> 1. **Mismatch dengan dev**: Selalu jalankan `git merge origin/dev` sebelum push terakhir.
+> 2. **Build Error**: Selalu jalankan `npm run build` lokal. CI build sering gagal karena syntax error di file yang tidak ter-cover unit test.
+> 3. **Formatting**: Pastikan `npm run format` dijalankan agar `check-format` di CI tidak gagal.
 
 ### PR Title Format
 
