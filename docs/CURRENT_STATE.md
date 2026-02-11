@@ -9,9 +9,10 @@
 | --------------- | ------------- | ---------------------- |
 | **Development** | ✅ Active     | Phase 2 - Content Mgmt |
 | **Build**       | ✅ Passing    | `npm run build` OK     |
-| **Tests**       | ✅ Passing    | 251/251 passing (100%) |
+| **Tests**       | ✅ Passing    | 255/255 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions (Green) |
+| **License**     | ✅ MIT        | Added 2026-02-11       |
 
 ## 🧭 Sprint Status
 
@@ -120,6 +121,18 @@ Lines      : 91.35%
   - Perbaikan Codecov configuration untuk include `src/app/auth/**`.
   - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
   - Cleanup unused code di `register/page.tsx`.
+
+### 2026-02-11 (Sesi #14 - current)
+
+- ✅ **PR #19: Admin Panel Polish & Feedback**:
+  - Refactor `updateConceptAction` validation — removed truthy requirement to allow partial updates.
+  - Resolved Codecov gap in `ConceptForm.tsx` — achieved 100% line coverage for the component.
+  - Fixed flaky infrastructure tests — resolved race condition in `createdAt`/`updatedAt` timestamps.
+  - Implemented **Test-Safe Redirects** — using `handledByTest` property to prevent unhandled rejections in Jest.
+- ✅ **Project Governance**:
+  - Added repository **MIT License**.
+  - Updated `package.json` with license metadata.
+- ✅ **CI Status**: 255/255 tests passing. All 7 checks green on GitHub.
 
 ### 2026-02-11 (Sesi #13)
 
