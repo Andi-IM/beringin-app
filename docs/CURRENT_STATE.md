@@ -34,10 +34,7 @@
 5. **Authentication Flow** - Login & Register menggunakan Supabase Auth (Lazy-loaded client)
 6. **Google Sign-In** - OAuth login via Supabase dengan reusable `GoogleIcon` component
 7. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
-   <<<<<<< HEAD
-   =======
 8. **Admin Panel** - CRUD interface untuk Concepts (\`/admin/concepts\`) menggunakan Server Actions.
-   > > > > > > > origin/dev
 
 ### ✅ Architecture (Done)
 
