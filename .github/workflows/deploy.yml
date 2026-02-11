@@ -33,4 +33,4 @@ jobs:
       - name: Deploy to EdgeOne Pages
         env:
           EDGEONE_TOKEN: ${{ secrets.EDGEONE_TOKEN }}
-        run: edgeone pages deploy -n ${{ vars.EDGEONE_PROJECT_NAME }} -t ${{ secrets.EDGEONE_API_TOKEN }}
+        run: edgeone pages deploy -n ${{ vars.EDGEONE_PROJECT_NAME }} -t ${{ secrets.EDGEONE_TOKEN }}

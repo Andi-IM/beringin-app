@@ -4,35 +4,33 @@ import { Registry } from '@/registry'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-export async function createConceptAction(formData: FormData) {
-  const title = formData.get('title') as string
-  const description = formData.get('description') as string
-  const category = formData.get('category') as string
+import { conceptSchema } from '@/domain/schemas/concept.schema'
 
-  if (!title || !description || !category) {
-    throw new Error('Missing required fields')
+export async function createConceptAction(formData: FormData) {
+  const rawData = {
+    title: formData.get('title'),
+    description: formData.get('description'),
+    category: formData.get('category'),
   }
 
-  await Registry.createConcept({
-    title,
-    description,
-    category,
-  })
+  const validatedData = conceptSchema.parse(rawData)
+
+  await Registry.createConcept(validatedData)
 
   revalidatePath('/admin/concepts')
   redirect('/admin/concepts')
 }
 
 export async function updateConceptAction(id: string, formData: FormData) {
-  const title = formData.get('title') as string
-  const description = formData.get('description') as string
-  const category = formData.get('category') as string
+  const rawData = {
+    title: formData.get('title'),
+    description: formData.get('description'),
+    category: formData.get('category'),
+  }
 
-  await Registry.updateConcept(id, {
-    title,
-    description,
-    category,
-  })
+  const validatedData = conceptSchema.parse(rawData)
+
+  await Registry.updateConcept(id, validatedData)
 
   revalidatePath('/admin/concepts')
   redirect('/admin/concepts')

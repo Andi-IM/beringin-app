@@ -4,6 +4,7 @@ import { useTransition } from 'react'
 import Link from 'next/link'
 import { deleteConceptAction } from '@/app/admin/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
+import { logger } from '@/lib/logger'
 
 interface ConceptTableProps {
   concepts: Concept[]
@@ -21,7 +22,7 @@ export function ConceptTable({ concepts }: ConceptTableProps) {
       try {
         await deleteConceptAction(id)
       } catch (error) {
-        console.error('Failed to delete', error)
+        logger.error('Failed to delete', error)
         alert('Failed to delete concept')
       }
     })
