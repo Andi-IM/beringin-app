@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history  
-> **Last Updated**: 2026-02-11T18:00:00+07:00
+> **Last Updated**: 2026-02-11T19:00:00+07:00
 
 ---
 
@@ -31,8 +31,8 @@ _Legend:_
 | #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)   | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
 | #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)   | Auth Tests + Coverage Sync         | ~400–600                  |
 | #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~450–500                  |
-| #12       | 11 Feb 2026 | 17:30–18:00 (30 menit)   | CI Hardening + Coverage + README   | ~500–800                  |
-| **Total** |             | **±5.5 jam commit time** | **74 commits**                     | **~14,000 lines touched** |
+| #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)   | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
+| **Total** |             | **±6.2 jam commit time** | **92 commits**                     | **~15,500 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -141,14 +141,14 @@ _Legend:_
 > Kompleksitas lebih tinggi (CRUD UI, question types, responsive).  
 > Estimasi **3–5 sesi kerja**.
 
-### Sprint 2.1: Admin Panel
+### Sprint 2.1: Admin Panel — ✅ DONE (PR #18)
 
 | #     | Task                   | Kompleksitas | Status |
 | ----- | ---------------------- | ------------ | ------ |
-| 2.1.1 | Admin layout + sidebar | 🟡 Sedang    | ☐      |
-| 2.1.2 | Concept CRUD UI        | 🟡 Sedang    | ☐      |
+| 2.1.1 | Admin layout + sidebar | 🟡 Sedang    | ✅     |
+| 2.1.2 | Concept CRUD UI        | 🟡 Sedang    | ✅     |
 | 2.1.3 | Question CRUD UI       | 🟡 Sedang    | ☐      |
-| 2.1.4 | Category management    | 🟢 Rendah    | ☐      |
+| 2.1.4 | Category management    | 🟢 Rendah    | ✅     |
 | 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   |
 
 ### Sprint 2.2: Enhanced Learning

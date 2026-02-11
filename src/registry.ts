@@ -128,4 +128,52 @@ export const Registry = {
     const supabase = await createClient()
     return supabase.auth.signOut()
   },
+
+  // --- Admin Methods ---
+
+  async getAllConcepts() {
+    const { getAllConcepts } =
+      await import('@/application/usecases/getAllConcepts.usecase')
+    const { conceptRepo } = await this.getRepositories()
+    return getAllConcepts(conceptRepo)
+  },
+
+  async getConceptById(id: string) {
+    const { conceptRepo } = await this.getRepositories()
+    return conceptRepo.findById(id)
+  },
+
+  async createConcept(data: {
+    title: string
+    description: string
+    category: string
+    parentId?: string
+  }) {
+    const { createConcept } =
+      await import('@/application/usecases/createConcept.usecase')
+    const { conceptRepo } = await this.getRepositories()
+    return createConcept(data, conceptRepo)
+  },
+
+  async updateConcept(
+    id: string,
+    data: {
+      title?: string
+      description?: string
+      category?: string
+      parentId?: string
+    },
+  ) {
+    const { updateConcept } =
+      await import('@/application/usecases/updateConcept.usecase')
+    const { conceptRepo } = await this.getRepositories()
+    return updateConcept(id, data, conceptRepo)
+  },
+
+  async deleteConcept(id: string) {
+    const { deleteConcept } =
+      await import('@/application/usecases/deleteConcept.usecase')
+    const { conceptRepo } = await this.getRepositories()
+    return deleteConcept(id, conceptRepo)
+  },
 }

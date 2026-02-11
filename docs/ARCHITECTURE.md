@@ -1,7 +1,7 @@
 # 🏛️ Architecture - Beringin
 
 > **Status Dokumen**: ✅ Aktif (v1.2)
-> **Terakhir Diperbarui**: 2026-02-11T17:35:00+07:00
+> **Terakhir Diperbarui**: 2026-02-11T19:00:00+07:00
 
 ## Overview
 
@@ -21,7 +21,7 @@ Beringin menggunakan **Clean Architecture** untuk memastikan:
 │ └───────┬─────┘ └───────┬─────┘ └───────┬─────┘        │
 └─────────┼───────────────┼───────────────┼──────────────┘
           │               │               │
-          │ (via Registry)│               │ (via Client Wrapper)
+          │ (via Registry)│               │ (via Server Actions / Client Wrapper)
           ▼               ▼               ▼
 ┌───────────────────────┐ ┌──────────────────────────────┐
 │ Application Layer     │ │ Client-Side Infra            │
@@ -71,9 +71,19 @@ Semua error dicatat melalui Centralized Logger (`src/lib/logger.ts`).
 **ESLint Enforcement:**
 
 ```javascript
-// no-restricted-globals: fetch
-// Fetch harus melalui Infrastructure layer
+// Fetch harus melalui Infrastructure layer atau Server Actions
 ```
+
+### 1.1 Server Actions (`src/app/admin/*/actions.ts`)
+
+**Status**: 🆕 Added in Sprint 2.1 (Admin Panel)
+
+**Aturan:**
+
+- ✅ Digunakan untuk mutasi data (POST/PUT/DELETE) dari Client Components.
+- ✅ Melakukan validasi input (Zod) sebelum memanggil Use Case.
+- ✅ Menangani pemetaan data (e.g. `FormData` -> `Entity`).
+- ❌ TIDAK BOLEH berisi business logic murni.
 
 ### 2. Application Layer (`src/application/usecases/`)
 
@@ -264,6 +274,7 @@ UI → Registry → Application → Domain ← Infrastructure
 | 2026-02-10 | **EdgeOne KV**                     | Mengganti LocalStorage/Supabase DB untuk persistence di Edge.           | ✅ Adopted |
 | 2026-02-10 | **Client-Side Infra**              | Memisahkan `AuthApi` untuk mendukung Lazy Loading di Client Components. | ✅ Adopted |
 | 2026-02-10 | **Strict ESLint Arch Enforcement** | Mencegah import cross-layer yang ilegal secara otomatis.                | ✅ Adopted |
+| 2026-02-11 | **Server Actions**                 | Digunakan untuk Admin CRUD mutations di Next.js.                        | ✅ Adopted |
 
 ---
 
