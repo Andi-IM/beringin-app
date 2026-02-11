@@ -127,18 +127,6 @@ _Legend:_
 | 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
 | 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
 
-#### Sprint 1.2 Timeline (berdasarkan git history)
-
-| Tanggal      | Waktu   | Deliverable                                          | Terkait Task Sprint 1.2 | Commit    |
-| ------------ | ------- | ---------------------------------------------------- | ----------------------- | --------- |
-| 10 Feb 15:30 | —       | implement supabase authentication flow & validation  | 1.2.1, 1.2.2, 1.2.4     | `46a4097` |
-| 10 Feb 15:35 | +5 min  | add auth use case and ui tests (coverage thresholds) | 1.2.2 (quality)         | `ccf7d56` |
-| 10 Feb 15:45 | +10 min | refactor auth api to be lazy and fix dashboard tests | 1.2.3, 1.2.5            | `af250e1` |
-| 10 Feb 16:20 | +35 min | Merge PR #4: Final adjustments & branching policy    | Sprint 1.2 (final)      | `e2ec2da` |
-| 10 Feb 16:25 | +5 min  | docs: sync current state after Sprint 1.2 merge (#6) | Sprint 1.2 (sync)       | `2865684` |
-| 10 Feb 17:50 | +85 min | Google Sign-In + GoogleIcon refactor (PR #10)        | Sprint 1.2 (auth)       | `4203ad5` |
-| 10 Feb 18:15 | +25 min | PR #10 feedback: constants, props, test fixes        | Sprint 1.2 (quality)    | `3292865` |
-
 ### Sprint 1.3: Quality Gate — ✅ DONE
 
 | #     | Task                           | Kompleksitas | Status |
