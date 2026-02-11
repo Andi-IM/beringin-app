@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { ConceptTable } from './ConceptTable'
 import { deleteConceptAction } from '@/app/admin/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'

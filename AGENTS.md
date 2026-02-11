@@ -176,6 +176,8 @@ npm run lint && npm test && npm run build
 - [ ] Domain layer has no framework imports
 - [ ] No `console.log` statements in production code
 - [ ] Proper error handling implemented
+- [ ] Fix React `act()` warnings in tests when adding new UI components
+- [ ] Clean up unused imports before committing
 
 ### Sprint-Driven Code Generation (for AI Agents)
 
@@ -245,12 +247,16 @@ localStorage.setItem('key', 'value')
 - **Jest 30** with jsdom environment
 - **React Testing Library** for UI testing
 - **Coverage reporting** with lcov and HTML
+- **Husky** for pre-commit hooks
+- **lint-staged** for automated code quality checks
 
 ### Development Tools
 
 - **ESLint 9** with Next.js TypeScript rules
 - **Prettier 3.8** with Tailwind plugin
 - **TypeScript 5.7** with path mapping
+- **Husky 9.1.6** for git hooks
+- **lint-staged 16.2.7** for pre-commit automation
 
 ## 🎯 Project Context
 
@@ -262,12 +268,31 @@ Beringin is a Spaced Repetition System (SRS) application that helps users rememb
 - Self-grading with confidence levels
 - Progress tracking and dashboard
 - Clean Architecture for maintainability
+- User authentication with Google OAuth
+- Admin panel for content management
+- EdgeOne KV for serverless persistence
 
 **Current Status:**
 
-- MVP with in-memory storage
-- EdgeOne KV integration ready
-- ~91% test coverage
+- MVP with Supabase Auth + EdgeOne KV persistence
+- Admin Panel (Concept CRUD) implemented
+- Question CRUD in progress (Sprint 2.1.3)
+- ~91% test coverage with 255 tests passing
 - TypeScript strict mode enabled
+- Production build successful
 
 Always prioritize maintainability and testability over quick implementation. The clean architecture ensures the business logic remains pure and testable regardless of UI or infrastructure changes.
+
+## 📋 Current Sprint Focus
+
+**Phase 2.1: Admin Panel - Question CRUD (Sprint 2.1.3)**
+
+- Implement Question CRUD UI following Concept CRUD patterns
+- Add bulk import functionality for JSON/CSV
+- Maintain high code quality and test coverage
+- Follow existing component patterns in `src/app/components/admin/`
+
+**Known Issues to Address:**
+
+- 3 ESLint warnings (unused imports)
+- React `act()` warnings in UI tests (non-critical but should be fixed)
