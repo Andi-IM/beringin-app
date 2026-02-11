@@ -56,4 +56,28 @@ describe('ConceptTable', () => {
     expect(window.confirm).toHaveBeenCalled()
     expect(deleteConceptAction).not.toHaveBeenCalled()
   })
+
+  it('should handle delete failure', async () => {
+    window.confirm = jest.fn(() => true)
+    window.alert = jest.fn()
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    ;(deleteConceptAction as jest.Mock).mockRejectedValue(new Error('Failed'))
+
+    render(<ConceptTable concepts={mockConcepts} />)
+
+    const deleteBtn = screen.getByText('Delete')
+    fireEvent.click(deleteBtn)
+
+    expect(window.confirm).toHaveBeenCalled()
+    expect(deleteConceptAction).toHaveBeenCalled()
+
+    // Wait for async action
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(consoleSpy).toHaveBeenCalled()
+    expect(window.alert).toHaveBeenCalledWith('Failed to delete concept')
+
+    consoleSpy.mockRestore()
+  })
 })

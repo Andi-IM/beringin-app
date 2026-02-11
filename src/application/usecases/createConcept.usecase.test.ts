@@ -57,4 +57,18 @@ describe('createConcept Use Case', () => {
       'Description is required',
     )
   })
+
+  it('should throw error if category is missing', async () => {
+    // Arrange
+    const data = {
+      title: 'Title',
+      description: 'Description',
+      category: '',
+    }
+
+    // Act & Assert
+    await expect(createConcept(data, conceptRepo)).rejects.toThrow(
+      'Category is required',
+    )
+  })
 })
