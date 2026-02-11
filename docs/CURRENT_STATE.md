@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-<<<<<<< HEAD
+> <<<<<<< HEAD
 > **Last Updated**: 2026-02-10T18:20+07:00
 
 ## 🎯 Status Overview
@@ -13,7 +13,9 @@
 | **Tests**       | ✅ Passing    | 209/209 passing (100%) |
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings   |
 | **CI/CD**       | ✅ Configured | GitHub Actions         |
+
 =======
+
 > **Last Updated**: 2026-02-11T20:15:00+07:00
 
 ## 🎯 Status Overview
@@ -26,20 +28,20 @@
 | **Lint**        | ✅ Passing    | 0 errors, 0 warnings              |
 | **CI/CD**       | ✅ Configured | GitHub Actions (Green)            |
 | **License**     | ✅ MIT        | Added 2026-02-11                  |
->>>>>>> origin/dev
+
+> > > > > > > origin/dev
 
 ## 🧭 Sprint Status
 
 - Phase 0: MVP — ✅ DONE
 - Phase 1 / Sprint 1.1: Persistence Layer (EdgeOne KV) — ✅ DONE
 - Phase 1 / Sprint 1.2: Authentication — ✅ DONE
-<<<<<<< HEAD
-- Phase 1 / Sprint 1.3: Quality Gate — 🔜 NEXT
-=======
+  <<<<<<< HEAD
+- # Phase 1 / Sprint 1.3: Quality Gate — 🔜 NEXT
 - Phase 1 / Sprint 1.3: Quality Gate — ✅ DONE
 - Phase 2 / Sprint 2.1: Admin Panel (Concepts CRUD) — ✅ DONE (PR #18)
 - Phase 2 / Sprint 2.1.3: Question CRUD UI — ☐ IN PROGRESS
->>>>>>> origin/dev
+  > > > > > > > origin/dev
 
 ## 🏗️ Implemented Features
 
@@ -52,10 +54,10 @@
 5. **Authentication Flow** - Login & Register menggunakan Supabase Auth (Lazy-loaded client)
 6. **Google Sign-In** - OAuth login via Supabase dengan reusable `GoogleIcon` component
 7. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
-<<<<<<< HEAD
-=======
+   <<<<<<< HEAD
+   =======
 8. **Admin Panel** - CRUD interface untuk Concepts (\`/admin/concepts\`) menggunakan Server Actions.
->>>>>>> origin/dev
+   > > > > > > > origin/dev
 
 ### ✅ Architecture (Done)
 
@@ -79,18 +81,19 @@
 ### ⚠️ In Progress / Known Issues
 
 <<<<<<< HEAD
-| Issue                              | Severity | Status                    |
+| Issue | Severity | Status |
 | ---------------------------------- | -------- | ------------------------- |
-| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup |
-| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1   |
+| `act()` warnings di test Dashboard | Low | Tests pass, perlu cleanup |
+| `Registry` belum punya unit tests | Low | Akan dicakup di Phase 1 |
 =======
-| Issue                              | Severity | Status                                            |
+| Issue | Severity | Status |
 | ---------------------------------- | -------- | ------------------------------------------------- |
-| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup                         |
-| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1                           |
-| React `act()` warnings di UI tests | Low      | Tests pass, dari async state updates di useEffect |
-| `middleware.ts` deprecated warning | Low      | Perlu migrasi ke proxy pattern                    |
->>>>>>> origin/dev
+| `act()` warnings di test Dashboard | Low | Tests pass, perlu cleanup |
+| `Registry` belum punya unit tests | Low | Akan dicakup di Phase 1 |
+| React `act()` warnings di UI tests | Low | Tests pass, dari async state updates di useEffect |
+| `middleware.ts` deprecated warning | Low | Perlu migrasi ke proxy pattern |
+
+> > > > > > > origin/dev
 
 ## 📦 Dependencies
 
@@ -135,8 +138,8 @@ Lines      : 84.82%
 
 ## 📝 Recent Changes
 
-<<<<<<< HEAD
-=======
+# <<<<<<< HEAD
+
 ### 2026-02-11 (Sesi #15 - Latest)
 
 - ✅ **Technical Debt Resolution**:
@@ -183,7 +186,8 @@ Lines      : 84.82%
   - Verifikasi User Guide vs App Behavior menggunakan Integration Test (`user-guide.integration.test.tsx`).
   - Added Troubleshooting section untuk menangani edge cases (network error).
 
->>>>>>> origin/dev
+> > > > > > > origin/dev
+
 ### 2026-02-10 (Sesi #9)
 
 - ✅ **PR #10 Feedback Resolution**:
@@ -201,8 +205,8 @@ Lines      : 84.82%
   - Configured `gh` CLI to use HTTPS protocol.
 - ✅ **CI Status**: 7/7 checks pass (build, test, CodeQL, GitGuardian, Codecov). 209/209 tests.
 
-<<<<<<< HEAD
-=======
+# <<<<<<< HEAD
+
 ### 2026-02-10 (Sesi #10)
 
 - ✅ **Sprint 1.2 Synchronization**:
@@ -211,7 +215,8 @@ Lines      : 84.82%
   - Sembunyikan `console.error` saat testing di `supabase-client.ts`.
   - Cleanup unused code di `register/page.tsx`.
 
->>>>>>> origin/dev
+> > > > > > > origin/dev
+
 ### 2026-02-10 (Sesi #8)
 
 - ✅ **Google Sign-In Implementation**:
@@ -226,13 +231,12 @@ Lines      : 84.82%
 
 - ✅ Implementasi Supabase Auth:
   - `signIn`, `signUp`, `getCurrentUser` use cases
-<<<<<<< HEAD
+    <<<<<<< HEAD
   - Middleware perlindungan rute
-  - `AuthApi` client wrapper dengan lazy loading Supabase (fix CI crash)
-=======
+  - # `AuthApi` client wrapper dengan lazy loading Supabase (fix CI crash)
   - **Client-Side Infrastructure**: Wrapper API (`AuthApi`) dikonsumsi langsung oleh Client Components untuk performa (lazy loading).
   - **Error Boundaries**: Penggunaan `error.tsx` dan komponen `ErrorBoundary` custom untuk degradasi UI yang anggun (graceful degradation).
->>>>>>> origin/dev
+    > > > > > > > origin/dev
 - ✅ Peningkatan Kualitas Kode:
   - Migrasi `window.location.href` ke `useRouter` di Dashboard
   - Logging error eksplisit pada seluruh catch block
@@ -312,18 +316,18 @@ Lines      : 84.82%
 ## 🚧 Next Steps
 
 <<<<<<< HEAD
+
 1. Sprint 1.3 Quality Gate: Playwright E2E, `act()` warnings cleanup, Registry coverage
 2. Tambah concept/question management UI (admin CRUD — Phase 2)
 3. E2E test untuk flow utama (landing → login → session → dashboard)
-4. Mobile responsive audit & dark mode polish
-=======
-1. **Sprint 2.1.3 Question CRUD UI** - Extension of Admin Panel following Concept CRUD patterns
-2. Bulk import (JSON/CSV) for Reza's convenience ⭐
-3. Markdown support in descriptions
-4. Mobile responsive audit & dark mode polish
-5. Address middleware deprecation warning (migrate to proxy pattern)
-6. Resolve React `act()` warnings in UI tests
->>>>>>> origin/dev
+4. # Mobile responsive audit & dark mode polish
+5. **Sprint 2.1.3 Question CRUD UI** - Extension of Admin Panel following Concept CRUD patterns
+6. Bulk import (JSON/CSV) for Reza's convenience ⭐
+7. Markdown support in descriptions
+8. Mobile responsive audit & dark mode polish
+9. Address middleware deprecation warning (migrate to proxy pattern)
+10. Resolve React `act()` warnings in UI tests
+    > > > > > > > origin/dev
 
 ---
 
