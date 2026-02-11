@@ -5,6 +5,19 @@
 
 ---
 
+## 🎯 Strategic Alignment (The "Reza Standard")
+
+Agar tetap relevan dengan persona **Reza** (Professional/CPNS Aspirant) yang anti-gamifikasi dangkal, roadmap ini diprioritaskan berdasarkan **3 Pilar Strategis**:
+
+1.  **Trust (Brutal Honesty)**: Utamakan metrik retensi nyata daripada engagement palsu (streak).
+2.  **Efficiency**: Fitur yang memotong waktu belajar (Bulk Import, Smart Scheduling).
+3.  **Depth**: Support untuk materi kompleks (UUD, Pasal) lewat Cloze Deletion.
+
+_Legend:_
+
+- ⭐ **Critical for Reza**: Fitur wajib untuk "Trust" & "Efficiency".
+- ⚠️ **Risk of Vanity**: Fitur yang harus hati-hati diimplementasi agar tidak dianggap "gimmick".
+
 ## 📊 Velocity Aktual (dari Git History)
 
 | Sesi      | Tanggal     | Waktu                    | Output                             | Lines Changed (perkiraan) |
@@ -135,14 +148,14 @@
 | 2.1.2 | Concept CRUD UI        | 🟡 Sedang    | ☐      |
 | 2.1.3 | Question CRUD UI       | 🟡 Sedang    | ☐      |
 | 2.1.4 | Category management    | 🟢 Rendah    | ☐      |
-| 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐      |
+| 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   |
 
 ### Sprint 2.2: Enhanced Learning
 
 | #     | Task                 | Kompleksitas | Status |
 | ----- | -------------------- | ------------ | ------ |
 | 2.2.1 | Question type: MCQ   | 🟡 Sedang    | ☐      |
-| 2.2.2 | Question type: Cloze | 🟡 Sedang    | ☐      |
+| 2.2.2 | Question type: Cloze | 🟡 Sedang    | ☐ ⭐   |
 | 2.2.3 | Markdown support     | 🟢 Rendah    | ☐      |
 | 2.2.4 | Image attachments    | 🟡 Sedang    | ☐      |
 | 2.2.5 | Audio playback       | 🟡 Sedang    | ☐      |
@@ -167,9 +180,9 @@
 
 | #     | Task                             | Kompleksitas | Status |
 | ----- | -------------------------------- | ------------ | ------ |
-| 3.1.1 | Study streak tracking            | 🟢 Rendah    | ☐      |
+| 3.1.1 | Study streak tracking            | 🟢 Rendah    | ☐ ⚠️   |
 | 3.1.2 | Time spent analytics             | 🟡 Sedang    | ☐      |
-| 3.1.3 | Retention rate graph             | 🟠 Tinggi    | ☐      |
+| 3.1.3 | Retention rate graph             | 🟠 Tinggi    | ☐ ⭐   |
 | 3.1.4 | Difficult concept identification | 🟡 Sedang    | ☐      |
 | 3.1.5 | Forgetting curve visualization   | 🟠 Tinggi    | ☐      |
 
@@ -215,7 +228,7 @@
 - [ ] Collaborative decks
 - [ ] Integrasi Notion / Obsidian
 - [ ] Public API
-- [ ] Gamification (achievements, leaderboard)
+- [ ] Gamification (achievements, leaderboard) ⚠️ _Low Priority for Reza_
 
 ---
 
