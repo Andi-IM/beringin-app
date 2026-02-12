@@ -22,6 +22,7 @@
     "Adaptive scheduling: Respects forgetting science but doesn't overwhelm busy life",
     "Explanation check: Post-review prompt to catch 'I can recognize it but can't explain it in my own words'",
     "Early warnings: Dashboard flags fragile concepts – 'Don't move on yet'",
+    "Ownership: Wants to build a personal library of knowledge (Second Brain) that is his alone.",
     "Prediction reliability: Answers 'Will I actually remember this in 30 days during the real test?'"
   ],
   "behaviors_and_attitudes": {

@@ -13,13 +13,16 @@ export async function seedData(repos: {
   const { conceptRepo, questionRepo, progressRepo } = repos
 
   // Create concepts
+  const userId = 'demo-user'
   const concept1 = await conceptRepo.create({
+    userId,
     title: 'TCP Handshake',
     description: 'Proses koneksi tiga langkah dalam protokol TCP',
     category: 'Networking',
   })
 
   const concept2 = await conceptRepo.create({
+    userId,
     title: 'Pancasila Sila 4',
     description:
       'Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan',
@@ -27,6 +30,7 @@ export async function seedData(repos: {
   })
 
   const concept3 = await conceptRepo.create({
+    userId,
     title: 'DDoS Attack',
     description: 'Distributed Denial of Service - serangan dari banyak sumber',
     category: 'Security',
@@ -55,7 +59,7 @@ export async function seedData(repos: {
   })
 
   // Create initial progress (all due now for testing)
-  const userId = 'demo-user'
+  // const userId = 'demo-user' // Moved up
   const now = new Date()
 
   await progressRepo.create({

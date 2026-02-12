@@ -25,6 +25,7 @@ describe('KVConceptRepository', () => {
       title: 'TCP Handshake',
       description: 'Three-way handshake process',
       category: 'Networking',
+      userId: 'user-kv',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -38,6 +39,7 @@ describe('KVConceptRepository', () => {
       title: 'TCP Handshake',
       description: 'Three-way handshake process',
       category: 'Networking',
+      userId: 'user-kv',
     })
 
     expect(concept.id).toBeDefined()
@@ -68,6 +70,7 @@ describe('KVConceptRepository', () => {
         title: 'A',
         description: 'a',
         category: 'X',
+        userId: 'user-kv',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
@@ -76,6 +79,7 @@ describe('KVConceptRepository', () => {
         title: 'B',
         description: 'b',
         category: 'Y',
+        userId: 'user-kv',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
@@ -95,6 +99,7 @@ describe('KVConceptRepository', () => {
       title: 'New Title',
       description: 'old',
       category: 'X',
+      userId: 'user-kv',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -132,6 +137,7 @@ describe('KVConceptProgressRepository', () => {
       title: 'Test',
       description: 'test',
       category: 'X',
+      userId: 'user1',
       createdAt: new Date(),
       updatedAt: new Date(),
     }

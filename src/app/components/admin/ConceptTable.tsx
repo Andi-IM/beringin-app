@@ -2,7 +2,7 @@
 
 import { useTransition } from 'react'
 import Link from 'next/link'
-import { deleteConceptAction } from '@/app/admin/concepts/actions'
+import { deleteConceptAction } from '@/app/studio/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
 import { logger } from '@/lib/logger'
 
@@ -61,7 +61,7 @@ export function ConceptTable({ concepts }: ConceptTableProps) {
               </td>
               <td className="space-x-2 whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                 <Link
-                  href={`/admin/concepts/${concept.id}/edit`}
+                  href={`/studio/concepts/${concept.id}/edit`}
                   className="text-indigo-600 hover:text-indigo-900"
                 >
                   Edit

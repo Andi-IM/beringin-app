@@ -22,7 +22,7 @@ export default async function EditConceptPage({
     <div>
       <div className="mb-6">
         <Link
-          href="/admin/concepts"
+          href="/studio/concepts"
           className="mb-2 inline-block text-indigo-600 hover:text-indigo-900"
         >
           ← Back to List

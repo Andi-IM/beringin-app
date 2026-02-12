@@ -19,18 +19,20 @@ describe('getAllConcepts Use Case', () => {
       title: 'Concept 1',
       description: 'Desc 1',
       category: 'Cat 1',
+      userId: 'user-1',
     }
     const concept2: Omit<Concept, 'id' | 'createdAt' | 'updatedAt'> = {
       title: 'Concept 2',
       description: 'Desc 2',
       category: 'Cat 2',
+      userId: 'user-1',
     }
 
     await conceptRepo.create(concept1)
     await conceptRepo.create(concept2)
 
     // Act
-    const result = await getAllConcepts(conceptRepo)
+    const result = await getAllConcepts('user-1', conceptRepo)
 
     // Assert
     expect(result).toHaveLength(2)
@@ -40,7 +42,7 @@ describe('getAllConcepts Use Case', () => {
 
   it('should return empty array if no concepts exist', async () => {
     // Act
-    const result = await getAllConcepts(conceptRepo)
+    const result = await getAllConcepts('user-1', conceptRepo)
 
     // Assert
     expect(result).toHaveLength(0)

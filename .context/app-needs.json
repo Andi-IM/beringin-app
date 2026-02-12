@@ -12,6 +12,7 @@
     ]
   },
   "primary_goals": [
+    "Serve as a personal Second Brain for knowledge retention",
     "Measure active recall instead of recognition",
     "Measure retention over time",
     "Identify weak, fragile, and stable knowledge areas",
@@ -39,6 +40,11 @@
     }
   },
   "required_system_features": {
+    "personal_knowledge_studio": {
+      "description": "A personal creative space for the user to craft their own learning materials (Second Brain).",
+      "privacy_rule": "Users can only see and edit their own concepts and questions.",
+      "role_requirement": "No special 'Admin' role needed; every authenticated user is an owner of their data."
+    },
     "question_first_flow": {
       "rule": "Questions must be shown before explanations or answers",
       "prohibited": [

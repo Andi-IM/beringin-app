@@ -36,14 +36,23 @@ export class KVConceptRepository implements ConceptRepository {
   }
 
   async findAll(): Promise<Concept[]> {
+    console.warn(
+      'KVConceptRepository.findAll() is deprecated. Use findAllByUserId()',
+    )
+    return []
+  }
+
+  async findAllByUserId(userId: string): Promise<Concept[]> {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-      const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}`)
+      const response = await fetch(
+        `${baseUrl}${CONCEPT_ENDPOINT}?userId=${userId}`,
+      )
       if (!response.ok) return []
       const { data } = await response.json()
       return (data || []).map(deserializeConcept)
     } catch (error) {
-      console.error('Failed to find all concepts:', error)
+      console.error('Failed to find concepts by user:', error)
       return []
     }
   }

@@ -1,10 +1,10 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { ConceptTable } from './ConceptTable'
-import { deleteConceptAction } from '@/app/admin/concepts/actions'
+import { deleteConceptAction } from '@/app/studio/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
 import { logger } from '@/lib/logger'
 
-jest.mock('@/app/admin/concepts/actions', () => ({
+jest.mock('@/app/studio/concepts/actions', () => ({
   deleteConceptAction: jest.fn(),
 }))
 
@@ -17,6 +17,7 @@ jest.mock('@/lib/logger', () => ({
 const mockConcepts: Concept[] = [
   {
     id: '1',
+    userId: 'user-123',
     title: 'Test Concept',
     description: 'Description',
     category: 'Test',

@@ -6,6 +6,7 @@ export interface CreateConceptData {
   description: string
   category: string
   parentId?: string
+  userId: string
 }
 
 export async function createConcept(
@@ -20,6 +21,10 @@ export async function createConcept(
   }
   if (!data.category) {
     throw new Error('Category is required')
+  }
+
+  if (!data.userId) {
+    throw new Error('UserId is required')
   }
 
   return await conceptRepo.create(data)

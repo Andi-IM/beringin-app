@@ -8,7 +8,8 @@ import type {
 
 export interface ConceptRepository {
   findById(id: string): Promise<Concept | null>
-  findAll(): Promise<Concept[]>
+  findAll(): Promise<Concept[]> // @deprecated use findAllByUserId
+  findAllByUserId(userId: string): Promise<Concept[]>
   findByCategory(category: string): Promise<Concept[]>
   create(
     concept: Omit<Concept, 'id' | 'createdAt' | 'updatedAt'>,

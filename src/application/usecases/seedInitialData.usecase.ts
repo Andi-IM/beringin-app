@@ -8,6 +8,7 @@ export async function seedInitialData(
 ): Promise<void> {
   // 1. Create Default Concept
   const concept = await conceptRepo.create({
+    userId,
     title: '🌿 Selamat Datang di Beringin',
     description:
       'Konsep pertama Anda: Memahami Active Recall & Spaced Repetition.',

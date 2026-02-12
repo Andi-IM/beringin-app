@@ -31,10 +31,16 @@ export class SupabaseConceptRepository implements ConceptRepository {
   }
 
   async findAll(): Promise<Concept[]> {
+    console.warn('SupabaseConceptRepository.findAll() is deprecated')
+    return []
+  }
+
+  async findAllByUserId(userId: string): Promise<Concept[]> {
     const supabase = await createClient()
     const { data, error } = await supabase
       .from('concepts')
       .select('*')
+      .eq('user_id', userId)
       .order('created_at', { ascending: true })
 
     if (error || !data) return []
@@ -100,6 +106,7 @@ export class SupabaseConceptRepository implements ConceptRepository {
 
   private mapToEntity(data: {
     id: string
+    user_id: string // Added user_id
     title: string
     description: string
     category: string
@@ -109,6 +116,7 @@ export class SupabaseConceptRepository implements ConceptRepository {
   }): Concept {
     return {
       id: data.id,
+      userId: data.user_id, // Map user_id
       title: data.title,
       description: data.description,
       category: data.category,
@@ -146,6 +154,7 @@ export class SupabaseConceptProgressRepository implements ConceptProgressReposit
     return data.map(
       (item: {
         id: string
+        user_id: string // Added user_id
         title: string
         description: string
         category: string
@@ -162,6 +171,7 @@ export class SupabaseConceptProgressRepository implements ConceptProgressReposit
         const prog = item.user_progress?.[0]
         return {
           id: item.id,
+          userId: item.user_id, // Map user_id
           title: item.title,
           description: item.description,
           category: item.category,

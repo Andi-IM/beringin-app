@@ -11,6 +11,7 @@ export type ConceptStatus =
 
 export interface Concept {
   id: string
+  userId: string // Owner of this concept
   title: string
   description: string
   category: string

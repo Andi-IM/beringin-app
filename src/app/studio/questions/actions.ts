@@ -26,11 +26,11 @@ export async function createQuestionAction(formData: FormData) {
     ...validated,
   })
 
-  revalidatePath(`/admin/concepts/${validated.conceptId}/edit`)
+  revalidatePath(`/studio/concepts/${validated.conceptId}/edit`)
 }
 
 export async function deleteQuestionAction(id: string, conceptId: string) {
   const repo = await Registry.getRepositories()
   await repo.questionRepo.delete(id)
-  revalidatePath(`/admin/concepts/${conceptId}/edit`)
+  revalidatePath(`/studio/concepts/${conceptId}/edit`)
 }

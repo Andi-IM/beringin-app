@@ -28,6 +28,7 @@ describe('InMemoryConceptRepository', () => {
         title: 'Test Concept',
         description: 'Test Description',
         category: 'test',
+        userId: 'test-user',
       })
 
       const result = await repository.findById(concept.id)
@@ -46,11 +47,13 @@ describe('InMemoryConceptRepository', () => {
         title: 'Concept 1',
         description: 'Description 1',
         category: 'category1',
+        userId: 'user-1',
       })
       const concept2 = await repository.create({
         title: 'Concept 2',
         description: 'Description 2',
         category: 'category2',
+        userId: 'user-1',
       })
 
       const result = await repository.findAll()
@@ -70,16 +73,19 @@ describe('InMemoryConceptRepository', () => {
         title: 'Concept 1',
         description: 'Description 1',
         category: 'math',
+        userId: 'user-1',
       })
       await repository.create({
         title: 'Concept 2',
         description: 'Description 2',
         category: 'science',
+        userId: 'user-1',
       })
       await repository.create({
         title: 'Concept 3',
         description: 'Description 3',
         category: 'math',
+        userId: 'user-1',
       })
 
       const mathConcepts = await repository.findByCategory('math')
@@ -96,6 +102,7 @@ describe('InMemoryConceptRepository', () => {
         title: 'New Concept',
         description: 'New Description',
         category: 'new',
+        userId: 'user-new',
       }
 
       const result = await repository.create(data)
@@ -105,6 +112,7 @@ describe('InMemoryConceptRepository', () => {
       expect(result.title).toBe(data.title)
       expect(result.description).toBe(data.description)
       expect(result.category).toBe(data.category)
+      expect(result.userId).toBe(data.userId)
       expect(result.createdAt).toBeInstanceOf(Date)
       expect(result.updatedAt).toBeInstanceOf(Date)
       expect(result.createdAt).toEqual(result.updatedAt)
@@ -123,6 +131,7 @@ describe('InMemoryConceptRepository', () => {
         title: 'Original Title',
         description: 'Original Description',
         category: 'original',
+        userId: 'user-upt',
       })
 
       const originalUpdatedAt = concept.updatedAt
@@ -139,6 +148,7 @@ describe('InMemoryConceptRepository', () => {
       expect(result.title).toBe(updateData.title)
       expect(result.description).toBe(updateData.description)
       expect(result.category).toBe(concept.category) // unchanged
+      expect(result.userId).toBe(concept.userId) // unchanged
       expect(result.createdAt).toEqual(concept.createdAt) // unchanged
       expect(result.updatedAt).not.toEqual(originalUpdatedAt)
       expect(result.updatedAt).toBeInstanceOf(Date)
@@ -155,6 +165,7 @@ describe('InMemoryConceptRepository', () => {
         title: 'To Delete',
         description: 'Delete Me',
         category: 'delete',
+        userId: 'user-del',
       })
 
       await repository.delete(concept.id)

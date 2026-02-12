@@ -5,7 +5,7 @@ import type { Question } from '@/domain/entities/question.entity'
 import {
   createQuestionAction,
   deleteQuestionAction,
-} from '@/app/admin/questions/actions'
+} from '@/app/studio/questions/actions'
 import { logger } from '@/lib/logger'
 
 interface QuestionListProps {

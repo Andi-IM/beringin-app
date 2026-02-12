@@ -16,6 +16,7 @@ describe('deleteConcept Use Case', () => {
       title: 'To Delete',
       description: 'Desc',
       category: 'Cat',
+      userId: 'user-1',
     })
   })
 

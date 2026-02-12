@@ -82,21 +82,10 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // 2. Admin Guard: Only allow specific users to /admin
-  if (user && pathname.startsWith('/admin')) {
-    // Current simple admin check (e.g., via metadata or email)
-    // In production, use role-based check from database
-    const isAdmin =
-      user.app_metadata?.role === 'admin' ||
-      user.email?.endsWith('@admin.com') ||
-      user.email === 'andii@example.com' || // Temporary bypass for testing
-      true // TEMPORARY BYPASS: Allow admin access for any logged-in user
-
-    if (!isAdmin) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/dashboard'
-      return NextResponse.redirect(url)
-    }
+  // 2. Personal Studio Access
+  // Allow any authenticated user to access their personal studio.
+  if (user && pathname.startsWith('/studio')) {
+    return NextResponse.next()
   }
 
   // 3. Authenticated Redirect: Redirect logged-in users away from /login or /register

@@ -9,7 +9,7 @@ import type { Concept } from '@/domain/entities/concept.entity'
 import {
   createConceptAction,
   updateConceptAction,
-} from '@/app/admin/concepts/actions'
+} from '@/app/studio/concepts/actions'
 import {
   conceptSchema,
   type ConceptFormData,

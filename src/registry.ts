@@ -168,10 +168,24 @@ export const Registry = {
   // --- Admin Methods ---
 
   async getAllConcepts() {
+    // const { getAllConcepts } =
+    //   await import('@/application/usecases/getAllConcepts.usecase')
+    // We need to get the current user here to filter concepts
+    // However, Registry is a mix of Server/Client logic.
+    // Ideally, the Caller (Server Action) should pass the UserId.
+    // For now, let's assume the Server Action will pass it, OR we fetch it here.
+    // BUT getAllConcepts usecase NOW requires userId.
+    // Let's change the signature of this registry method to accept userId.
+    throw new Error(
+      'Registry.getAllConcepts requires userId. Use getAllConcepts(userId) instead.',
+    )
+  },
+
+  async getAllConceptsForUser(userId: string) {
     const { getAllConcepts } =
       await import('@/application/usecases/getAllConcepts.usecase')
     const { conceptRepo } = await this.getRepositories()
-    return getAllConcepts(conceptRepo)
+    return getAllConcepts(userId, conceptRepo)
   },
 
   async getConceptById(id: string) {

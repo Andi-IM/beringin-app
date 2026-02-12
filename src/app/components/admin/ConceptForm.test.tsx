@@ -3,12 +3,12 @@ import { ConceptForm } from './ConceptForm'
 import {
   createConceptAction,
   updateConceptAction,
-} from '@/app/admin/concepts/actions'
+} from '@/app/studio/concepts/actions'
 import type { Concept } from '@/domain/entities/concept.entity'
 import { logger } from '@/lib/logger'
 
 // Mock server actions - using manual mock from src/app/admin/concepts/__mocks__/actions.ts
-jest.mock('@/app/admin/concepts/actions')
+jest.mock('@/app/studio/concepts/actions')
 
 jest.mock('@/lib/logger', () => ({
   logger: {
@@ -18,6 +18,7 @@ jest.mock('@/lib/logger', () => ({
 
 const mockConcept: Concept = {
   id: '1',
+  userId: 'user-123',
   title: 'Existing Concept',
   description: 'Existing Description',
   category: 'Existing Category',

@@ -22,6 +22,7 @@ describe('Registry Admin Methods', () => {
       title: 'Test',
       description: 'Desc',
       category: 'Cat',
+      userId: 'user-1',
     })
     expect(concept.title).toBe('Test')
   })
@@ -31,6 +32,7 @@ describe('Registry Admin Methods', () => {
       title: 'To Get',
       description: 'Desc',
       category: 'Cat',
+      userId: 'user-1',
     })
     const found = await Registry.getConceptById(created.id)
     expect(found?.id).toBe(created.id)
@@ -41,6 +43,7 @@ describe('Registry Admin Methods', () => {
       title: 'To Update',
       description: 'Desc',
       category: 'Cat',
+      userId: 'user-1',
     })
     const updated = await Registry.updateConcept(created.id, {
       title: 'Updated',
@@ -53,6 +56,7 @@ describe('Registry Admin Methods', () => {
       title: 'To Delete',
       description: 'Desc',
       category: 'Cat',
+      userId: 'user-1',
     })
     await Registry.deleteConcept(created.id)
     const found = await Registry.getConceptById(created.id)

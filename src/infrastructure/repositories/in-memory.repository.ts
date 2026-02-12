@@ -96,6 +96,10 @@ export class InMemoryConceptRepository implements ConceptRepository {
     return concepts
   }
 
+  async findAllByUserId(userId: string): Promise<Concept[]> {
+    return concepts.filter((c) => c.userId === userId)
+  }
+
   async findByCategory(category: string): Promise<Concept[]> {
     return concepts.filter((c) => c.category === category)
   }

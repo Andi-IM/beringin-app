@@ -74,15 +74,16 @@ Semua error dicatat melalui Centralized Logger (`src/lib/logger.ts`).
 // Fetch harus melalui Infrastructure layer atau Server Actions
 ```
 
-### 1.1 Server Actions (`src/app/admin/*/actions.ts`)
+### 1.1 Server Actions (`src/app/studio/*/actions.ts`)
 
-**Status**: 🆕 Added in Sprint 2.1 (Admin Panel)
+**Status**: 🆕 Refactored in Phase 2
 
 **Aturan:**
 
 - ✅ Digunakan untuk mutasi data (POST/PUT/DELETE) dari Client Components.
 - ✅ Melakukan validasi input (Zod) sebelum memanggil Use Case.
 - ✅ Menangani pemetaan data (e.g. `FormData` -> `Entity`).
+- ✅ **Privacy Enforced**: Wajib memvalidasi ownership data (`user_id`).
 - ❌ TIDAK BOLEH berisi business logic murni.
 
 ### 2. Application Layer (`src/application/usecases/`)
@@ -275,8 +276,10 @@ UI → Registry → Application → Domain ← Infrastructure
 | 2026-02-10 | **EdgeOne KV**                     | Mengganti LocalStorage/Supabase DB untuk persistence di Edge.           | ✅ Adopted |
 | 2026-02-10 | **Client-Side Infra**              | Memisahkan `AuthApi` untuk mendukung Lazy Loading di Client Components. | ✅ Adopted |
 | 2026-02-10 | **Strict ESLint Arch Enforcement** | Mencegah import cross-layer yang ilegal secara otomatis.                | ✅ Adopted |
-| 2026-02-11 | **Server Actions**                 | Digunakan untuk Admin CRUD mutations di Next.js.                        | ✅ Adopted |
+| 2026-02-11 | **Server Actions**                 | Digunakan untuk Studio CRUD mutations di Next.js.                       | ✅ Adopted |
 | 2026-02-11 | **Test-Safe Redirects**            | Menangani re-throw `redirect()` agar tidak crash di Jest.               | ✅ Adopted |
+| 2026-02-12 | **Personal Knowledge Studio**      | Replaces Global Admin. Every user manages their own data privacy.       | ✅ Adopted |
+| 2026-02-12 | **Data Isolation Strategy**        | `user:{uid}:concept:{id}` key prefix policy for strict privacy.         | ✅ Adopted |
 
 ---
 

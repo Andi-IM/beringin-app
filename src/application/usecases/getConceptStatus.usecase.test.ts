@@ -23,6 +23,7 @@ describe('getConceptStatus Use Case', () => {
     const mockConcepts: ConceptWithStatus[] = [
       {
         id: 'concept-1',
+        userId: 'user-1',
         title: 'Concept 1',
         description: 'Description 1',
         category: 'category-1',
@@ -35,6 +36,7 @@ describe('getConceptStatus Use Case', () => {
       },
       {
         id: 'concept-2',
+        userId: 'user-1',
         title: 'Concept 2',
         description: 'Description 2',
         category: 'category-2',
@@ -47,6 +49,7 @@ describe('getConceptStatus Use Case', () => {
       },
       {
         id: 'concept-3',
+        userId: 'user-1',
         title: 'Concept 3',
         description: 'Description 3',
         category: 'category-3',
@@ -109,6 +112,7 @@ describe('getConceptStatus Use Case', () => {
     const mockConcepts: ConceptWithStatus[] = [
       {
         id: 'concept-1',
+        userId: 'user-2',
         title: 'Concept 1',
         description: 'Description 1',
         category: 'category-1',
@@ -121,6 +125,7 @@ describe('getConceptStatus Use Case', () => {
       },
       {
         id: 'concept-2',
+        userId: 'user-2',
         title: 'Concept 2',
         description: 'Description 2',
         category: 'category-2',
@@ -149,6 +154,7 @@ describe('getConceptStatus Use Case', () => {
     const mockConcepts: ConceptWithStatus[] = [
       {
         id: 'c1',
+        userId: 'user-mixed',
         title: 'C1',
         description: 'D1',
         category: 'cat1',
@@ -160,6 +166,7 @@ describe('getConceptStatus Use Case', () => {
       },
       {
         id: 'c2',
+        userId: 'user-mixed',
         title: 'C2',
         description: 'D2',
         category: 'cat2',
@@ -171,6 +178,7 @@ describe('getConceptStatus Use Case', () => {
       },
       {
         id: 'c3',
+        userId: 'user-mixed',
         title: 'C3',
         description: 'D3',
         category: 'cat3',
@@ -182,6 +190,7 @@ describe('getConceptStatus Use Case', () => {
       },
       {
         id: 'c4',
+        userId: 'user-mixed',
         title: 'C4',
         description: 'D4',
         category: 'cat4',
@@ -193,6 +202,7 @@ describe('getConceptStatus Use Case', () => {
       },
       {
         id: 'c5',
+        userId: 'user-mixed',
         title: 'C5',
         description: 'D5',
         category: 'cat5',

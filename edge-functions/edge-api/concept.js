@@ -35,9 +35,21 @@ export async function onRequest(context) {
 
   try {
     if (request.method === 'GET') {
+      const url = new URL(request.url)
       const id = url.searchParams.get('id')
+      const userId = url.searchParams.get('userId')
+
+      if (!userId) {
+        return new Response(JSON.stringify({ error: 'UserId is required' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+
+      const USER_PREFIX = `user:${userId}:${PREFIX}`
+
       if (id) {
-        const data = await kv.get(`${PREFIX}${id}`)
+        const data = await kv.get(`${USER_PREFIX}${id}`)
         return new Response(
           JSON.stringify({ data: data ? JSON.parse(data) : null }),
           {
@@ -46,8 +58,8 @@ export async function onRequest(context) {
         )
       }
 
-      // List all
-      const { keys } = await kv.list({ prefix: PREFIX })
+      // List all for user
+      const { keys } = await kv.list({ prefix: USER_PREFIX })
       const items = await Promise.all(
         keys.map(async (k) => {
           const val = await kv.get(k.name)
@@ -62,6 +74,16 @@ export async function onRequest(context) {
     if (request.method === 'POST') {
       const body = await request.json()
       const { action, id, data } = body
+      const userId = data?.userId || body.userId
+
+      if (!userId) {
+        return new Response(JSON.stringify({ error: 'UserId is required' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+
+      const USER_PREFIX = `user:${userId}:${PREFIX}`
 
       if (action === 'create' || action === 'update') {
         const targetId = id || data.id
@@ -69,7 +91,7 @@ export async function onRequest(context) {
         if (action === 'create' && !finalData.createdAt) {
           finalData.createdAt = new Date().toISOString()
         }
-        await kv.put(`${PREFIX}${targetId}`, JSON.stringify(finalData))
+        await kv.put(`${USER_PREFIX}${targetId}`, JSON.stringify(finalData))
         return new Response(
           JSON.stringify({ success: true, data: finalData }),
           {
@@ -79,7 +101,8 @@ export async function onRequest(context) {
       }
 
       if (action === 'delete') {
-        await kv.delete(`${PREFIX}${id}`)
+        const targetId = id || data.id
+        await kv.delete(`${USER_PREFIX}${targetId}`)
         return new Response(JSON.stringify({ success: true }), {
           headers: { 'Content-Type': 'application/json' },
         })

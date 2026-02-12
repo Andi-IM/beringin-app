@@ -5,6 +5,7 @@ describe('Concept Entity', () => {
     it('should create a valid concept', () => {
       const concept: Concept = {
         id: 'concept-1',
+        userId: 'user-1',
         title: 'Test Concept',
         description: 'Test Description',
         category: 'test',
@@ -23,6 +24,7 @@ describe('Concept Entity', () => {
     it('should create a concept with optional parentId', () => {
       const concept: Concept = {
         id: 'concept-2',
+        userId: 'user-1',
         title: 'Child Concept',
         description: 'Child Description',
         category: 'test',
@@ -37,6 +39,7 @@ describe('Concept Entity', () => {
     it('should create a concept without parentId', () => {
       const concept: Concept = {
         id: 'concept-3',
+        userId: 'user-1',
         title: 'Root Concept',
         description: 'Root Description',
         category: 'test',
@@ -52,6 +55,7 @@ describe('Concept Entity', () => {
     it('should create a concept with full status information', () => {
       const conceptWithStatus: ConceptWithStatus = {
         id: 'concept-4',
+        userId: 'user-1',
         title: 'Learning Concept',
         description: 'Learning Description',
         category: 'test',
@@ -72,6 +76,7 @@ describe('Concept Entity', () => {
     it('should create a concept without optional review fields', () => {
       const conceptWithStatus: ConceptWithStatus = {
         id: 'concept-5',
+        userId: 'user-1',
         title: 'New Concept',
         description: 'New Description',
         category: 'test',
@@ -102,6 +107,7 @@ describe('Concept Entity', () => {
       validStatuses.forEach((status) => {
         const concept: ConceptWithStatus = {
           id: `concept-${status}`,
+          userId: 'user-1',
           title: `Concept ${status}`,
           description: `Description for ${status}`,
           category: 'test',

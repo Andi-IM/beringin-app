@@ -16,6 +16,7 @@ describe('updateConcept Use Case', () => {
       title: 'Old Title',
       description: 'Old Description',
       category: 'Old Category',
+      userId: 'user-1',
     })
   })
 

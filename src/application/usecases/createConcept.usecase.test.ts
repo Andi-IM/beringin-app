@@ -18,6 +18,7 @@ describe('createConcept Use Case', () => {
       title: 'New Concept',
       description: 'New Description',
       category: 'General',
+      userId: 'user-1',
     }
 
     // Act
@@ -36,6 +37,7 @@ describe('createConcept Use Case', () => {
       title: '',
       description: 'Desc',
       category: 'Cat',
+      userId: 'user-1',
     }
 
     // Act & Assert
@@ -50,6 +52,7 @@ describe('createConcept Use Case', () => {
       title: 'Title',
       description: '',
       category: 'Cat',
+      userId: 'user-1',
     }
 
     // Act & Assert
@@ -64,6 +67,7 @@ describe('createConcept Use Case', () => {
       title: 'Title',
       description: 'Description',
       category: '',
+      userId: 'user-1',
     }
 
     // Act & Assert

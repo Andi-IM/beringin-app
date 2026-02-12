@@ -36,6 +36,7 @@ Fokus kita bukan sekadar _coding_, tapi membuka akses fitur yang memungkinkan An
 | #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)  | Technical Debt Resolution          | ~500–800                  |
 | #16       | 11 Feb 2026 | 21:00–21:45 (45 menit)  | Conflict Resolution & Docs Fix     | ~200–300                  |
 | #19       | 12 Feb 2026 | 13:30–13:45 (15 menit)  | Hydration Fix & Documentation      | ~50–100                   |
+| #20       | 12 Feb 2026 | 14:00–15:15 (75 menit)  | Personal Knowledge Studio Refactor | ~2,500–3,000              |
 | **Total** |             | **±11 jam commit time** | **113 commits**                    | **~20,600 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
@@ -167,26 +168,27 @@ Fokus kita bukan sekadar _coding_, tapi membuka akses fitur yang memungkinkan An
 > Kompleksitas lebih tinggi (CRUD UI, question types, responsive).  
 > Estimasi **3–5 sesi kerja**.
 
-### Sprint 2.1: Admin Panel — ✅ DONE (Partial)
+### Sprint 2.1: Personal Knowledge Studio (Refactored)
 
-_Goal: Memberikan kontrol dasar kepada Anda untuk mengelola struktur materi._
+_Goal: Memberikan kontrol penuh kepada User untuk membangun "Second Brain" mereka sendiri._
 
 | #     | Task                   | Kompleksitas | Status | User Can...                                            |
 | ----- | ---------------------- | ------------ | ------ | ------------------------------------------------------ |
-| 2.1.1 | Admin UI Layout        | 🟡 Sedang    | ✅     | Akses menu pengelolaan.                                |
-| 2.1.2 | Concept CRUD           | 🟡 Sedang    | ✅     | Membuat Topik/Judul materi baru.                       |
+| 2.1.1 | Studio UI Layout       | 🟡 Sedang    | ✅     | Akses menu pengelolaan pribadi (`/studio`).            |
+| 2.1.2 | Concept CRUD (Private) | 🟡 Sedang    | ✅     | Membuat Topik/Judul materi baru (Isolated per users).  |
 | 2.1.3 | **Question Editor**    | 🟡 Sedang    | ☐ ⭐   | **Membuat Pertanyaan & Jawaban sendiri.** (CRITICAL)   |
 | 2.1.5 | Bulk Import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   | **Upload 100 soal sekaligus dari Excel.** (EFFICIENCY) |
 
 #### Sprint 2.1 Timeline (berdasarkan git history)
 
-| Tanggal      | Waktu | Deliverable                             | Terkait Task Sprint 2.1 | Commit     |
-| ------------ | ----- | --------------------------------------- | ----------------------- | ---------- |
-| 11 Feb 18:30 | —     | Admin Layout & Sidebar Implementation   | 2.1.1                   | `feat-adm` |
-| 11 Feb 18:50 | +20m  | Concept CRUD Logic & Server Actions     | 2.1.2                   | `crud-log` |
-| 11 Feb 19:10 | +20m  | Concept CRUD UI Components & Validation | 2.1.2                   | `crud-ui`  |
-| 11 Feb 19:15 | +5m   | PR #19 Feedback Polish & License        | 2.1.x (quality)         | `polish`   |
-| 11 Feb 21:00 | +105m | Conflict Resolution & Merge Main to Dev | 2.1.x (maintenance)     | `resolve`  |
+| Tanggal      | Waktu | Deliverable                                              | Terkait Task Sprint 2.1 | Commit     |
+| ------------ | ----- | -------------------------------------------------------- | ----------------------- | ---------- |
+| 11 Feb 18:30 | —     | Studio Layout & Private Sidebar Implementation           | 2.1.1                   | `feat-adm` |
+| 11 Feb 18:50 | +20m  | Private Concept CRUD Logic & Server Actions (Refactored) | 2.1.2                   | `crud-log` |
+| 11 Feb 19:10 | +20m  | CRUD UI Components & Validation                          | 2.1.2                   | `crud-ui`  |
+| 11 Feb 19:15 | +5m   | PR #19 Feedback Polish & License                         | 2.1.x (quality)         | `polish`   |
+| 11 Feb 21:00 | +105m | Conflict Resolution & Merge Main to Dev                  | 2.1.x (maintenance)     | `resolve`  |
+| 12 Feb 14:00 | +16h  | **Personal Studio Refactor (Privacy First)**             | 2.1.1, 2.1.2            | `studio`   |
 
 ### Sprint 2.2: Enhanced Learning (Anti-Illusion Focus)
 

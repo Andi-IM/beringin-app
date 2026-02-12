@@ -36,7 +36,7 @@
 5. **Authentication Flow** - Login & Register menggunakan Supabase Auth (Lazy-loaded client)
 6. **Google Sign-In** - OAuth login via Supabase dengan reusable `GoogleIcon` component
 7. **Client API Wrappers** - `AuthApi` & `DashboardApi` untuk pemisahan layer UI/Infra
-8. **Admin Panel** - CRUD interface untuk Concepts (\`/admin/concepts\`) menggunakan Server Actions.
+8. **Personal Studio** - Private content management (`/studio`) replaces Global Admin (Done).
 
 ### ✅ Architecture (Done)
 
@@ -110,6 +110,7 @@ Lines      : 84.82%
 
 ### Recent Sessions
 
+- ✅ **Sesi #20**: Refactoring Admin to Personal Knowledge Studio (Privacy First).
 - ✅ **Sesi #19**: Hydration fix & documentation update.
 - ✅ **Sesi #18**: Smart Edge API Refactoring & perfection (100% Tests).
 - 🔄 **Sesi #17**: KV Access Refactoring (Edge Function API & MockKV).
