@@ -10,20 +10,10 @@ import type {
   ConceptProgressRepository,
 } from '../repositories/concept.repository'
 import type { ProgressRepository } from '../repositories/progress.repository'
-import type { EdgeOneKV } from './edgeone-kv.types'
 
-const CONCEPT_PREFIX = 'concept:'
+const CONCEPT_ENDPOINT = '/edge-api/concept'
 
-function serializeConcept(concept: Concept): string {
-  return JSON.stringify({
-    ...concept,
-    createdAt: concept.createdAt.toISOString(),
-    updatedAt: concept.updatedAt.toISOString(),
-  })
-}
-
-function deserializeConcept(data: string): Concept {
-  const parsed = JSON.parse(data) as Record<string, unknown>
+function deserializeConcept(parsed: Record<string, unknown>): Concept {
   return {
     ...parsed,
     createdAt: new Date(parsed.createdAt as string),
@@ -32,24 +22,30 @@ function deserializeConcept(data: string): Concept {
 }
 
 export class KVConceptRepository implements ConceptRepository {
-  constructor(private readonly kv: EdgeOneKV) {}
-
   async findById(id: string): Promise<Concept | null> {
-    const data = await this.kv.get(`${CONCEPT_PREFIX}${id}`)
-    if (!data) return null
-    return deserializeConcept(data)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}?id=${id}`)
+      if (!response.ok) return null
+      const { data } = await response.json()
+      return data ? deserializeConcept(data) : null
+    } catch (error) {
+      console.error('Failed to find concept by id:', error)
+      return null
+    }
   }
 
   async findAll(): Promise<Concept[]> {
-    const { keys } = await this.kv.list({ prefix: CONCEPT_PREFIX })
-    if (keys.length === 0) return []
-
-    const conceptDataPromises = keys.map((key) => this.kv.get(key.name))
-    const allConceptData = await Promise.all(conceptDataPromises)
-
-    return allConceptData
-      .filter((data): data is string => data !== null)
-      .map(deserializeConcept)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}`)
+      if (!response.ok) return []
+      const { data } = await response.json()
+      return (data || []).map(deserializeConcept)
+    } catch (error) {
+      console.error('Failed to find all concepts:', error)
+      return []
+    }
   }
 
   async findByCategory(category: string): Promise<Concept[]> {
@@ -60,37 +56,43 @@ export class KVConceptRepository implements ConceptRepository {
   async create(
     data: Omit<Concept, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<Concept> {
-    const concept: Concept = {
+    const concept = {
       ...data,
       id: crypto.randomUUID(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
     }
 
-    await this.kv.put(
-      `${CONCEPT_PREFIX}${concept.id}`,
-      serializeConcept(concept),
-    )
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'create', data: concept }),
+    })
 
-    return concept
+    if (!response.ok) throw new Error('Failed to create concept')
+    const result = await response.json()
+    return deserializeConcept(result.data)
   }
 
   async update(id: string, data: Partial<Concept>): Promise<Concept> {
-    const existing = await this.findById(id)
-    if (!existing) throw new Error('Concept not found')
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'update', id, data }),
+    })
 
-    const updated: Concept = {
-      ...existing,
-      ...data,
-      updatedAt: new Date(),
-    }
-
-    await this.kv.put(`${CONCEPT_PREFIX}${id}`, serializeConcept(updated))
-    return updated
+    if (!response.ok) throw new Error('Failed to update concept')
+    const result = await response.json()
+    return deserializeConcept(result.data)
   }
 
   async delete(id: string): Promise<void> {
-    await this.kv.delete(`${CONCEPT_PREFIX}${id}`)
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    await fetch(`${baseUrl}${CONCEPT_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id }),
+    })
   }
 }
 

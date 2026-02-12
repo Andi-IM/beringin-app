@@ -1,7 +1,7 @@
 # 🏛️ Architecture - Beringin
 
 > **Status Dokumen**: ✅ Aktif (v1.2)
-> **Terakhir Diperbarui**: 2026-02-11T19:36:00+07:00
+> **Terakhir Diperbarui**: 2026-02-12T12:50:00+07:00
 
 ## Overview
 
@@ -216,11 +216,12 @@ Kenapa in-memory untuk MVP?
 - Tidak perlu setup database
 - Mudah di-swap dengan real database nanti
 
-Kenapa sekarang ada EdgeOne KV?
+Kenapa sekarang ada EdgeOne KV (dan Smart Edge API)?
 
-- Mendukung persistence di lingkungan EdgeOne tanpa mengubah domain/use case
-- Menggunakan repository khusus (`KVConceptRepository`, `KVQuestionRepository`, `KVProgressRepository`)
-- Dipilih otomatis oleh `Registry` ketika `globalThis.KV` tersedia
+- Mendukung persistence di lingkungan EdgeOne tanpa mengubah domain/use case.
+- **Smart Edge API**: Business logic (seperti SM-2) dipindahkan ke Edge Functions (`/edge-api/*`) untuk operasi Read-Modify-Write yang atomik dan performan.
+- **Semantic Repositories**: Repositories di sisi Next.js bertindak sebagai HTTP clients yang bersih, mengirimkan data mentah dan menerima entitas yang sudah diproses dari Edge.
+- Dipilih otomatis oleh `Registry` ketika `globalThis.KV` tersedia (untuk production) atau melalui `HttpKVClient` (untuk local dev/admin).
 
 ### 4. ESLint Architecture Enforcement
 

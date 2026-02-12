@@ -13,6 +13,7 @@ jest.mock('@/registry', () => ({
   Registry: {
     getDashboardData: jest.fn(),
     getCurrentUser: jest.fn(),
+    ensureUserOnboarded: jest.fn(),
   },
 }))
 
@@ -20,12 +21,16 @@ const { Registry } = require('@/registry') as {
   Registry: {
     getDashboardData: jest.Mock
     getCurrentUser: jest.Mock
+    ensureUserOnboarded: jest.Mock
   }
 }
 
 describe('GET /api/dashboard', () => {
   it('returns dashboard data for provided userId', async () => {
-    const data = { concepts: [], stats: { total: 0 } }
+    const data = {
+      concepts: [{ id: 'c1', title: 'Test', status: 'new' }],
+      stats: { total: 1 },
+    }
     Registry.getCurrentUser.mockResolvedValueOnce({ userId: null })
     Registry.getDashboardData.mockResolvedValueOnce(data)
 
@@ -41,7 +46,10 @@ describe('GET /api/dashboard', () => {
   })
 
   it('uses session userId when available', async () => {
-    const data = { concepts: [], stats: { total: 0 } }
+    const data = {
+      concepts: [{ id: 'c1', title: 'Test', status: 'new' }],
+      stats: { total: 1 },
+    }
     Registry.getCurrentUser.mockResolvedValueOnce({ userId: 'session-user' })
     Registry.getDashboardData.mockResolvedValueOnce(data)
 

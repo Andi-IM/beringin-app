@@ -14,7 +14,7 @@ export function ConceptTable({ concepts }: ConceptTableProps) {
   const [isPending, startTransition] = useTransition()
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this concept?')) {
+    if (!window.confirm('Apakah Anda yakin ingin menghapus konsep ini?')) {
       return
     }
 
@@ -34,16 +34,16 @@ export function ConceptTable({ concepts }: ConceptTableProps) {
         <thead>
           <tr className="border-b bg-gray-50">
             <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-              Title
+              Judul
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-              Category
+              Kategori
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-              Created At
+              Dibuat Pada
             </th>
             <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
-              Actions
+              Aksi
             </th>
           </tr>
         </thead>
@@ -71,7 +71,7 @@ export function ConceptTable({ concepts }: ConceptTableProps) {
                   disabled={isPending}
                   className="ml-4 text-red-600 hover:text-red-900 disabled:opacity-50"
                 >
-                  {isPending ? 'Deleting...' : 'Delete'}
+                  {isPending ? 'Menghapus...' : 'Hapus'}
                 </button>
               </td>
             </tr>
@@ -79,7 +79,7 @@ export function ConceptTable({ concepts }: ConceptTableProps) {
           {concepts.length === 0 && (
             <tr>
               <td colSpan={4} className="px-6 py-4 text-center text-gray-500">
-                No concepts found.
+                Tidak ada konsep yang ditemukan.
               </td>
             </tr>
           )}

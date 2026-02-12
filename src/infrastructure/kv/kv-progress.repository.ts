@@ -3,31 +3,17 @@
 
 import type { UserProgress } from '@/domain/entities/user-progress.entity'
 import type { ProgressRepository } from '../repositories/progress.repository'
-import type { EdgeOneKV } from './edgeone-kv.types'
 
-const PROGRESS_PREFIX = 'progress:'
+const PROGRESS_ENDPOINT = '/edge-api/progress'
 
-function serializeProgress(progress: UserProgress): string {
-  return JSON.stringify({
-    ...progress,
-    nextReview: progress.nextReview.toISOString(),
-    createdAt: progress.createdAt.toISOString(),
-    updatedAt: progress.updatedAt.toISOString(),
-    history: progress.history.map((h) => ({
-      ...h,
-      date: h.date.toISOString(),
-    })),
+function deserializeProgress(parsed: Record<string, unknown>): UserProgress {
+  const history = ((parsed.history as unknown[]) || []).map((h) => {
+    const entry = h as Record<string, unknown>
+    return {
+      ...entry,
+      date: new Date(entry.date as string),
+    }
   })
-}
-
-function deserializeProgress(data: string): UserProgress {
-  const parsed = JSON.parse(data) as Record<string, unknown>
-  const history = (parsed.history as Array<Record<string, unknown>>).map(
-    (h) => ({
-      ...h,
-      date: new Date(h.date as string),
-    }),
-  )
 
   return {
     ...parsed,
@@ -38,52 +24,58 @@ function deserializeProgress(data: string): UserProgress {
   } as UserProgress
 }
 
-function progressKey(userId: string, conceptId: string): string {
-  return `${PROGRESS_PREFIX}${userId}:${conceptId}`
-}
-
 export class KVProgressRepository implements ProgressRepository {
-  constructor(private readonly kv: EdgeOneKV) {}
-
   async findByUserAndConcept(
     userId: string,
     conceptId: string,
   ): Promise<UserProgress | null> {
-    const data = await this.kv.get(progressKey(userId, conceptId))
-    if (!data) return null
-    return deserializeProgress(data)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const response = await fetch(
+        `${baseUrl}${PROGRESS_ENDPOINT}?userId=${userId}&conceptId=${conceptId}`,
+      )
+      if (!response.ok) return null
+      const { data } = await response.json()
+      return data ? deserializeProgress(data) : null
+    } catch (error) {
+      console.error('Failed to find progress:', error)
+      return null
+    }
   }
 
   async findByUserId(userId: string): Promise<UserProgress[]> {
-    const { keys } = await this.kv.list({
-      prefix: `${PROGRESS_PREFIX}${userId}:`,
-    })
-
-    if (keys.length === 0) return []
-
-    const progressDataPromises = keys.map((key) => this.kv.get(key.name))
-    const allProgressData = await Promise.all(progressDataPromises)
-
-    return allProgressData
-      .filter((data): data is string => data !== null)
-      .map(deserializeProgress)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const response = await fetch(
+        `${baseUrl}${PROGRESS_ENDPOINT}?userId=${userId}`,
+      )
+      if (!response.ok) return []
+      const { data } = await response.json()
+      return (data || []).map(deserializeProgress)
+    } catch (error) {
+      console.error('Failed to find all progress for user:', error)
+      return []
+    }
   }
 
   async create(
     data: Omit<UserProgress, 'createdAt' | 'updatedAt'>,
   ): Promise<UserProgress> {
-    const userProgress: UserProgress = {
-      ...data,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}${PROGRESS_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'create',
+        userId: data.userId,
+        conceptId: data.conceptId,
+        data,
+      }),
+    })
 
-    await this.kv.put(
-      progressKey(data.userId, data.conceptId),
-      serializeProgress(userProgress),
-    )
-
-    return userProgress
+    if (!response.ok) throw new Error('Failed to create progress')
+    const result = await response.json()
+    return deserializeProgress(result.data)
   }
 
   async update(
@@ -91,23 +83,52 @@ export class KVProgressRepository implements ProgressRepository {
     conceptId: string,
     data: Partial<UserProgress>,
   ): Promise<UserProgress> {
-    const existing = await this.findByUserAndConcept(userId, conceptId)
-    if (!existing) throw new Error('Progress not found')
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}${PROGRESS_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'update',
+        userId,
+        conceptId,
+        data,
+      }),
+    })
 
-    const updated: UserProgress = {
-      ...existing,
-      ...data,
-      updatedAt: new Date(),
-    }
+    if (!response.ok) throw new Error('Failed to update progress')
+    const result = await response.json()
+    return deserializeProgress(result.data)
+  }
 
-    await this.kv.put(
-      progressKey(userId, conceptId),
-      serializeProgress(updated),
-    )
-    return updated
+  // New method to leverage Edge-side SM-2
+  async recordReview(
+    userId: string,
+    conceptId: string,
+    grade: number,
+  ): Promise<UserProgress> {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}${PROGRESS_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'review',
+        userId,
+        conceptId,
+        grade,
+      }),
+    })
+
+    if (!response.ok) throw new Error('Failed to record review')
+    const result = await response.json()
+    return deserializeProgress(result.data)
   }
 
   async delete(userId: string, conceptId: string): Promise<void> {
-    await this.kv.delete(progressKey(userId, conceptId))
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    await fetch(`${baseUrl}${PROGRESS_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', userId, conceptId }),
+    })
   }
 }

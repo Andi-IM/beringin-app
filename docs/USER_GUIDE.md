@@ -1,134 +1,86 @@
 # 📖 Panduan Pengguna - Beringin App
 
-> **Status Dokumen**: ✅ Aktif (v1.2)
-> **Terakhir Diperbarui**: 2026-02-11T19:39:00+07:00
+> **Status Dokumen**: ✅ Aktif (v1.4 - Action Oriented)
+> **Terakhir Diperbarui**: 2026-02-12
+> **Target Audiens**: Pembelajar Mandiri & Profesional (Reza)
 
-Selamat datang di **Beringin**, aplikasi pembelajaran adaptif yang membantu Anda membangun pengetahuan yang **kokoh seperti pohon beringin**. Kami fokus pada _retensi jangka panjang_, bukan sekadar menghafal semalam.
-
----
-
-## 🌳 Filosofi Beringin
-
-Berbeda dengan aplikasi lain yang memberikan ilusi "penguasaan" (mastery), Beringin membedakan antara pengetahuan yang **Rapuh** (hanya ingat sebentar) dan **Stabil** (berakar kuat). Tujuan Anda adalah mengubah semua konsep menjadi **Stabil**.
+Panduan ini bukan manual teknis. Ini adalah **SOP (Standard Operating Procedure)** untuk membangun ingatan permanen.
 
 ---
 
-## 🚀 Memulai
+## � Misi Anda
 
-### 1. Akses Aplikasi
+Anda di sini bukan untuk bermain aplikasi. Anda di sini karena ada ujian, sertifikasi, atau skill yang **harus** dikuasai tanpa kompromi.
 
-Buka aplikasi melalui browser Anda (secara default di `http://localhost:3000` untuk lingkungan lokal atau URL deployment produksi).
-
-### 2. Registrasi & Login
-
-Untuk menyimpan progres belajar Anda, Anda perlu masuk ke dalam akun.
-
-- **Login dengan Google**:
-  - Klik tombol **"Sign in with Google"** di halaman Login.
-  - Pilih akun Google Anda.
-  - Anda akan langsung diarahkan ke Dashboard.
-
-- **Login dengan Email & Password**:
-  - Jika belum punya akun, klik **"Daftar"** di halaman Login.
-  - Masukkan email dan password pilihan Anda.
-  - Setelah terdaftar, login menggunakan kredensial tersebut.
+**Goal**: Mengubah status semua materi dari **"Belajar"** menjadi **"Stabil"** sebelum hari-H.
 
 ---
 
-## 📊 Dashboard
+## � Hari 1: Inisialisasi
 
-Setelah login, Anda akan disambut oleh halaman Dashboard. Halaman ini memberikan ringkasan status pembelajaran Anda.
+Jangan pusing dengan fitur. Lakukan ini sekarang:
 
-### Kartu Statistik
-
-- **Total Konsep**: Jumlah seluruh materi yang tersedia untuk dipelajari.
-- **Sudah Dipelajari**: Jumlah konsep yang sudah pernah Anda pelajari minimal satu kali.
-- **Retensi**: Estimasi seberapa baik Anda mengingat materi yang sudah dipelajari.
-
-### Status Konsep
-
-Setiap kotak mewakili satu konsep pembelajaran dengan indikator warna status:
-
-- **🆕 Baru**: Materi belum pernah dipelajari.
-- **📈 Belajar (Learning)**: Materi sedang dalam tahap awal pembelajaran.
-- **🏗️ Rapuh (Fragile)**: Materi sudah dipelajari tapi berisiko lupa jika tidak segera diulang.
-- **🌳 Stabil (Stable)**: Materi sudah tertanam kuat (khas Beringin) dan dapat diingat dalam jangka panjang.
-- **🍂 Lupa (Lapsed)**: Materi yang dulunya stabil namun gagal diingat saat review.
+1.  **Masuk ke Sistem**: Buka aplikasi dan Login (Google/Email).
+2.  **Cek Dashboard**: Lihat kotak-kotak konsep itu? Itu adalah peta otak Anda. Masih kosong/abu-abu? Bagus.
+3.  **Mulai Sesi Pertama**:
+    - Klik **"Mulai Sesi Belajar"**.
+    - Aplikasi akan menyodorkan materi awal (dari database bawaan).
+    - **Tugas Anda**: Baca, pahami, dan jawab pertanyaan pertamanya.
+    - **Nilai Diri Sendiri**: Jujur. Jika baru pertama kali lihat, pilih **"Again"** atau **"Hard"**. Jangan pilih "Easy" kecuali Anda sudah memimpikannya semalam.
 
 ---
 
-## 🧠 Sesi Belajar (Study Session)
+## 🔄 Rutinitas Harian (The Grind)
 
-Inti dari Beringin adalah Sesi Belajar.
+Setiap pagi/malam, luangkan 15-20 menit.
 
-### 1. Memulai Sesi
+### 1. Cek Diagnosa (Dashboard)
 
-Klik tombol **"Mulai Sesi Belajar"** di Dashboard. Aplikasi akan secara otomatis memilih materi yang paling prioritas untuk Anda pelajari hari ini (berdasarkan jadwal review atau materi baru).
+Lihat warna indikator:
 
-### 2. Menjawab Pertanyaan
+- **🏗️ Rapuh (Kuning)**: **PRIORITAS UTAMA**. Ini materi yang akan hilang kalau tidak di-review hari ini.
+- **🍂 Lupa (Merah)**: Jangan panik. Ini materi yang gagal Anda ingat. Review ulang.
+- **🌳 Stabil (Hijau)**: Abaikan. Otak Anda sudah aman di sini.
 
-- Aplikasi akan menampilkan pertanyaan atau konsep.
-- Coba jawab dalam hati atau ucapkan jawaban Anda.
-- Klik tombol **"Tampilkan Jawaban"** untuk melihat kunci jawaban.
+### 2. Eksekusi Review (Sesi Belajar)
 
-### 3. Self-Grading (Penilaian Mandiri)
+Klik **"Mulai Sesi Belajar"**. Sistem otomatis memprioritaskan yang Rapuh.
 
-Setelah jawaban muncul, nilai pemahaman Anda sendiri secara jujur. Algoritma Beringin akan menggunakan nilai ini untuk menentukan kapan materi ini akan muncul lagi.
+**Aturan Main (SOP):**
 
-| Nilai     | Arti                                  | Konsekuensi                                                |
-| :-------- | :------------------------------------ | :--------------------------------------------------------- |
-| **Again** | **Lupa / Salah Total**                | Materi akan langsung diulang sebentar lagi dalam sesi ini. |
-| **Hard**  | **Ingat tapi Susah Payah**            | Materi akan diulang dalam waktu dekat (misal: besok).      |
-| **Good**  | **Ingat dengan Sedikit Usaha**        | Jeda pengulangan normal (misal: 3 hari lagi).              |
-| **Easy**  | **Sangat Lancar / Hafal Luar Kepala** | Jeda pengulangan lama (misal: 7 hari lagi).                |
-
----
-
-## ⚙️ Manajemen Konten (Admin Panel)
-
-Sebagai pengguna dengan hak akses khusus (Admin), Anda dapat mengelola materi pembelajaran langsung dari aplikasi.
-
-### 1. Mengakses Panel Admin
-
-- Navigasi ke alamat `/admin`.
-- Gunakan **Sidebar** untuk berpindah antar menu (saat ini tersedia menu **Concepts**).
-
-### 2. Mengelola Konsep (Concepts)
-
-- **Melihat Daftar**: Menu "Concepts" menampilkan tabel berisi seluruh materi yang ada.
-- **Tambah Baru**: Klik tombol **"Create Concept"** untuk menambahkan materi baru (Judul, Kategori, Deskripsi).
-- **Ubah (Edit)**: Klik ikon pensil/tombol edit pada baris materi untuk memperbarui informasi.
-- **Hapus (Delete)**: Klik tombol hapus untuk membuang materi. Aplikasi akan meminta konfirmasi sebelum data benar-benar dihapus.
+1.  Baca Pertanyaan.
+2.  **STOP**. Jauhkan tangan dari mouse/layar.
+3.  **UCAPKAN LANTANG** jawabannya. Atau tulis di kertas.
+    - _Kenapa?_ Karena "batin" sering berbohong. Suara tidak bisa ditarik kembali.
+4.  Buka Jawaban.
+5.  Bandingkan. Sama persis? -> **Good**. Agak beda/ragu? -> **Hard**. Salah? -> **Again**.
 
 ---
 
-## 🛠️ Penanganan Kendala
+## 🛠️ Menambah Materi Baru (Mingguan)
 
-Meskipun kami berusaha menjaga aplikasi tetap stabil, terkadang gangguan teknis bisa terjadi. Beringin dilengkapi dengan **Error Boundary** untuk memastikan satu masalah kecil tidak merusak seluruh pengalaman belajar Anda.
+Saat Anda siap menambah beban belajar:
 
-### Jika Muncul Pesan Error:
-
-1.  **Pesan "Waduh, ada masalah dikit..."**: Ini berarti terjadi kesalahan pada salah satu bagian layar.
-    - Klik tombol **"Coba Lagi"** untuk mereset komponen tersebut.
-    - Jika masih bermasalah, coba muat ulang (refresh) browser Anda.
-2.  **Sesi Belajar Terhenti**: Jangan khawatir, progres Anda biasanya sudah tersimpan secara otomatis setiap kali Anda menekan tombol penilaian (Again/Hard/Good/Easy).
-
----
-
-## 🚪 Keluar (Logout)
-
-Untuk keluar dari akun, klik tombol **"Logout"** di pojok kanan atas Dashboard. Pastikan progres Anda sudah tersimpan (penyimpanan otomatis dilakukan setiap kali Anda menyelesaikan penilaian kartu).
+1.  Buka menu **/admin**.
+2.  Masuk ke **Concepts**.
+3.  Klik **New Concept**.
+4.  Masukkan Judul (misal: "Pasal 33 UUD 1945") dan Deskripsi intinya.
+    - _Catatan_: Saat ini (Fase Beta), pertanyaan terkait akan di-generate otomatis oleh sistem atau perlu di-seed manual. Fitur editor pertanyaan lengkap akan hadir minggu depan.
 
 ---
 
-> **Catatan**: Aplikasi ini masih dalam tahap pengembangan (Beta). Fitur-fitur baru seperti pengaturan profil dan mode gelap akan segera hadir!
+## 🚨 Kondisi Darurat
+
+**"Saya sibuk kerja 3 hari berturut-turut dan tidak buka aplikasi!"**
+
+Jangan reset akun. Jangan menyerah.
+
+1.  Login.
+2.  Anda akan melihat banyak status **Lapsed (🍂)** atau tumpukan review.
+3.  Jangan coba selesaikan semua sekaligus.
+4.  Lakukan **1 Sesi** saja (20 kartu).
+5.  Ulangi besok. Algoritma akan menata ulang antrian untuk Anda.
 
 ---
 
-## 📝 Riwayat Perubahan
-
-| Versi    | Tanggal    | Deskripsi Perubahan                                                                              |
-| :------- | :--------- | :----------------------------------------------------------------------------------------------- |
-| **v1.2** | 2026-02-11 | Penambahan panduan **Manajemen Konten (Admin Panel)** untuk CRUD Concept.                        |
-| **v1.1** | 2026-02-11 | Penambahan section "Penanganan Kendala" (Error Boundary) dan sinkronisasi status fitur terbaru.  |
-| **v1.0** | 2026-02-11 | Rilis awal dokumen untuk MVP Phase 1 (Foundation). Mencakup Login, Dashboard, dan Study Session. |
+_Beringin: Alat bantu, bukan penentu. Disiplin Anda adalah kuncinya._

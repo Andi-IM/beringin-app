@@ -1,7 +1,12 @@
 // Domain Entity: Question
 // Pure business logic - no framework dependencies
 
-export type QuestionType = 'text' | 'voice' | 'cloze'
+export type QuestionType =
+  | 'text'
+  | 'voice'
+  | 'cloze'
+  | 'multiple-choice'
+  | 'basic'
 
 export interface Question {
   id: string

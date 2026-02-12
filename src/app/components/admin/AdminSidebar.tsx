@@ -19,13 +19,13 @@ export function AdminSidebar() {
           href="/admin/concepts"
           className="block rounded px-4 py-2 transition-colors hover:bg-gray-800"
         >
-          Concepts
+          Konsep
         </Link>
         <Link
           href="/"
           className="mt-8 block px-4 py-2 text-gray-400 transition-colors hover:text-white"
         >
-          ← Back to App
+          ← Kembali ke Aplikasi
         </Link>
       </nav>
     </aside>

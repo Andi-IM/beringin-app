@@ -39,14 +39,16 @@ describe('ConceptTable', () => {
 
   it('should render empty state', () => {
     render(<ConceptTable concepts={[]} />)
-    expect(screen.getByText('No concepts found.')).toBeInTheDocument()
+    expect(
+      screen.getByText('Tidak ada konsep yang ditemukan.'),
+    ).toBeInTheDocument()
   })
 
   it('should handle delete action', async () => {
     window.confirm = jest.fn(() => true)
     render(<ConceptTable concepts={mockConcepts} />)
 
-    const deleteBtn = screen.getByRole('button', { name: 'Delete' })
+    const deleteBtn = screen.getByRole('button', { name: 'Hapus' })
     fireEvent.click(deleteBtn)
 
     expect(window.confirm).toHaveBeenCalled()
@@ -59,7 +61,7 @@ describe('ConceptTable', () => {
     window.confirm = jest.fn(() => false)
     render(<ConceptTable concepts={mockConcepts} />)
 
-    const deleteBtn = screen.getByText('Delete')
+    const deleteBtn = screen.getByText('Hapus')
     fireEvent.click(deleteBtn)
 
     expect(window.confirm).toHaveBeenCalled()
@@ -73,7 +75,7 @@ describe('ConceptTable', () => {
 
     render(<ConceptTable concepts={mockConcepts} />)
 
-    const deleteBtn = screen.getByRole('button', { name: 'Delete' })
+    const deleteBtn = screen.getByRole('button', { name: 'Hapus' })
     fireEvent.click(deleteBtn)
 
     expect(window.confirm).toHaveBeenCalled()

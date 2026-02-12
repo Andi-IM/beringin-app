@@ -12,6 +12,7 @@ export default async function EditConceptPage({
 }: EditConceptPageProps) {
   const { id } = params
   const concept = await Registry.getConceptById(id)
+  const questions = await Registry.getQuestionsByConceptId(id)
 
   if (!concept) {
     notFound()
@@ -30,6 +31,12 @@ export default async function EditConceptPage({
       </div>
 
       <ConceptForm initialData={concept} />
+
+      <div className="mt-8 border-t pt-8">
+        <QuestionList conceptId={concept.id} questions={questions} />
+      </div>
     </div>
   )
 }
+
+import { QuestionList } from '@/app/components/admin/QuestionList'

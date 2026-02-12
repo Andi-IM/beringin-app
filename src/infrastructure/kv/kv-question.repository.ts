@@ -4,24 +4,10 @@
 import type { Question } from '@/domain/entities/question.entity'
 import type { QuestionRepository } from '../repositories/question.repository'
 import type { ProgressRepository } from '../repositories/progress.repository'
-import type { EdgeOneKV } from './edgeone-kv.types'
 
-const QUESTION_PREFIX = 'question:'
+const QUESTION_ENDPOINT = '/edge-api/question'
 
-function questionKey(conceptId: string, questionId: string): string {
-  return `${QUESTION_PREFIX}${conceptId}:${questionId}`
-}
-
-function serializeQuestion(question: Question): string {
-  return JSON.stringify({
-    ...question,
-    createdAt: question.createdAt.toISOString(),
-    updatedAt: question.updatedAt.toISOString(),
-  })
-}
-
-function deserializeQuestion(data: string): Question {
-  const parsed = JSON.parse(data) as Record<string, unknown>
+function deserializeQuestion(parsed: Record<string, unknown>): Question {
   return {
     ...parsed,
     createdAt: new Date(parsed.createdAt as string),
@@ -30,46 +16,42 @@ function deserializeQuestion(data: string): Question {
 }
 
 export class KVQuestionRepository implements QuestionRepository {
-  constructor(
-    private readonly kv: EdgeOneKV,
-    private readonly progressRepo: ProgressRepository,
-  ) {}
+  constructor(private readonly progressRepo: ProgressRepository) {}
 
   async findById(id: string): Promise<Question | null> {
-    // Since keys are structured as question:conceptId:id, we need to find the key first
-    const { keys } = await this.kv.list({ prefix: QUESTION_PREFIX })
-    const targetKey = keys.find((k) => k.name.endsWith(`:${id}`))
-    if (!targetKey) return null
-
-    const data = await this.kv.get(targetKey.name)
-    if (!data) return null
-    return deserializeQuestion(data)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const response = await fetch(`${baseUrl}${QUESTION_ENDPOINT}?id=${id}`)
+      if (!response.ok) return null
+      const { data } = await response.json()
+      return data ? deserializeQuestion(data) : null
+    } catch (error) {
+      console.error('Failed to find question by id:', error)
+      return null
+    }
   }
 
   async findAll(): Promise<Question[]> {
-    const { keys } = await this.kv.list({ prefix: QUESTION_PREFIX })
-    if (keys.length === 0) return []
-
-    const questionDataPromises = keys.map((key) => this.kv.get(key.name))
-    const allQuestionData = await Promise.all(questionDataPromises)
-
-    return allQuestionData
-      .filter((data): data is string => data !== null)
-      .map(deserializeQuestion)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const response = await fetch(`${baseUrl}${QUESTION_ENDPOINT}`)
+      if (!response.ok) return []
+      const { data } = await response.json()
+      return (data || []).map(deserializeQuestion)
+    } catch (error) {
+      console.error('Failed to find all questions:', error)
+      return []
+    }
   }
 
   async findByConceptId(conceptId: string): Promise<Question[]> {
-    const { keys } = await this.kv.list({
-      prefix: `${QUESTION_PREFIX}${conceptId}:`,
-    })
-    if (keys.length === 0) return []
-
-    const questionDataPromises = keys.map((key) => this.kv.get(key.name))
-    const allQuestionData = await Promise.all(questionDataPromises)
-
-    return allQuestionData
-      .filter((data): data is string => data !== null)
-      .map(deserializeQuestion)
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(
+      `${baseUrl}${QUESTION_ENDPOINT}?conceptId=${conceptId}`,
+    )
+    if (!response.ok) return []
+    const { data } = await response.json()
+    return (data || []).map(deserializeQuestion)
   }
 
   async findDueQuestions(userId: string): Promise<Question[]> {
@@ -91,54 +73,42 @@ export class KVQuestionRepository implements QuestionRepository {
   async create(
     data: Omit<Question, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<Question> {
-    const question: Question = {
+    const question = {
       ...data,
       id: crypto.randomUUID(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
     }
 
-    await this.kv.put(
-      questionKey(question.conceptId, question.id),
-      serializeQuestion(question),
-    )
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}${QUESTION_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'create', data: question }),
+    })
 
-    return question
+    if (!response.ok) throw new Error('Failed to create question')
+    const result = await response.json()
+    return deserializeQuestion(result.data)
   }
 
   async update(id: string, data: Partial<Question>): Promise<Question> {
-    const existing = await this.findById(id)
-    if (!existing) throw new Error('Question not found')
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}${QUESTION_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'update', id, data }),
+    })
 
-    const updated: Question = {
-      ...existing,
-      ...data,
-      updatedAt: new Date(),
-    }
-
-    // Since conceptId might have changed, we need to handle potential key change
-    if (data.conceptId && data.conceptId !== existing.conceptId) {
-      await this.kv.delete(questionKey(existing.conceptId, id))
-      await this.kv.put(
-        questionKey(data.conceptId, id),
-        serializeQuestion(updated),
-      )
-    } else {
-      await this.kv.put(
-        questionKey(existing.conceptId, id),
-        serializeQuestion(updated),
-      )
-    }
-
-    return updated
+    if (!response.ok) throw new Error('Failed to update question')
+    const result = await response.json()
+    return deserializeQuestion(result.data)
   }
 
   async delete(id: string): Promise<void> {
-    const { keys } = await this.kv.list({ prefix: QUESTION_PREFIX })
-    const targetKey = keys.find((k) => k.name.endsWith(`:${id}`))
-
-    if (targetKey) {
-      await this.kv.delete(targetKey.name)
-    }
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    await fetch(`${baseUrl}${QUESTION_ENDPOINT}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id }),
+    })
   }
 }

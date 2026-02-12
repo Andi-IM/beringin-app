@@ -13,6 +13,8 @@ dist/
 # Testing
 coverage/
 .nyc_output/
+test-results/
+playwright-report/
 
 # Environment
 .env

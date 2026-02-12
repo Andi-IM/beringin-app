@@ -1,4 +1,7 @@
 .next
+.agents
+.agent
+.trae
 node_modules
 dist
 build

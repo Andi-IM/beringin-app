@@ -14,10 +14,77 @@ import type {
 import type { QuestionRepository } from './question.repository'
 import type { ProgressRepository } from './progress.repository'
 
+import fs from 'fs'
+import path from 'path'
+
 // Mock data storage
 const concepts: Concept[] = []
 const questions: Question[] = []
 const progress: UserProgress[] = []
+
+// File Persistence Logic (for Local Dev)
+const DB_DIR = path.join(process.cwd(), '.tmp')
+const DB_FILE = path.join(DB_DIR, 'db.json')
+
+function saveDB() {
+  if (typeof window !== 'undefined') return // Skip in browser if ever leaks
+  try {
+    if (!fs.existsSync(DB_DIR)) {
+      fs.mkdirSync(DB_DIR, { recursive: true })
+    }
+    const data = { concepts, questions, progress }
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2))
+  } catch (e) {
+    console.error('Failed to save DB', e)
+  }
+}
+
+function loadDB() {
+  if (typeof window !== 'undefined') return
+  try {
+    if (fs.existsSync(DB_FILE)) {
+      const data = JSON.parse(fs.readFileSync(DB_FILE, 'utf-8'))
+
+      concepts.length = 0
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data.concepts.forEach((c: any) => {
+        concepts.push({
+          ...c,
+          createdAt: new Date(c.createdAt),
+          updatedAt: new Date(c.updatedAt),
+          nextReview: c.nextReview ? new Date(c.nextReview) : undefined,
+        })
+      })
+
+      questions.length = 0
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data.questions.forEach((q: any) => {
+        questions.push({
+          ...q,
+          createdAt: new Date(q.createdAt),
+          updatedAt: new Date(q.updatedAt),
+        })
+      })
+
+      progress.length = 0
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data.progress.forEach((p: any) => {
+        progress.push({
+          ...p,
+          createdAt: new Date(p.createdAt),
+          updatedAt: new Date(p.updatedAt),
+          nextReview: new Date(p.nextReview),
+          lastReview: p.lastReview ? new Date(p.lastReview) : undefined,
+        })
+      })
+    }
+  } catch (e) {
+    console.error('Failed to load DB', e)
+  }
+}
+
+// Load initially
+loadDB()
 
 // Concept Repository Implementation
 export class InMemoryConceptRepository implements ConceptRepository {
@@ -44,6 +111,7 @@ export class InMemoryConceptRepository implements ConceptRepository {
       updatedAt: now,
     }
     concepts.push(concept)
+    saveDB()
     return concept
   }
 
@@ -56,12 +124,16 @@ export class InMemoryConceptRepository implements ConceptRepository {
       ...data,
       updatedAt: new Date(),
     }
+    saveDB()
     return concepts[index]
   }
 
   async delete(id: string): Promise<void> {
     const index = concepts.findIndex((c) => c.id === id)
-    if (index !== -1) concepts.splice(index, 1)
+    if (index !== -1) {
+      concepts.splice(index, 1)
+      saveDB()
+    }
   }
 }
 
@@ -107,12 +179,22 @@ export class InMemoryQuestionRepository implements QuestionRepository {
 
   async findDueQuestions(userId: string): Promise<Question[]> {
     const now = new Date()
+
+    // 1. Get IDs of concepts that are due for review
     const dueProgress = progress.filter(
       (p) => p.userId === userId && p.nextReview <= now,
     )
+    const targetConceptIds = new Set(dueProgress.map((p) => p.conceptId))
 
-    const dueConceptIds = dueProgress.map((p) => p.conceptId)
-    return questions.filter((q) => dueConceptIds.includes(q.conceptId))
+    // 2. Get IDs of concepts that are new (no progress)
+    const learnedConceptIds = new Set(
+      progress.filter((p) => p.userId === userId).map((p) => p.conceptId),
+    )
+    const newConcepts = concepts.filter((c) => !learnedConceptIds.has(c.id))
+    newConcepts.forEach((c) => targetConceptIds.add(c.id))
+
+    // 3. Return questions for these concepts
+    return questions.filter((q) => targetConceptIds.has(q.conceptId))
   }
 
   async create(
@@ -126,6 +208,7 @@ export class InMemoryQuestionRepository implements QuestionRepository {
       updatedAt: now,
     }
     questions.push(question)
+    saveDB()
     return question
   }
 
@@ -138,12 +221,16 @@ export class InMemoryQuestionRepository implements QuestionRepository {
       ...data,
       updatedAt: new Date(),
     }
+    saveDB()
     return questions[index]
   }
 
   async delete(id: string): Promise<void> {
     const index = questions.findIndex((q) => q.id === id)
-    if (index !== -1) questions.splice(index, 1)
+    if (index !== -1) {
+      questions.splice(index, 1)
+      saveDB()
+    }
   }
 }
 
@@ -173,6 +260,7 @@ export class InMemoryProgressRepository implements ProgressRepository {
       updatedAt: now,
     }
     progress.push(userProgress)
+    saveDB()
     return userProgress
   }
 
@@ -191,6 +279,7 @@ export class InMemoryProgressRepository implements ProgressRepository {
       ...data,
       updatedAt: new Date(),
     }
+    saveDB()
     return progress[index]
   }
 
@@ -198,7 +287,10 @@ export class InMemoryProgressRepository implements ProgressRepository {
     const index = progress.findIndex(
       (p) => p.userId === userId && p.conceptId === conceptId,
     )
-    if (index !== -1) progress.splice(index, 1)
+    if (index !== -1) {
+      progress.splice(index, 1)
+      saveDB()
+    }
   }
 }
 
@@ -225,4 +317,5 @@ export function resetQuestions() {
 
 export function resetProgress() {
   progress.length = 0
+  saveDB()
 }

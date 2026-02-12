@@ -3,7 +3,7 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "outDir": ".next",
-  "devCommand": "npm run dev",
+  "devCommand": "npm run dev --",
   "kv": [
     {
       "variable": "KV",

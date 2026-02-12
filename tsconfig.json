@@ -21,7 +21,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    "edge-functions/api/edgeone.js",
+    "edge-functions/edge-api/index.js"
   ],
   "exclude": ["node_modules", "node-functions", "edge-functions", "functions"]
 }

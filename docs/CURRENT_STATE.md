@@ -1,18 +1,20 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-11T21:45:00+07:00
+> **Last Updated**: 2026-02-12T12:50:00+07:00
 
 ## 🎯 Status Overview
 
-| Aspek           | Status        | Catatan                           |
-| --------------- | ------------- | --------------------------------- |
-| **Development** | ✅ Active     | Phase 2 - Content Mgmt            |
-| **Build**       | ✅ Passing    | `npm run build` OK                |
-| **Tests**       | ✅ Passing    | 255/255 passing (83.62% coverage) |
-| **Lint**        | ✅ Passing    | 0 errors, 0 warnings              |
-| **CI/CD**       | ✅ Configured | GitHub Actions (Green)            |
-| **License**     | ✅ MIT        | Added 2026-02-11                  |
+| Aspek           | Status        | Catatan                          |
+| --------------- | ------------- | -------------------------------- |
+| **Development** | ✅ Active     | Phase 2 - Content Mgmt           |
+| **Build**       | ✅ Passing    | `npm run build` OK               |
+| **Unit Tests**  | ✅ Passing    | 253/253 passing (Clean suite)    |
+| **E2E Tests**   | ✅ Passing    | 9/9 passing (Standard + Mocked)  |
+| **Lint**        | ✅ Passing    | 0 errors, 0 warnings             |
+| **CI/CD**       | ✅ Configured | GitHub Actions (Green)           |
+| **License**     | ✅ MIT        | Added 2026-02-11                 |
+| **Test Flows**  | ✅ Ready      | [TEST_FLOWS.md](./TEST_FLOWS.md) |
 
 ## 🧭 Sprint Status
 
@@ -53,16 +55,21 @@
 ✅ Strict Branching Policy (Force feature branches, forbid direct push dev/main)
 ✅ Robust Error Handling (Full catch block logging in UI & Use Cases)
 ✅ Codecov integration with layered patch coverage thresholds
+✅ **Smart Edge API** (`/edge-api/{entity}`) with distributed entity logic
+✅ **Distributed SM-2**: SRS logic moved to Edge for atomic Read-Modify-Write
+✅ **Semantic Repositories**: Clean infrastructure layer using target-specific endpoints
+✅ **HttpKVClient** simplified (logical fallbacks handled by Edge Functions)
 ```
 
 ### ⚠️ In Progress / Known Issues
 
-| Issue                              | Severity | Status                                            |
-| ---------------------------------- | -------- | ------------------------------------------------- |
-| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup                         |
-| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1                           |
-| React `act()` warnings di UI tests | Low      | Tests pass, dari async state updates di useEffect |
-| `middleware.ts` deprecated warning | Low      | Perlu migrasi ke proxy pattern                    |
+| Issue                              | Severity | Status                                                    |
+| ---------------------------------- | -------- | --------------------------------------------------------- |
+| **KV API Local Dev Binding**       | Low      | **FIXED**: Multi-file smart functions with unified MockKV |
+| `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup                                 |
+| `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1                                   |
+| React `act()` warnings di UI tests | Low      | Tests pass, dari async state updates di useEffect         |
+| `middleware.ts` deprecated warning | Low      | Perlu migrasi ke proxy pattern                            |
 
 ## 📦 Dependencies
 
@@ -73,7 +80,9 @@
   "tailwindcss": "^3.4.1",
   "typescript": "^5.7.3",
   "jest": "^30.2.0",
-  "@supabase/supabase-js": "^2.48.1"
+  "jest": "^30.2.0",
+  "@supabase/supabase-js": "^2.48.1",
+  "@playwright/test": "latest"
 }
 ```
 
@@ -100,6 +109,8 @@ Lines      : 84.82%
 
 ### Recent Sessions
 
+- ✅ **Sesi #18**: Smart Edge API Refactoring & perfection (100% Tests).
+- 🔄 **Sesi #17**: KV Access Refactoring (Edge Function API & MockKV).
 - ✅ **Sesi #16**: PR Conflict Resolution & Docs Cleanup.
 - ✅ **Sesi #15**: Technical Debt Resolution & Licensing.
 - ✅ **Sesi #14**: Admin Panel Polish & Codecov hardening.

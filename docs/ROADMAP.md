@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history
-> **Last Updated**: 2026-02-11T21:45:00+07:00
+> **Last Updated**: 2026-02-12T12:50:00+07:00
 
 ---
 
@@ -13,29 +13,31 @@ Agar tetap relevan dengan persona **Reza** (Professional/CPNS Aspirant) yang ant
 2.  **Efficiency**: Fitur yang memotong waktu belajar (Bulk Import, Smart Scheduling).
 3.  **Depth**: Support untuk materi kompleks (UUD, Pasal) lewat Cloze Deletion.
 
-_Legend:_
+- ⭐ **Critical**: Fitur yang langsung mendukung 'The Daily Grind' (SOP Belajar).
+- ⚠️ **Nice to Have**: Fitur yang bagus tapi tidak kritis untuk kelulusan ujian.
 
-- ⭐ **Critical for Reza**: Fitur wajib untuk "Trust" & "Efficiency".
-- ⚠️ **Risk of Vanity**: Fitur yang harus hati-hati diimplementasi agar tidak dianggap "gimmick".
+## 📅 Roadmap Peluncuran (Sesi Berikutnya)
 
-## 📊 Velocity Aktual (dari Git History)
+Fokus kita bukan sekadar _coding_, tapi membuka akses fitur yang memungkinkan Anda **bangun pagi dan langsung review**.
 
-| Sesi      | Tanggal     | Waktu                    | Output                             | Lines Changed (perkiraan) |
-| --------- | ----------- | ------------------------ | ---------------------------------- | ------------------------- |
-| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)   | MVP initial + ESLint + docs        | ~4,000–4,500              |
-| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)   | Registry DI + tests + coverage     | ~1,500–2,000              |
-| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)  | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
-| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)   | PR #1 review & merge + refactor    | ~500–800                  |
-| #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)   | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
-| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)   | Google Sign-In + Refactor          | ~800–1,200                |
-| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)   | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
-| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)   | Auth Tests + Coverage Sync         | ~400–600                  |
-| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)   | User Guide + Verification          | ~450–500                  |
-| #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)   | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
-| #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)   | PR #19 Polish + License            | ~800–1,000                |
-| #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)   | Technical Debt Resolution          | ~500–800                  |
-| #16       | 11 Feb 2026 | 21:00–21:45 (45 menit)   | Conflict Resolution & Docs Fix     | ~200–300                  |
-| **Total** |             | **±7.9 jam commit time** | **100 commits**                    | **~17,300 lines touched** |
+| Sesi      | Tanggal     | Waktu                     | Output                             | Lines Changed (perkiraan) |
+| --------- | ----------- | ------------------------- | ---------------------------------- | ------------------------- |
+| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)    | MVP initial + ESLint + docs        | ~4,000–4,500              |
+| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)    | Registry DI + tests + coverage     | ~1,500–2,000              |
+| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)   | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
+| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)    | PR #1 review & merge + refactor    | ~500–800                  |
+| #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)    | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
+| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)    | Google Sign-In + Refactor          | ~800–1,200                |
+| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)    | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
+| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)    | Auth Tests + Coverage Sync         | ~400–600                  |
+| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)    | User Guide + Verification          | ~450–500                  |
+| #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)    | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
+| #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)    | PR #19 Polish + License            | ~800–1,000                |
+| #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)    | Technical Debt Resolution          | ~500–800                  |
+| #16       | 11 Feb 2026 | 21:00–21:45 (45 menit)    | Conflict Resolution & Docs Fix     | ~200–300                  |
+| #17       | 12 Feb 2026 | 09:30–10:45 (75 menit)    | Smart Edge API + MockKV            | ~1,500–2,000              |
+| #18       | 12 Feb 2026 | 11:30–12:50 (80 menit)    | TS Perfection & 100% Test Success  | ~800–1,200                |
+| **Total** |             | **±10.5 jam commit time** | **112 commits**                    | **~20,500 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
@@ -166,15 +168,16 @@ _Legend:_
 > Kompleksitas lebih tinggi (CRUD UI, question types, responsive).  
 > Estimasi **3–5 sesi kerja**.
 
-### Sprint 2.1: Admin Panel — ✅ DONE (PR #18)
+### Sprint 2.1: Admin Panel — ✅ DONE (Partial)
 
-| #     | Task                   | Kompleksitas | Status |
-| ----- | ---------------------- | ------------ | ------ |
-| 2.1.1 | Admin layout + sidebar | 🟡 Sedang    | ✅     |
-| 2.1.2 | Concept CRUD UI        | 🟡 Sedang    | ✅     |
-| 2.1.3 | Question CRUD UI       | 🟡 Sedang    | ☐      |
-| 2.1.4 | Category management    | 🟢 Rendah    | ✅     |
-| 2.1.5 | Bulk import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   |
+_Goal: Memberikan kontrol dasar kepada Anda untuk mengelola struktur materi._
+
+| #     | Task                   | Kompleksitas | Status | User Can...                                            |
+| ----- | ---------------------- | ------------ | ------ | ------------------------------------------------------ |
+| 2.1.1 | Admin UI Layout        | 🟡 Sedang    | ✅     | Akses menu pengelolaan.                                |
+| 2.1.2 | Concept CRUD           | 🟡 Sedang    | ✅     | Membuat Topik/Judul materi baru.                       |
+| 2.1.3 | **Question Editor**    | 🟡 Sedang    | ☐ ⭐   | **Membuat Pertanyaan & Jawaban sendiri.** (CRITICAL)   |
+| 2.1.5 | Bulk Import (JSON/CSV) | 🟡 Sedang    | ☐ ⭐   | **Upload 100 soal sekaligus dari Excel.** (EFFICIENCY) |
 
 #### Sprint 2.1 Timeline (berdasarkan git history)
 
@@ -186,15 +189,15 @@ _Legend:_
 | 11 Feb 19:15 | +5m   | PR #19 Feedback Polish & License        | 2.1.x (quality)         | `polish`   |
 | 11 Feb 21:00 | +105m | Conflict Resolution & Merge Main to Dev | 2.1.x (maintenance)     | `resolve`  |
 
-### Sprint 2.2: Enhanced Learning
+### Sprint 2.2: Enhanced Learning (Anti-Illusion Focus)
 
-| #     | Task                 | Kompleksitas | Status |
-| ----- | -------------------- | ------------ | ------ |
-| 2.2.1 | Question type: MCQ   | 🟡 Sedang    | ☐      |
-| 2.2.2 | Question type: Cloze | 🟡 Sedang    | ☐ ⭐   |
-| 2.2.3 | Markdown support     | 🟢 Rendah    | ☐      |
-| 2.2.4 | Image attachments    | 🟡 Sedang    | ☐      |
-| 2.2.5 | Audio playback       | 🟡 Sedang    | ☐      |
+_Goal: Memastikan Anda tidak bisa berbohong pada diri sendiri saat belajar._
+
+| #     | Task                           | Kompleksitas | Status | User Benefit                                                |
+| ----- | ------------------------------ | ------------ | ------ | ----------------------------------------------------------- |
+| 2.2.1 | **Type-in Answer Mode**        | 🟡 Sedang    | ☐ ⭐   | **Wajib mengetik jawaban.** Tidak ada lagi "perasaan tahu". |
+| 2.2.2 | Cloze Deletion (Fill-in-blank) | 🟡 Sedang    | ☐ ⭐   | Belajar ayat/pasal dengan menutup kata kunci.               |
+| 2.2.5 | Auto-Correction (Fuzzy Match)  | 🟠 Tinggi    | ☐      | Typo sedikit tetap dianggap benar (tidak frustrasi).        |
 
 ### Sprint 2.3: Mobile Experience
 
@@ -212,15 +215,15 @@ _Legend:_
 > Highest complexity (charts, API integrations, service workers).  
 > Estimasi **4–6 sesi kerja**.
 
-### Sprint 3.1: Learning Analytics
+### Sprint 3.1: Learning Analytics (Diagnosis)
 
-| #     | Task                             | Kompleksitas | Status |
-| ----- | -------------------------------- | ------------ | ------ |
-| 3.1.1 | Study streak tracking            | 🟢 Rendah    | ☐ ⚠️   |
-| 3.1.2 | Time spent analytics             | 🟡 Sedang    | ☐      |
-| 3.1.3 | Retention rate graph             | 🟠 Tinggi    | ☐ ⭐   |
-| 3.1.4 | Difficult concept identification | 🟡 Sedang    | ☐      |
-| 3.1.5 | Forgetting curve visualization   | 🟠 Tinggi    | ☐      |
+_Goal: Menunjukkan kelemahan Anda sebelum hari ujian._
+
+| #     | Task                             | Kompleksitas | Status | User Benefit                                       |
+| ----- | -------------------------------- | ------------ | ------ | -------------------------------------------------- |
+| 3.1.3 | **Retention Rate Graph**         | 🟠 Tinggi    | ☐ ⭐   | Melihat apakah ingatan Anda menurun atau stabil.   |
+| 3.1.5 | Forgetting Curve Viz             | 🟠 Tinggi    | ☐      | Bukti visual bahwa metode Anda bekerja.            |
+| 3.1.4 | Difficult Concept Identification | 🟡 Sedang    | ☐      | **"Apa yang harus saya pelajari ulang sekarang?"** |
 
 ### Sprint 3.2: Smart Features
 

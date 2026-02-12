@@ -1,7 +1,10 @@
 // DI Registry (Composition Root)
 // Connects Infrastructure to Application/Domain
 
-import type { EdgeOneKV } from '@/infrastructure/kv/edgeone-kv.types'
+import { deleteConcept } from '@/application/usecases/deleteConcept.usecase'
+import type { ConceptRepository } from '@/infrastructure/repositories/concept.repository'
+import type { QuestionRepository } from '@/infrastructure/repositories/question.repository'
+import type { ProgressRepository } from '@/infrastructure/repositories/progress.repository'
 
 /**
  * Registry handles dependency injection and service discovery.
@@ -15,11 +18,19 @@ export const Registry = {
    */
   async getRepositories() {
     // Detect if we are in an environment with EdgeOne KV support
-    // Global 'KV' is injected by EdgeOne runtime
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const isEdgeOne = typeof (globalThis as any).KV !== 'undefined'
+    const isEdgeOne =
+      typeof (globalThis as unknown as Record<string, unknown>).KV !==
+      'undefined'
 
-    if (isEdgeOne) {
+    // Detect if we should use Supabase (checks for URL and Key)
+    const useSupabase =
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+
+    // Detect if we should use the KV HTTP API
+    const useKvApi = process.env.NEXT_PUBLIC_USE_KV_API === 'true'
+
+    if (isEdgeOne || useKvApi) {
       const { KVConceptRepository, KVConceptProgressRepository } =
         await import('@/infrastructure/kv/kv-concept.repository')
       const { KVQuestionRepository } =
@@ -27,16 +38,34 @@ export const Registry = {
       const { KVProgressRepository } =
         await import('@/infrastructure/kv/kv-progress.repository')
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const kv = (globalThis as any).KV as EdgeOneKV
-
-      const progressRepo = new KVProgressRepository(kv)
-      const conceptRepo = new KVConceptRepository(kv)
-      const questionRepo = new KVQuestionRepository(kv, progressRepo)
+      const progressRepo = new KVProgressRepository()
+      const conceptRepo = new KVConceptRepository()
+      const questionRepo = new KVQuestionRepository(progressRepo)
       const conceptProgressRepo = new KVConceptProgressRepository(
         conceptRepo,
         progressRepo,
       )
+
+      return {
+        conceptRepo,
+        conceptProgressRepo,
+        questionRepo,
+        progressRepo,
+      }
+    }
+
+    if (useSupabase) {
+      const {
+        SupabaseConceptRepository,
+        SupabaseConceptProgressRepository,
+        SupabaseQuestionRepository,
+        SupabaseProgressRepository,
+      } = await import('@/infrastructure/repositories/supabase.repository')
+
+      const conceptRepo = new SupabaseConceptRepository()
+      const conceptProgressRepo = new SupabaseConceptProgressRepository()
+      const questionRepo = new SupabaseQuestionRepository()
+      const progressRepo = new SupabaseProgressRepository()
 
       return {
         conceptRepo,
@@ -66,13 +95,20 @@ export const Registry = {
     const { seedData } = await import('@/infrastructure/repositories/seed')
     const repos = await this.getRepositories()
 
-    // The existing seedData assumes global exported repos, we need to adapt it
-    // or provide repos as arguments. For now, let's keep it simple and
-    // let seedData handle the injection if we refactor it, or just use it as is if it's fine.
-    // Actually, seedData currently imports from in-memory directly.
-    // I should refactor seedData to accept repos.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return seedData(repos as any)
+    return seedData(
+      repos as {
+        conceptRepo: ConceptRepository
+        questionRepo: QuestionRepository
+        progressRepo: ProgressRepository
+      },
+    )
+  },
+
+  async ensureUserOnboarded(userId: string) {
+    const { seedInitialData } =
+      await import('@/application/usecases/seedInitialData.usecase')
+    const { conceptRepo, questionRepo } = await this.getRepositories()
+    return seedInitialData(userId, conceptRepo, questionRepo)
   },
 
   async getDashboardData(userId: string) {
@@ -163,9 +199,12 @@ export const Registry = {
   },
 
   async deleteConcept(id: string) {
-    const { deleteConcept } =
-      await import('@/application/usecases/deleteConcept.usecase')
     const { conceptRepo } = await this.getRepositories()
     return deleteConcept(id, conceptRepo)
+  },
+
+  async getQuestionsByConceptId(conceptId: string) {
+    const { questionRepo } = await this.getRepositories()
+    return questionRepo.findByConceptId(conceptId)
   },
 }

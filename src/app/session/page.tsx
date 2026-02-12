@@ -81,12 +81,20 @@ export default function SessionPage() {
           <p className="mb-8 text-lg">
             Tidak ada pertanyaan yang jatuh tempo saat ini.
           </p>
-          <a
-            href="/dashboard"
-            className="inline-block rounded-lg bg-beringin-gold px-6 py-3 font-semibold text-gray-900"
-          >
-            Lihat Dashboard
-          </a>
+          <div className="flex justify-center gap-4">
+            <a
+              href="/admin/concepts/new"
+              className="inline-block rounded-lg bg-beringin-gold px-6 py-3 font-semibold text-gray-900 hover:bg-yellow-500"
+            >
+              Buat Konsep Baru
+            </a>
+            <a
+              href="/dashboard"
+              className="inline-block rounded-lg bg-white/10 px-6 py-3 font-semibold text-white hover:bg-white/20"
+            >
+              Lihat Dashboard
+            </a>
+          </div>
         </div>
       </main>
     )

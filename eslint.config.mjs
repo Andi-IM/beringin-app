@@ -20,6 +20,7 @@ const eslintConfig = [
       '*.config.js',
       '*.config.ts',
       'jest.setup.js',
+      'edge-functions/**',
     ],
   },
   ...compat.extends('next/core-web-vitals'),
