@@ -42,3 +42,10 @@ Thumbs.db
 *.tsbuildinfo
 
 .edgeone/
+
+# Tencent Cloud EdgeOne
+.env
+.env.prod
+.edgeone/*
+.tef_dist/*
+  
