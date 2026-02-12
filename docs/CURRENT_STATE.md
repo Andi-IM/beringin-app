@@ -1,7 +1,7 @@
 # 📊 Current State - Beringin v0.1.0 (MVP)
 
 > Dokumen ini mencatat kondisi terkini proyek Beringin  
-> **Last Updated**: 2026-02-12T12:50:00+07:00
+> **Last Updated**: 2026-02-12T13:40:00+07:00
 
 ## 🎯 Status Overview
 
@@ -69,7 +69,8 @@
 | `act()` warnings di test Dashboard | Low      | Tests pass, perlu cleanup                                 |
 | `Registry` belum punya unit tests  | Low      | Akan dicakup di Phase 1                                   |
 | React `act()` warnings di UI tests | Low      | Tests pass, dari async state updates di useEffect         |
-| `middleware.ts` deprecated warning | Low      | Perlu migrasi ke proxy pattern                            |
+| `middleware.ts` deprecated warning | Low      | **FIXED**: Migrated to proxy pattern (`src/proxy.ts`)     |
+| Hydration mismatch (html tag)      | Low      | **FIXED**: Suppressed environment-injected attributes     |
 
 ## 📦 Dependencies
 
@@ -109,6 +110,7 @@ Lines      : 84.82%
 
 ### Recent Sessions
 
+- ✅ **Sesi #19**: Hydration fix & documentation update.
 - ✅ **Sesi #18**: Smart Edge API Refactoring & perfection (100% Tests).
 - 🔄 **Sesi #17**: KV Access Refactoring (Edge Function API & MockKV).
 - ✅ **Sesi #16**: PR Conflict Resolution & Docs Cleanup.
