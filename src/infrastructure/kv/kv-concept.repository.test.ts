@@ -89,7 +89,7 @@ describe('KVConceptRepository', () => {
       json: async () => ({ data: mockData }),
     })
 
-    const all = await repo.findAll()
+    const all = await repo.findAllByUserId('user-kv')
     expect(all).toHaveLength(2)
   })
 

@@ -24,7 +24,7 @@ function deserializeConcept(parsed: Record<string, unknown>): Concept {
 export class KVConceptRepository implements ConceptRepository {
   async findById(id: string): Promise<Concept | null> {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8088' // Default to 8088 for EdgeOne Dev
       const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}?id=${id}`)
       if (!response.ok) return null
       const { data } = await response.json()
@@ -44,7 +44,7 @@ export class KVConceptRepository implements ConceptRepository {
 
   async findAllByUserId(userId: string): Promise<Concept[]> {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8088'
       const response = await fetch(
         `${baseUrl}${CONCEPT_ENDPOINT}?userId=${userId}`,
       )
@@ -70,20 +70,33 @@ export class KVConceptRepository implements ConceptRepository {
       id: crypto.randomUUID(),
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}`, {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8088'
+    const url = `${baseUrl}${CONCEPT_ENDPOINT}`
+
+    console.log(
+      `[KVConceptRepository] Creating concept at ${url} with data:`,
+      JSON.stringify(concept),
+    )
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'create', data: concept }),
     })
 
-    if (!response.ok) throw new Error('Failed to create concept')
+    if (!response.ok) {
+      const text = await response.text()
+      console.error(
+        `[KVConceptRepository] Failed to create concept. Url: ${url}. Status: ${response.status}. Response: ${text}`,
+      )
+      throw new Error(`Failed to create concept: ${response.status} ${text}`)
+    }
     const result = await response.json()
     return deserializeConcept(result.data)
   }
 
   async update(id: string, data: Partial<Concept>): Promise<Concept> {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8088'
     const response = await fetch(`${baseUrl}${CONCEPT_ENDPOINT}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

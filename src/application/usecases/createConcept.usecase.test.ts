@@ -1,15 +1,19 @@
 import { createConcept } from './createConcept.usecase'
-import {
-  InMemoryConceptRepository,
-  resetConcepts,
-} from '@/infrastructure/repositories/in-memory.repository'
+import type { ConceptRepository } from '@/infrastructure/repositories/concept.repository'
 
 describe('createConcept Use Case', () => {
-  let conceptRepo: InMemoryConceptRepository
+  let mockRepo: jest.Mocked<ConceptRepository>
 
   beforeEach(() => {
-    resetConcepts()
-    conceptRepo = new InMemoryConceptRepository()
+    mockRepo = {
+      findAll: jest.fn(),
+      findAllByUserId: jest.fn(),
+      findById: jest.fn(),
+      findByCategory: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+    }
   })
 
   it('should create a new concept', async () => {
@@ -21,14 +25,21 @@ describe('createConcept Use Case', () => {
       userId: 'user-1',
     }
 
+    const createdConcept = {
+      id: '123',
+      ...data,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+
+    mockRepo.create.mockResolvedValue(createdConcept)
+
     // Act
-    const result = await createConcept(data, conceptRepo)
+    const result = await createConcept(data, mockRepo)
 
     // Assert
-    expect(result.id).toBeDefined()
-    expect(result.title).toBe(data.title)
-    expect(result.description).toBe(data.description)
-    expect(result.createdAt).toBeDefined()
+    expect(mockRepo.create).toHaveBeenCalledWith(data)
+    expect(result).toEqual(createdConcept)
   })
 
   it('should throw error if title is missing', async () => {
@@ -41,9 +52,10 @@ describe('createConcept Use Case', () => {
     }
 
     // Act & Assert
-    await expect(createConcept(data, conceptRepo)).rejects.toThrow(
+    await expect(createConcept(data, mockRepo)).rejects.toThrow(
       'Title is required',
     )
+    expect(mockRepo.create).not.toHaveBeenCalled()
   })
 
   it('should throw error if description is missing', async () => {
@@ -56,9 +68,10 @@ describe('createConcept Use Case', () => {
     }
 
     // Act & Assert
-    await expect(createConcept(data, conceptRepo)).rejects.toThrow(
+    await expect(createConcept(data, mockRepo)).rejects.toThrow(
       'Description is required',
     )
+    expect(mockRepo.create).not.toHaveBeenCalled()
   })
 
   it('should throw error if category is missing', async () => {
@@ -71,8 +84,9 @@ describe('createConcept Use Case', () => {
     }
 
     // Act & Assert
-    await expect(createConcept(data, conceptRepo)).rejects.toThrow(
+    await expect(createConcept(data, mockRepo)).rejects.toThrow(
       'Category is required',
     )
+    expect(mockRepo.create).not.toHaveBeenCalled()
   })
 })

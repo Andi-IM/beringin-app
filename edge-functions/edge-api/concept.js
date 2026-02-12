@@ -73,8 +73,10 @@ export async function onRequest(context) {
 
     if (request.method === 'POST') {
       const body = await request.json()
+      console.log('[EdgeAPI] POST body:', JSON.stringify(body, null, 2))
       const { action, id, data } = body
       const userId = data?.userId || body.userId
+      console.log('[EdgeAPI] Extracted userId:', userId)
 
       if (!userId) {
         return new Response(JSON.stringify({ error: 'UserId is required' }), {
@@ -111,9 +113,13 @@ export async function onRequest(context) {
 
     return new Response('Method Not Allowed', { status: 405 })
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    console.error('[EdgeAPI] Error:', error)
+    return new Response(
+      JSON.stringify({ error: error.message, stack: error.stack }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    )
   }
 }

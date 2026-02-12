@@ -9,57 +9,102 @@ import { Registry } from '@/registry'
 // Let's try to verify that Registry delegates correctly.
 
 describe('Registry Admin Methods', () => {
-  // Since Registry uses Singletons and internal state, we should be careful.
-  // Actually, Registry returns promises.
+  beforeAll(() => {
+    process.env.NEXT_PUBLIC_USE_KV_API = 'true'
+  })
 
-  it('should delegate getAllConcepts', async () => {
-    const concepts = await Registry.getAllConcepts()
+  afterAll(() => {
+    delete process.env.NEXT_PUBLIC_USE_KV_API
+  })
+
+  it('should delegate getAllConceptsForUser', async () => {
+    const mockRepo = {
+      findAllByUserId: jest.fn().mockResolvedValue([]),
+    }
+    // Mock getRepositories to return our mock repo
+    jest.spyOn(Registry, 'getRepositories').mockResolvedValue({
+      conceptRepo: mockRepo as any,
+      conceptProgressRepo: {} as any,
+      questionRepo: {} as any,
+      progressRepo: {} as any,
+    })
+
+    const concepts = await Registry.getAllConceptsForUser('user-1')
+    expect(mockRepo.findAllByUserId).toHaveBeenCalledWith('user-1')
     expect(Array.isArray(concepts)).toBe(true)
   })
 
   it('should delegate createConcept', async () => {
+    const mockRepo = {
+      create: jest.fn().mockResolvedValue({ id: '1', title: 'Test' }),
+    }
+    jest.spyOn(Registry, 'getRepositories').mockResolvedValue({
+      conceptRepo: mockRepo as any,
+      conceptProgressRepo: {} as any,
+      questionRepo: {} as any,
+      progressRepo: {} as any,
+    })
+
     const concept = await Registry.createConcept({
       title: 'Test',
       description: 'Desc',
       category: 'Cat',
       userId: 'user-1',
     })
+    expect(mockRepo.create).toHaveBeenCalled()
     expect(concept.title).toBe('Test')
   })
 
   it('should delegate getConceptById', async () => {
-    const created = await Registry.createConcept({
-      title: 'To Get',
-      description: 'Desc',
-      category: 'Cat',
-      userId: 'user-1',
+    const mockRepo = {
+      findById: jest.fn().mockResolvedValue({ id: '1' }),
+    }
+    jest.spyOn(Registry, 'getRepositories').mockResolvedValue({
+      conceptRepo: mockRepo as any,
+      conceptProgressRepo: {} as any,
+      questionRepo: {} as any,
+      progressRepo: {} as any,
     })
-    const found = await Registry.getConceptById(created.id)
-    expect(found?.id).toBe(created.id)
+
+    const found = await Registry.getConceptById('1')
+    expect(mockRepo.findById).toHaveBeenCalledWith('1')
+    expect(found?.id).toBe('1')
   })
 
   it('should delegate updateConcept', async () => {
-    const created = await Registry.createConcept({
-      title: 'To Update',
-      description: 'Desc',
-      category: 'Cat',
-      userId: 'user-1',
+    const mockRepo = {
+      findById: jest.fn().mockResolvedValue({ id: '1', title: 'Old' }),
+      update: jest.fn().mockResolvedValue({ id: '1', title: 'Updated' }),
+    }
+    jest.spyOn(Registry, 'getRepositories').mockResolvedValue({
+      conceptRepo: mockRepo as any,
+      conceptProgressRepo: {} as any,
+      questionRepo: {} as any,
+      progressRepo: {} as any,
     })
-    const updated = await Registry.updateConcept(created.id, {
+
+    const updated = await Registry.updateConcept('1', {
       title: 'Updated',
     })
+    expect(mockRepo.findById).toHaveBeenCalledWith('1')
+    expect(mockRepo.update).toHaveBeenCalled()
     expect(updated.title).toBe('Updated')
   })
 
   it('should delegate deleteConcept', async () => {
-    const created = await Registry.createConcept({
-      title: 'To Delete',
-      description: 'Desc',
-      category: 'Cat',
-      userId: 'user-1',
+    const mockRepo = {
+      findById: jest.fn().mockResolvedValue({ id: '1' }),
+      delete: jest.fn().mockResolvedValue(undefined),
+    }
+    jest.spyOn(Registry, 'getRepositories').mockResolvedValue({
+      conceptRepo: mockRepo as any,
+      conceptProgressRepo: {} as any,
+      questionRepo: {} as any,
+      progressRepo: {} as any,
     })
-    await Registry.deleteConcept(created.id)
-    const found = await Registry.getConceptById(created.id)
-    expect(found).toBeNull()
+
+    await Registry.deleteConcept('1')
+    expect(mockRepo.findById).toHaveBeenCalledWith('1')
+    expect(mockRepo.delete).toHaveBeenCalledWith('1')
   })
 })

@@ -33,12 +33,21 @@ export async function createConceptAction(formData: FormData) {
   }
 
   // We need to cast or reconstruct to match CreateConceptData which requires userId string
+  // We need to cast or reconstruct to match CreateConceptData which requires userId string
   const createData = {
     ...validatedData,
     userId: validatedData.userId!,
   }
 
+  console.log('[createConceptAction] Starting creation for user:', user.id)
+  console.log(
+    '[createConceptAction] Env NEXT_PUBLIC_USE_KV_API:',
+    process.env.NEXT_PUBLIC_USE_KV_API,
+  )
+
   await Registry.createConcept(createData)
+
+  console.log('[createConceptAction] Creation completed. Revalidating...')
 
   revalidatePath('/studio/concepts') // Updated path
   redirect('/studio/concepts') // Updated path

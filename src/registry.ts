@@ -31,6 +31,13 @@ export const Registry = {
     const useKvApi = process.env.NEXT_PUBLIC_USE_KV_API === 'true'
 
     if (isEdgeOne || useKvApi) {
+      console.log(
+        '[Registry] Using KV Repository strategy (EdgeOne: ' +
+          isEdgeOne +
+          ', Env: ' +
+          useKvApi +
+          ')',
+      )
       const { KVConceptRepository, KVConceptProgressRepository } =
         await import('@/infrastructure/kv/kv-concept.repository')
       const { KVQuestionRepository } =
@@ -55,6 +62,7 @@ export const Registry = {
     }
 
     if (useSupabase) {
+      console.log('[Registry] Using Supabase Repository strategy')
       const {
         SupabaseConceptRepository,
         SupabaseConceptProgressRepository,
@@ -75,20 +83,12 @@ export const Registry = {
       }
     }
 
-    // Default to in-memory repositories
-    const {
-      conceptRepository,
-      conceptProgressRepository,
-      questionRepository,
-      progressRepository,
-    } = await import('@/infrastructure/repositories/in-memory.repository')
-
-    return {
-      conceptRepo: conceptRepository,
-      conceptProgressRepo: conceptProgressRepository,
-      questionRepo: questionRepository,
-      progressRepo: progressRepository,
-    }
+    console.error(
+      '[Registry] No valid storage configuration found (KV/EdgeOne or Supabase).',
+    )
+    throw new Error(
+      'No valid storage configuration found. Set NEXT_PUBLIC_USE_KV_API=true or configure Supabase.',
+    )
   },
 
   async seedInitialData() {

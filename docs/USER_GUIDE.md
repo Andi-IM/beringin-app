@@ -61,7 +61,7 @@ Klik **"Mulai Sesi Belajar"**. Sistem otomatis memprioritaskan yang Rapuh.
 
 Saat Anda siap menambah beban belajar:
 
-1.  Buka menu **/admin**.
+1.  Buka menu **/studio** (Knowledge Studio).
 2.  Masuk ke **Concepts**.
 3.  Klik **New Concept**.
 4.  Masukkan Judul (misal: "Pasal 33 UUD 1945") dan Deskripsi intinya.

@@ -1,38 +1,41 @@
 import { deleteConcept } from './deleteConcept.usecase'
-import {
-  InMemoryConceptRepository,
-  resetConcepts,
-} from '@/infrastructure/repositories/in-memory.repository'
-import type { Concept } from '@/domain/entities/concept.entity'
+import type { ConceptRepository } from '@/infrastructure/repositories/concept.repository'
 
 describe('deleteConcept Use Case', () => {
-  let conceptRepo: InMemoryConceptRepository
-  let existingConcept: Concept
+  let mockRepo: jest.Mocked<ConceptRepository>
 
-  beforeEach(async () => {
-    resetConcepts()
-    conceptRepo = new InMemoryConceptRepository()
-    existingConcept = await conceptRepo.create({
-      title: 'To Delete',
-      description: 'Desc',
-      category: 'Cat',
-      userId: 'user-1',
-    })
+  beforeEach(() => {
+    mockRepo = {
+      findAll: jest.fn(),
+      findAllByUserId: jest.fn(),
+      findById: jest.fn(),
+      findByCategory: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+    }
   })
 
   it('should delete an existing concept', async () => {
+    // Arrange
+    const existingConcept = { id: '123', userId: 'user-1' }
+    mockRepo.findById.mockResolvedValue(existingConcept as any)
+
     // Act
-    await deleteConcept(existingConcept.id, conceptRepo)
+    await deleteConcept('123', mockRepo)
 
     // Assert
-    const deleted = await conceptRepo.findById(existingConcept.id)
-    expect(deleted).toBeNull()
+    expect(mockRepo.delete).toHaveBeenCalledWith('123')
   })
 
   it('should throw error if concept not found', async () => {
+    // Arrange
+    mockRepo.findById.mockResolvedValue(null)
+
     // Act & Assert
-    await expect(deleteConcept('non-existent-id', conceptRepo)).rejects.toThrow(
+    await expect(deleteConcept('non-existent-id', mockRepo)).rejects.toThrow(
       'Concept not found',
     )
+    expect(mockRepo.delete).not.toHaveBeenCalled()
   })
 })
