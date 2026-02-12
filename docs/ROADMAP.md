@@ -1,7 +1,7 @@
 # 🗺️ Roadmap - Beringin
 
 > Rencana pengembangan berbasis data nyata dari git history
-> **Last Updated**: 2026-02-12T12:50:00+07:00
+> **Last Updated**: 2026-02-12T13:40:00+07:00
 
 ---
 
@@ -20,24 +20,23 @@ Agar tetap relevan dengan persona **Reza** (Professional/CPNS Aspirant) yang ant
 
 Fokus kita bukan sekadar _coding_, tapi membuka akses fitur yang memungkinkan Anda **bangun pagi dan langsung review**.
 
-| Sesi      | Tanggal     | Waktu                     | Output                             | Lines Changed (perkiraan) |
-| --------- | ----------- | ------------------------- | ---------------------------------- | ------------------------- |
-| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)    | MVP initial + ESLint + docs        | ~4,000–4,500              |
-| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)    | Registry DI + tests + coverage     | ~1,500–2,000              |
-| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit)   | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
-| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)    | PR #1 review & merge + refactor    | ~500–800                  |
-| #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)    | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
-| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)    | Google Sign-In + Refactor          | ~800–1,200                |
-| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)    | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
-| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)    | Auth Tests + Coverage Sync         | ~400–600                  |
-| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)    | User Guide + Verification          | ~450–500                  |
-| #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)    | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
-| #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)    | PR #19 Polish + License            | ~800–1,000                |
-| #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)    | Technical Debt Resolution          | ~500–800                  |
-| #16       | 11 Feb 2026 | 21:00–21:45 (45 menit)    | Conflict Resolution & Docs Fix     | ~200–300                  |
-| #17       | 12 Feb 2026 | 09:30–10:45 (75 menit)    | Smart Edge API + MockKV            | ~1,500–2,000              |
-| #18       | 12 Feb 2026 | 11:30–12:50 (80 menit)    | TS Perfection & 100% Test Success  | ~800–1,200                |
-| **Total** |             | **±10.5 jam commit time** | **112 commits**                    | **~20,500 lines touched** |
+| Sesi      | Tanggal     | Waktu                   | Output                             | Lines Changed (perkiraan) |
+| --------- | ----------- | ----------------------- | ---------------------------------- | ------------------------- |
+| #1        | 9 Feb 2026  | 23:36–23:56 (20 menit)  | MVP initial + ESLint + docs        | ~4,000–4,500              |
+| #2–#3     | 10 Feb 2026 | 09:32–09:45 (13 menit)  | Registry DI + tests + coverage     | ~1,500–2,000              |
+| #4–#5     | 10 Feb 2026 | 10:32–12:09 (±60 menit) | EdgeOne KV + API routes + Husky    | ~1,000–1,500              |
+| #6        | 10 Feb 2026 | 13:30–14:05 (35 menit)  | PR #1 review & merge + refactor    | ~500–800                  |
+| #7        | 10 Feb 2026 | 15:30–16:25 (55 menit)  | Supabase Auth + PR #4 review-merge | ~1,200–1,800              |
+| #8        | 10 Feb 2026 | 18:00–18:30 (30 menit)  | Google Sign-In + Refactor          | ~800–1,200                |
+| #9        | 10 Feb 2026 | 19:00–20:00 (60 menit)  | Dashboard Fix + CI/CD hardening    | ~1,000–1,500              |
+| #10       | 10 Feb 2026 | 21:00–21:30 (30 menit)  | Auth Tests + Coverage Sync         | ~400–600                  |
+| #11       | 11 Feb 2026 | 15:35–15:55 (20 menit)  | User Guide + Verification          | ~450–500                  |
+| #13       | 11 Feb 2026 | 18:30–19:10 (40 menit)  | Admin Panel (Concepts CRUD)        | ~1,200–1,500              |
+| #14       | 11 Feb 2026 | 19:15–19:40 (25 menit)  | PR #19 Polish + License            | ~800–1,000                |
+| #15       | 11 Feb 2026 | 20:00–20:30 (30 menit)  | Technical Debt Resolution          | ~500–800                  |
+| #16       | 11 Feb 2026 | 21:00–21:45 (45 menit)  | Conflict Resolution & Docs Fix     | ~200–300                  |
+| #19       | 12 Feb 2026 | 13:30–13:45 (15 menit)  | Hydration Fix & Documentation      | ~50–100                   |
+| **Total** |             | **±11 jam commit time** | **113 commits**                    | **~20,600 lines touched** |
 
 > Angka di atas diambil dari `git log` dan `git diff --stat`:
 >
